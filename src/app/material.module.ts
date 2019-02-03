@@ -1,10 +1,14 @@
 import { NgModule } from '@angular/core';
 import {
-  MatButtonModule
+  MatButtonModule,
+  MatToolbarModule,
+  MatIconModule,
 } from '@angular/material';
 
 const MatModules = [
-  MatButtonModule
+  MatButtonModule,
+  MatToolbarModule,
+  MatIconModule
 ]
 
 // Module that houses our Material Module Component imports (to keep app.module clean)
