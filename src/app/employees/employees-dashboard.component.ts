@@ -6,5 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./employees-dashboard.component.scss']
 })
 export class EmployeesDashboardComponent {
-  constructor() { }
+  constructor() {
+    
+  }
 }

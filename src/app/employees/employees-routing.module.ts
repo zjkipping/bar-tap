@@ -3,14 +3,15 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 
 import { EmployeesDashboardComponent } from './employees-dashboard.component';
+import { NameComponent } from './name.component';
 
 const routes: Routes = [
   {
     path: '',
     component: EmployeesDashboardComponent,
-    // children: [
-
-    // ]
+    children: [
+      { path: ':name', component: NameComponent }
+    ]
   }
 ]
 
