@@ -9,6 +9,7 @@ import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material.module';
+import { DialogsModule } from './employees/dialogs/dialogs.module';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { MaterialModule } from './material.module';
     AngularFireModule.initializeApp(environment.fbConfig),
     AngularFirestoreModule,
     AngularFireAuthModule,
-    MaterialModule
+    MaterialModule,
+    DialogsModule
   ],
   bootstrap: [AppComponent]
 })

@@ -1,0 +1,21 @@
+.dashboard-container {
+  display: flex;
+  height: calc(100% - 64px);
+}
+
+.dashboard-column {
+  flex: 1 1 0;
+  display: flex;
+  justify-content: center;
+  height: calc(100% - 4px);
+  border: 2px solid white;
+}
+
+.logout-button {
+  display: flex;
+  font-size: 20px;
+}
+
+.dashboard-title {
+  font-size: 20px;
+}

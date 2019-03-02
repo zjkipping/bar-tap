@@ -1,3 +1,13 @@
-<h1>Employees Dashboard</h1>
-
-<!-- <router-outlet></router-outlet> -->
+<mat-toolbar color="primary">
+  <span class="spacer"></span>
+  <h1 class="spacer text-center dashboard-title">Employees Dashboard</h1>
+  <div class="spacer logout-button">
+    <span class="spacer"></span>
+    <button color="warn" mat-raised-button (click)="logout()">Log Out</button>
+  </div>
+</mat-toolbar>
+<div class="dashboard-container">  
+  <app-order-status-list class="dashboard-column" [orders]="ordersInProgress | async"></app-order-status-list>
+  <app-order-queue class="dashboard-column" [orders]="newOrders | async"></app-order-queue>
+  <app-employee-status-list class="dashboard-column" [employees]="employees | async"></app-employee-status-list>
+</div>

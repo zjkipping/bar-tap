@@ -1,0 +1,11 @@
+<mat-form-field>
+  <input matInput [formControl]="email" required>
+</mat-form-field>
+
+<mat-form-field>
+  <input matInput type="password" [formControl]="password" required>
+</mat-form-field>
+
+<p class="error">{{errorMessage}}</p>
+
+<button mat-raised-button color="primary" (click)="login()">Login!</button>

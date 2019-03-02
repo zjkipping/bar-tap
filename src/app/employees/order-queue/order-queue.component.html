@@ -1,0 +1,15 @@
+<div class="queue">
+  <h2 class="text-center accent queue-title">Order Queue</h2>
+  <button color="primary" class="start-order-button" (click)="startNextDrink()" mat-raised-button>Start Next Order</button>
+  <div class="order-list">
+    <ng-container *ngIf="orders; let orders; else loading">
+      <app-order-queue-item *ngFor="let order of orders" [order]="order"></app-order-queue-item>
+    </ng-container>
+    <ng-template #loading>
+      <div class="spinner-spacing">
+        <div class="loading-spinner"></div>
+        <p class="text-center">Loading Orders...</p>
+      </div>
+    </ng-template>
+  </div>
+</div>

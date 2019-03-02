@@ -1,0 +1,3 @@
+<span class="drink-count">{{order?.drinkIds?.length || 0}} drinks</span>
+<span class="time-ago">{{order?.created | timeAgo}}</span>
+<mat-icon aria-label="order info" class="info-icon" (click)="openOrderInfo()">info</mat-icon>

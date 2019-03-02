@@ -5,8 +5,9 @@ import {
   MatIconModule,
   MatSidenavModule,
   MatFormFieldModule,
+  MatInputModule,
   MatDialogModule
-} from "@angular/material";
+} from '@angular/material';
 
 const MatModules = [
   MatButtonModule,
@@ -14,9 +15,9 @@ const MatModules = [
   MatIconModule,
   MatSidenavModule,
   MatFormFieldModule,
+  MatInputModule,
   MatDialogModule
-];
-
+]
 // Module that houses our Material Module Component imports (to keep app.module clean)
 @NgModule({
   imports: MatModules,

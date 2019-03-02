@@ -1,0 +1,16 @@
+.statuses {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.order-list {
+  flex-grow: 1;
+  overflow: auto;
+  min-height: 0;
+}
+
+.status-list-title {
+  margin: 0;
+  padding: 20px 0px;
+}
