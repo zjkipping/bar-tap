@@ -12,9 +12,7 @@ import { MaterialModule } from './material.module';
 import { DialogsModule } from './employees/dialogs/dialogs.module';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -28,4 +26,4 @@ import { DialogsModule } from './employees/dialogs/dialogs.module';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

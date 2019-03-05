@@ -18,13 +18,16 @@ export class AuthService {
   constructor(
     private afAuth: AngularFireAuth,
     private database: AngularFirestore
-    ) {
+  ) {
     this.currentAuth = afAuth.user.pipe();
 
     this.user = this.currentAuth.pipe(
       switchMap((auth: firebase.User | null) => {
         if (auth) {
-          return this.database.collection('users').doc<BaseUser>(auth.uid).valueChanges();
+          return this.database
+            .collection('users')
+            .doc<BaseUser>(auth.uid)
+            .valueChanges();
         } else {
           return of(undefined);
         }
@@ -51,7 +54,27 @@ export class AuthService {
     return combineLatest(
       from(this.afAuth.auth.signInWithEmailAndPassword(email, password)),
       this.user.pipe(pairwise(), first())
-    ).pipe(map(([_obj, [_old_user, new_user]]) => new_user));
+    )}
+
+  registerWithEmail(email: string, password: string) {
+    return from(
+      this.afAuth.auth.createUserWithEmailAndPassword(email, password)
+    );
+  }
+
+  createUserEntry(
+    uid: string,
+    email: string,
+    firstName: string,
+    lastName: string,
+    type: string
+  ) {
+    this.database.doc('users/' + uid).set({
+      firstName,
+      lastName,
+      email,
+      type
+    });
   }
 
   logout() {

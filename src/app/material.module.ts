@@ -5,8 +5,15 @@ import {
   MatIconModule,
   MatSidenavModule,
   MatFormFieldModule,
+  MatDialogModule,
   MatInputModule,
-  MatDialogModule
+  MatAutocompleteModule,
+  MatListModule,
+  MatExpansionModule,
+  MatSelectModule,
+  MatProgressSpinnerModule,
+  MatBottomSheetModule,
+  MatSnackBarModule
 } from '@angular/material';
 
 const MatModules = [
@@ -15,9 +22,17 @@ const MatModules = [
   MatIconModule,
   MatSidenavModule,
   MatFormFieldModule,
+  MatDialogModule,
   MatInputModule,
-  MatDialogModule
-]
+  MatAutocompleteModule,
+  MatListModule,
+  MatExpansionModule,
+  MatSelectModule,
+  MatProgressSpinnerModule,
+  MatBottomSheetModule,
+  MatSnackBarModule
+];
+
 // Module that houses our Material Module Component imports (to keep app.module clean)
 @NgModule({
   imports: MatModules,

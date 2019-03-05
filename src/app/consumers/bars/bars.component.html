@@ -1,3 +1,32 @@
-<p>
-  bars works!
-</p>
+<ng-container *ngIf="(bars | async); let bars; else: loading">
+  <form class="search-form">
+    <mat-form-field class="search-form__field">
+      <input
+        type="text"
+        placeholder="Search for bars"
+        class="search-form__input"
+        matInput
+        [formControl]="barsSearchBar"
+      />
+    </mat-form-field>
+  </form>
+  ><mat-list class="bars-list">
+    <mat-list-item
+      *ngFor="let bar of bars"
+      [routerLink]="'/bars/' + bar.uid"
+      class="bars-list-item"
+      [ngStyle]="{ 'background-image': 'url(/assets/header-image.jpg)' }"
+    >
+      <div class="bars-list__details">
+        <h2>{{ bar.name }}</h2>
+        <h5>{{ bar.location }}</h5>
+      </div>
+      <div></div>
+      <mat-divider></mat-divider>
+    </mat-list-item>
+  </mat-list>
+</ng-container>
+<ng-template #loading
+  ><div class="loading">
+    <mat-spinner></mat-spinner></div
+></ng-template>

@@ -1,0 +1,48 @@
+:host /deep/ .mat-mini-fab.mat-accent {
+  margin-right: 15px;
+}
+:host /deep/ mat-bottom-sheet-container {
+  background-color: rgb(29, 29, 29) !important;
+}
+
+.remove-icon {
+  color: firebrick;
+}
+.quantity-icon {
+  font-size: 20px;
+}
+.cart-list {
+  font-family: 'Helvetica Neue', sans-serif;
+  margin-top: 40px;
+
+  &__checkout-button {
+    position: absolute;
+    left: 16px;
+  }
+  &__edit-button {
+    position: absolute;
+    right: 16px;
+  }
+  &__details {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+  &__numbers {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  &__times {
+    padding: 0 15px;
+  }
+}
+
+.remove-button-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}

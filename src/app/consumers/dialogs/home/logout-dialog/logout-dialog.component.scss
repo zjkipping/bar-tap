@@ -1,0 +1,19 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+input {
+  width: 100%;
+}
+mat-form-field {
+  width: 100%;
+}
+button {
+  margin: 0 auto;
+}
+
+h3 {
+  font-family: "Helvetica Neue", sans-serif;
+}

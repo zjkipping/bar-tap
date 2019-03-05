@@ -1,0 +1,19 @@
+<h2 mat-dialog-title>Sign in</h2>
+<mat-dialog-content>
+  <mat-form-field>
+    <input matInput [formControl]="email" placeholder="Email" required />
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      matInput
+      type="password"
+      [formControl]="password"
+      placeholder="Password"
+      required
+    />
+  </mat-form-field>
+  <p class="error">{{ errorMessage }}</p>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="login()">Sign in</button>
+</mat-dialog-actions>

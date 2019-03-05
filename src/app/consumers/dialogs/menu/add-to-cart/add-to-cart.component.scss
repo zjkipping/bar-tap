@@ -1,0 +1,67 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+input {
+  width: 100%;
+}
+mat-form-field {
+  width: 100%;
+}
+:host /deep/ mat-divider {
+  margin-bottom: 15px;
+}
+:host /deep/ .mat-select-value-text {
+  color: white;
+}
+button {
+  margin: 0 auto;
+}
+.error {
+  color: red;
+  font-family: 'Helvetica Neue', sans-serif;
+}
+h3,
+h4,
+h5 {
+  margin: 0;
+}
+.drink-details {
+  width: 100%;
+  font-family: 'Helvetica Neue', sans-serif;
+
+  &__header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+.quantity {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  font-family: 'Helvetica Neue', sans-serif;
+
+  &__select {
+    width: 50px;
+  }
+  &__option {
+    text-align: center;
+  }
+}
+.total {
+  width: 100%;
+  font-family: 'Helvetica Neue', sans-serif;
+
+  &__details {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+}

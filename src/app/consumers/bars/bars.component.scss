@@ -1,0 +1,70 @@
+:host /deep/ .mat-list-item-content {
+  padding: 0 !important;
+}
+:host /deep/ .mat-form-field-empty.mat-form-field-label {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 14px;
+}
+
+:host /deep/ .mat-form-field-underline {
+  background-color: white;
+}
+:host /deep/ .mat-list-item {
+  height: 150px !important ;
+}
+
+.search-form {
+  display: flex;
+  justify-content: center;
+  height: 50px;
+  margin-top: 5px;
+
+  &__field {
+    width: 75%;
+    max-width: 425px;
+    color: white;
+  }
+  &__input {
+    color: white;
+  }
+}
+
+.bars-list {
+  margin: 0 auto;
+  max-width: 425px;
+
+  &__item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 150px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  &__details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(1, 1, 1, 0.5);
+  }
+
+  &__details * {
+    margin: 0;
+    text-align: center;
+    color: white;
+    text-shadow: -0.5px -0.5px 0 #000, 0.5px -0.5px 0 #000, -0.5px 0.5px 0 #000,
+      0.5px 0.5px 0 #000;
+  }
+}
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80%;
+}

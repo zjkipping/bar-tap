@@ -1,0 +1,23 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+input {
+  width: 100%;
+  color: white;
+}
+.mat-form-field {
+  width: 100%;
+}
+:host /deep/ .mat-form-field-label {
+  color: white;
+}
+button {
+  margin: 0 auto;
+}
+.error {
+  color: red;
+  font-family: 'Helvetica Neue', sans-serif;
+}

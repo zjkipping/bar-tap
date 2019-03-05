@@ -1,0 +1,86 @@
+<ng-container *ngIf="(bar | async); let bar; else: loading">
+  <div
+    class="bar-header"
+    [ngStyle]="{ 'background-image': 'url(/assets/header-image.jpg)' }"
+  >
+    <div class="overlay">
+      <button
+        (click)="toggleFavorite()"
+        class="favorite-button"
+        *ngIf="!favorite; else favoriteButton"
+        mat-icon-button
+      >
+        <mat-icon>favorite_border</mat-icon>
+      </button>
+      <ng-template #favoriteButton>
+        <button
+          (click)="toggleFavorite()"
+          class="favorite-button"
+          mat-icon-button
+        >
+          <mat-icon>favorite</mat-icon>
+        </button>
+      </ng-template>
+
+      <h2>{{ bar.name }}</h2>
+      <h4>{{ bar.location }}</h4>
+    </div>
+  </div>
+  <mat-list class="popular-list">
+    <mat-list-item class="popular-list__title"><h3>Popular</h3></mat-list-item>
+    <mat-list-item
+      *ngFor="let drink of (drinks | async)"
+      class="popular-list-item"
+    >
+      <div (click)="openAddToCartDialog(drink)" class="popular-list__details">
+        <h5>{{ drink.name }}</h5>
+        <h5>{{ drink.price | currency: 'USD':'symbol':'.2-2' }}</h5>
+      </div>
+
+      <mat-divider></mat-divider>
+    </mat-list-item>
+  </mat-list>
+  <app-menu-expansion-panel
+    [barUid]="bar.uid"
+    [type]="'beer'"
+    [title]="'Beer'"
+  ></app-menu-expansion-panel>
+  <app-menu-expansion-panel
+    [barUid]="bar.uid"
+    [type]="'shot'"
+    [title]="'Shots'"
+  ></app-menu-expansion-panel>
+  <app-menu-expansion-panel
+    [barUid]="bar.uid"
+    [type]="'mixed'"
+    [title]="'Mixed Drinks'"
+  ></app-menu-expansion-panel>
+  <app-menu-expansion-panel
+    [barUid]="bar.uid"
+    [type]="'wine'"
+    [title]="'Wine'"
+  ></app-menu-expansion-panel>
+  <app-menu-expansion-panel
+    [barUid]="bar.uid"
+    [type]="'other'"
+    [title]="'Other'"
+  ></app-menu-expansion-panel>
+
+  <div style="height: 70px; background-color: rgb(0, 0, 45);"></div>
+  <button
+    class="cart-button"
+    mat-fab
+    color="primary"
+    matBadge="8"
+    matBadgePosition="before"
+    matBadgeColor="accent"
+    (click)="openCart()"
+  >
+    <mat-icon>shopping_cart</mat-icon>
+  </button>
+</ng-container>
+
+<ng-template #loading
+  ><div class="loading">
+    <mat-spinner></mat-spinner></div
+></ng-template>

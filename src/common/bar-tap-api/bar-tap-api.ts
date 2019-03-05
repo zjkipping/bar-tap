@@ -25,7 +25,14 @@ export abstract class BarTapApi {
 
   abstract getBarDrinks(barID: string): Observable<Drink[]>;
 
+  abstract getBarDrinksByQuery(barID: string, query: FirebaseQuery): Observable<Drink[]>
+
+  abstract getBarDrinksByType(barID: string, type: string): Observable<Drink[]>;
+
+  abstract getBarDrinksByTypes(barID: string, types: string[]): Observable<Drink[]>;
+
   abstract getBarLog(barID: string, logID: string): Observable<Log | undefined>;
 
   abstract getBarLogs(barID: string): Observable<Log[]>;
+
 }

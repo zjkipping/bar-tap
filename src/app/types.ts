@@ -23,22 +23,24 @@ export interface EmployeesUser extends BaseUser {
   barId: string;
 }
 
-export interface NormalUser extends BaseUser {
+export interface NormalUser extends BaseUser {}
 
-}
-
-export interface AdminUser extends BaseUser {
-
-}
+export interface AdminUser extends BaseUser {}
 
 export interface RawDrink {
   name: string;
   price: number;
   description: string;
+  type: string;
 }
 
 export interface Drink extends RawDrink {
   uid: string;
+}
+
+export interface CartItem {
+  drink: Drink;
+  quantity: number;
 }
 
 export interface RawEmployee {
@@ -83,4 +85,6 @@ export interface RouteAuthData {
   requiredAuthState: boolean;
 }
 
-export type FirebaseQuery = (ref: firebase.firestore.CollectionReference) => firebase.firestore.Query;
+export type FirebaseQuery = (
+  ref: firebase.firestore.CollectionReference
+) => firebase.firestore.Query;

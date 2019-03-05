@@ -1,0 +1,97 @@
+<button
+  mat-raised-button
+  (click)="showRemoveButton()"
+  class="cart-list__checkout-button"
+  color="primary"
+>
+  Checkout
+</button>
+<button
+  mat-button
+  (click)="showRemoveButton()"
+  class="cart-list__edit-button"
+  color="warn"
+  *ngIf="!showRemove"
+>
+  Edit Cart
+</button>
+<button
+  mat-button
+  (click)="showRemoveButton()"
+  class="cart-list__edit-button"
+  color="primary"
+  *ngIf="showRemove"
+>
+  Save Cart
+</button>
+<mat-nav-list role="list" class="cart-list">
+  <mat-list-item
+    role="listitem"
+    class="cart-list__item"
+    *ngFor="let item of (cart.cartItems | async); trackBy: trackByIndex"
+  >
+    <div class="cart-list__details">
+      <div class="remove-button-container">
+        <div>
+          <button
+            #icon
+            mat-icon-button
+            (click)="cart.removeDrink(item.drink)"
+            *ngIf="showRemove"
+            [@enterAnimation]
+          >
+            <mat-icon class="remove-icon">close</mat-icon>
+          </button>
+        </div>
+        <h5>{{ item.drink.name }}</h5>
+      </div>
+      <div class="cart-list__numbers">
+        <button
+          #icon
+          mat-icon-button
+          (click)="cart.removeQuantity(item.drink)"
+          *ngIf="showRemove"
+          [@enterAnimation]
+        >
+          <mat-icon class="quantity-icon" color="primary"
+            >remove_circle_outline</mat-icon
+          >
+        </button>
+        <h5>{{ item.quantity }}</h5>
+        <button
+          #icon
+          mat-icon-button
+          (click)="cart.addQuantity(item.drink)"
+          *ngIf="showRemove"
+          [@enterAnimation]
+        >
+          <mat-icon class="quantity-icon" color="primary"
+            >add_circle_outline</mat-icon
+          >
+        </button>
+        <h6 class="cart-list__times">x</h6>
+        <h5>{{ item.drink.price | currency: 'USD':'symbol':'.2-2' }}</h5>
+      </div>
+    </div>
+  </mat-list-item>
+  <mat-divider></mat-divider>
+  <mat-list-item role="listitem">
+    <div class="cart-list__details">
+      <h5>Subtotal:</h5>
+      <h5>{{ cart.subtotal | async | currency: 'USD':'symbol':'.2-2' }}</h5>
+    </div></mat-list-item
+  >
+  <mat-list-item role="listitem"
+    ><div class="cart-list__details">
+      <h5>Tax:</h5>
+      <h5>{{ cart.tax | currency: 'USD':'symbol':'.2-2' }}</h5>
+    </div></mat-list-item
+  >
+  <mat-divider></mat-divider>
+  <mat-list-item role="listitem"
+    ><div class="cart-list__details">
+      <h4>Total:</h4>
+      <h5>{{ cart.total | currency: 'USD':'symbol':'.2-2' }}</h5>
+    </div></mat-list-item
+  >
+</mat-nav-list>

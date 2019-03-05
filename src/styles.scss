@@ -1,4 +1,4 @@
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
 html,
 body {
@@ -8,14 +8,29 @@ body {
   color: white;
   width: 100%;
   height: 100%;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
-
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 100;
+  letter-spacing: 1px;
+  color: white;
+}
 mat-dialog-container {
   background: #363636 !important;
   color: white !important;
 }
-
+mat-bottom-sheet-container {
+  background: #363636 !important;
+  color: white !important;
+}
+:host /deep/ .mat-divider {
+  background-color: rgba(0, 0, 0, 0.4) !important;
+}
 .text-center {
   text-align: center;
 }
@@ -29,18 +44,37 @@ mat-dialog-container {
 }
 
 @-webkit-keyframes rotate {
-  from {-webkit-transform: rotate(0deg);}
-  to {-webkit-transform: rotate(360deg);}
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
 }
 
 @-moz-keyframes rotate {
-    from {-moz-transform: rotate(0deg);}
-    to {-moz-transform: rotate(360deg);}
+  from {
+    -moz-transform: rotate(0deg);
+  }
+  to {
+    -moz-transform: rotate(360deg);
+  }
 }
 
 @keyframes rotate {
-    from {transform: rotate(0deg);}
-    to {transform: rotate(360deg);}
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80%;
 }
 
 .spinner-spacing {

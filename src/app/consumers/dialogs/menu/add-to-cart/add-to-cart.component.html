@@ -1,0 +1,38 @@
+<mat-dialog-actions>
+  <div class="drink-details">
+    <div class="drink-details__header">
+      <h4>{{ drink.name }}</h4>
+      <h4>{{ drink.price | currency: 'USD':'symbol':'.2-2' }}</h4>
+    </div>
+
+    <h5>{{ drink.description }}</h5>
+  </div>
+  <div class="quantity">
+    <h5>Quantity:</h5>
+    <mat-form-field class="quantity__select">
+      <mat-select class="quantity__option" [formControl]="quantity" required>
+        <mat-option
+          class="quantity__option"
+          *ngFor="let number of [1, 2, 3, 4, 5]"
+          [value]="number"
+        >
+          {{ number }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="total">
+    <mat-divider></mat-divider>
+    <div class="total__details">
+      <h4>Total:</h4>
+      <h4>{{ total | async | currency: 'USD':'symbol':'.2-2' }}</h4>
+    </div>
+  </div>
+  <button mat-raised-button color="primary" (click)="addToCart()">
+    Add to Cart
+  </button>
+  <button mat-raised-button color="secondary" mat-dialog-close>
+    Cancel
+  </button>
+</mat-dialog-actions>
