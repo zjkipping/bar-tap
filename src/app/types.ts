@@ -1,15 +1,14 @@
-export interface Bar {
-  uid: string;
+export interface RawBar {
   ownerId: string;
   name: string;
   description: string;
   location: string;
   hours: string;
   apiKey: string;
-  drinks: Drink[];
-  employees: Employee[];
-  logs: Log[];
-  orders: Order[];
+}
+
+export interface Bar extends RawBar {
+  uid: string;
 }
 
 export interface BaseUser {
@@ -32,23 +31,28 @@ export interface AdminUser extends BaseUser {
 
 }
 
-export interface Drink {
-  uid: string;
+export interface RawDrink {
   name: string;
   price: number;
   description: string;
 }
 
-export interface Employee {
+export interface Drink extends RawDrink {
   uid: string;
+}
+
+export interface RawEmployee {
   firstName: string;
   lastName: string;
   id: string;
   pin: number;
 }
 
-export interface Log {
+export interface Employee extends RawEmployee {
   uid: string;
+}
+
+export interface RawLog {
   orderId: string;
   employeeId: string;
   timestamp: Date;
@@ -56,25 +60,27 @@ export interface Log {
   transitionTo: string;
 }
 
+export interface Log extends RawLog {
+  uid: string;
+}
+
 export interface RawOrder {
   uid: string;
   status: string;
-  created: number;
+  created: number | Date;
   employeeId?: string;
   drinkIds: string[];
   userId: string;
 }
 
-export interface Order {
+export interface Order extends RawOrder {
   uid: string;
-  status: string;
   created: Date;
-  employeeId?: string;
-  drinkIds: string[];
-  userId: string;
 }
 
 export interface RouteAuthData {
   redirect: string[];
   requiredAuthState: boolean;
 }
+
+export type FirebaseQuery = (ref: firebase.firestore.CollectionReference) => firebase.firestore.Query;

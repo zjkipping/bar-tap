@@ -10,3 +10,5 @@ export const environment = {
     messagingSenderId: "257126503998"
   }
 };
+
+export { BarTapApiModule } from '../common/bar-tap-api/normal/bar-tap-api.module';

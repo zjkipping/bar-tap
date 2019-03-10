@@ -5,7 +5,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 
-import { environment } from '../environments/environment';
+import { environment, BarTapApiModule } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material.module';
@@ -20,10 +20,11 @@ import { DialogsModule } from './employees/dialogs/dialogs.module';
     BrowserAnimationsModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.fbConfig),
-    AngularFirestoreModule,
     AngularFireAuthModule,
+    AngularFirestoreModule,
     MaterialModule,
-    DialogsModule
+    DialogsModule,
+    BarTapApiModule
   ],
   bootstrap: [AppComponent]
 })

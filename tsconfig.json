@@ -22,7 +22,10 @@
     "paths": {
       "@types": ["src/app/types.ts"],
       "@services/*": ["src/app/services/*.ts"],
-      "@type-guards": ["src/app/type-guards.ts"]
+      "@type-guards": ["src/app/type-guards.ts"],
+      "@constants": ["src/app/constants.ts"],
+      "@util": ["src/app/util.ts"],
+      "@api": ["src/common/bar-tap-api/bar-tap-api.ts"]
     }
   }
 }

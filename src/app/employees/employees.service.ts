@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { Observable, of, combineLatest } from 'rxjs';
+import { Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
-import { Order, RawOrder, Employee } from '@types';
+import { BarTapApi } from '@api';
+import { Order, Employee } from '@types';
+import { NEW_ORDER_TYPE, IN_PROGRESS_ORDER_TYPE, DELIVERY_ORDER_TYPE } from '@constants';
 import { AuthService } from '@services/auth/auth.service';
-import { switchMap, map, tap } from 'rxjs/operators';
-import { isEmployeesUser } from '../types-guards';
-import { NEW_ORDER_TYPE, IN_PROGRESS_ORDER_TYPE, DELIVERY_ORDER_TYPE } from '../constants';
 
 @Injectable({
   providedIn: 'root'
@@ -16,46 +15,17 @@ export class EmployeesService {
   ordersInProgress: Observable<Order[]>;
   employees: Observable<Employee[]>;
 
-  constructor(private db: AngularFirestore, private auth: AuthService) {
-    this.newOrders = this.getOrdersByQuery(ref => ref.where('status', '==', NEW_ORDER_TYPE));
-    this.ordersInProgress = combineLatest(
-      this.getOrdersByQuery(ref => ref.where('status', '==', IN_PROGRESS_ORDER_TYPE)),
-      this.getOrdersByQuery(ref => ref.where('status', '==', DELIVERY_ORDER_TYPE))
-    ).pipe(
-      map(([in_progress, delivering]) => [...in_progress, ...delivering]),
-      map(orders => orders.sort((o1, o2) => +o1.created - +o2.created))
+  constructor(auth: AuthService, api: BarTapApi) {
+    this.newOrders = auth.getUserAsEmployeeAuth().pipe(
+      switchMap(user => api.getBarOrdersByType(user.barId, NEW_ORDER_TYPE))
     );
-    this.employees = this.getBarEmployees();
-  }
 
-  private getBarEmployees() {
-    return this.auth.user.pipe(
-      switchMap(user => {
-        if (isEmployeesUser(user)) {
-          return this.db.collection<Employee>(`bars/${user.barId}/employees`).snapshotChanges().pipe(
-            map(result => result.map(obj => ({ ...obj.payload.doc.data(), uid: obj.payload.doc.id })))
-          );
-        } else {
-          return of([]);
-        }
-      })
+    this.ordersInProgress = auth.getUserAsEmployeeAuth().pipe(
+      switchMap(user => api.getBarOrdersByTypes(user.barId, [IN_PROGRESS_ORDER_TYPE, DELIVERY_ORDER_TYPE]))
     );
-  }
 
-  private getOrdersByQuery(query: (ref: firebase.firestore.CollectionReference) => firebase.firestore.Query): Observable<Order[]> {
-    return this.auth.user.pipe(
-      switchMap(user => {
-        if (isEmployeesUser(user)) {
-          return this.db.collection<RawOrder>(`bars/${user.barId}/orders`, ref => query(ref)).snapshotChanges().pipe(
-            map(result => result
-              .map(obj => ({ ...obj.payload.doc.data(), uid: obj.payload.doc.id }))
-              .map(order => ({ ...order, created: new Date(order.created) } as Order))
-            )
-          );
-        } else {
-          return of([]);
-        }
-      })
+    this.employees = auth.getUserAsEmployeeAuth().pipe(
+      switchMap(user => api.getBarEmployees(user.barId))
     );
   }
 }

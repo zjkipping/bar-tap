@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { from, Observable, of, combineLatest } from 'rxjs';
+import { from, Observable, of, combineLatest, throwError } from 'rxjs';
 import { shareReplay, switchMap, pairwise, take, map, first } from 'rxjs/operators';
 
-import { BaseUser } from '@types';
+import { BaseUser, EmployeesUser } from '@types';
+import { isEmployeesUser } from '@type-guards';
+import { NO_AUTH_ERROR, WRONG_USER_TYPE_ERROR, EMPLOYEES_USER_TYPE } from '@constants';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +30,20 @@ export class AuthService {
         }
       }),
       shareReplay(1)
+    );
+  }
+
+  getUserAsEmployeeAuth(): Observable<EmployeesUser> {
+   return this.user.pipe(
+      switchMap(user => {
+        if (isEmployeesUser(user)) {
+          return of(user);
+        } else if (!user) {
+          return throwError({type: NO_AUTH_ERROR, message: 'User is not authenticated'});
+        } else {
+          return throwError({type: WRONG_USER_TYPE_ERROR, message: 'User is not of type: ' + EMPLOYEES_USER_TYPE});
+        }
+      })
     );
   }
 

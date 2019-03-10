@@ -24,6 +24,10 @@ const routes: Routes = [
       requiredAuthState: true
     },  
     canActivate: [AuthGuardService]
+  },
+  {
+    path: '**',
+    redirectTo: 'dashboard'
   }
 ]
 
