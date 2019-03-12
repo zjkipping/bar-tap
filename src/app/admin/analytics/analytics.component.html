@@ -1,1 +1,40 @@
-<h1>Analytics Component</h1>
+<mat-tab-group>
+    <mat-tab label = "Order Logs">
+        <div>
+            <h2>Order Logs</h2>
+
+            <table mat-table [dataSource]="analyticLogArray" class="drink-table">
+
+                <!--Employee-->
+                <!--pull employee.name for this column-->
+                <ng-container matColumnDef="employee">
+                    <th mat-header-cell *matHeaderCellDef> Employee </th>
+                    <td mat-cell *matCellDef="let element"> 
+                        <app-order-employee-name
+                        [barId]="this.testBarID"
+                        [employeeId]="element.employeeId"></app-order-employee-name>
+                    </td>
+                </ng-container>
+
+                <!--Timestamp-->
+                <ng-container matColumnDef="time">
+                    <th mat-header-cell *matHeaderCellDef> Order Duration </th>
+                    <td mat-cell *matCellDef="let element"> {{element.elapsedTime}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="view">
+                        <th mat-header-cell *matHeaderCellDef>Edit</th>
+                        <td mat-cell *matCellDef="let element">
+                            <button mat-icon-button (click)="viewOrder(element)">
+                                <mat-icon>info</mat-icon>
+                            </button>
+                        </td>
+                    </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div>
+    </mat-tab>
+
+</mat-tab-group>

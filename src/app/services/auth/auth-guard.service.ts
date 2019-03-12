@@ -20,24 +20,24 @@ export class AuthGuardService implements CanActivate {
     const data = next.data as RouteAuthData;
     return this.auth.user.pipe(
       map(user => {
-        if (data) {
-          if (data.requireAuthCheck && data.authState !== !!user) {
-            if (data.redirect) {
-              this.router.navigate(data.redirect);
-            }
-            return false;
-          }
-          if (!!user && data.userType && data.userType !== user.type) {
-            if (user.type === EMPLOYEES_USER_TYPE) {
-              this.router.navigate(['employees']);
-            } else if (user.type === OWNER_USER_TYPE) {
-              this.router.navigate(['admin']);
-            } else {
-              this.router.navigate(['']);
-            }
-            return false;
-          }
-        }
+        // if (data) {
+        //   if (data.requireAuthCheck && data.authState !== !!user) {
+        //     if (data.redirect) {
+        //       this.router.navigate(data.redirect);
+        //     }
+        //     return false;
+        //   }
+        //   if (!!user && data.userType && data.userType !== user.type) {
+        //     if (user.type === EMPLOYEES_USER_TYPE) {
+        //       this.router.navigate(['employees']);
+        //     } else if (user.type === OWNER_USER_TYPE) {
+        //       this.router.navigate(['admin']);
+        //     } else {
+        //       this.router.navigate(['']);
+        //     }
+        //     return false;
+        //   }
+        // }
         return true;
       })
     );

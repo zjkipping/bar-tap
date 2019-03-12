@@ -24,6 +24,7 @@ import {
   PaymentMethod,
   Tracking
 } from '@types';
+import { Logs } from 'selenium-webdriver';
 
 @Injectable()
 export class NormalApi extends BarTapApi {
@@ -123,7 +124,7 @@ export class NormalApi extends BarTapApi {
         )
       );
   }
-
+  
   getBarOrdersByQuery(
     barId: string,
     query: FirebaseQuery
@@ -241,6 +242,26 @@ export class NormalApi extends BarTapApi {
           }))
         )
       );
+  }
+
+  getBarLogsByQuery(barId: string, query: FirebaseQuery): Observable<Log[]> {
+    return this.db
+      .collection<Log>(`bars/${barId}/logs`, ref => query(ref))
+      .snapshotChanges()
+      .pipe(
+        map(result =>
+          result.map(obj => ({
+            ...obj.payload.doc.data(),
+            uid: obj.payload.doc.id
+          }))
+        )
+      );
+  }
+
+  getBarLogsByStatus(barId: string, status: string): Observable<Log[]> {
+    return this.getBarLogsByQuery(barId, ref =>
+      ref.where('transitionTo', '==', status)
+    );
   }
 
   getConsumersFavoriteBars(userId: string): Observable<Bar[]> {

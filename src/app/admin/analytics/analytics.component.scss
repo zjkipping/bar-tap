@@ -1,0 +1,24 @@
+.drink-table{
+    width: 500px;
+}
+
+table{
+    background-color: #696969;   
+
+    .table-header { 
+      font-family: 'Montserrat', 'Helvetica Neue', sans-serif;
+      text-align: center;
+      font-size: 20pt; 
+      color: white;
+    }
+    .cell-data { 
+      font-family: 'Montserrat', 'Helvetica Neue', sans-serif;
+      text-align: center;
+      font-size: 16pt; 
+      color: white;
+    }
+
+    .table-footer {
+      align-items: center;
+    }
+}

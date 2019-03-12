@@ -87,6 +87,14 @@ export interface Log extends RawLog {
   uid: string;
 }
 
+export interface AnalyticsLog {
+  orderId: string,
+  employeeId: string,
+  startLog: Log,
+  endLog: Log,
+  elapsedTime: string
+}
+
 export interface RawOrder {
   status: string;
   created: number;

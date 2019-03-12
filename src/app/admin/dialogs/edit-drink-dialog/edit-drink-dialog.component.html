@@ -1,0 +1,26 @@
+<div class=new-drink-form>
+    <form [formGroup]="details">
+        <h2>Edit Drinks</h2>
+        <div>
+            <mat-form-field>
+                <input matInput formControlName = "name" placeholder="Name" required />
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+                <input matInput formControlName = "price" placeholder="Price" required />
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+                <input matInput formControlName = "description" placeholder="Description" required />
+            </mat-form-field>
+            <br>  
+            <mat-form-field>
+                <input matInput formControlName = "type" placeholder="Type" required />
+            </mat-form-field>
+            <br>
+            <button mat-raised-button color="primary" class="drink-button" (click)="edit()">
+                Save
+            </button>
+        </div>
+    </form>
+</div>

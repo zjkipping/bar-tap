@@ -1,0 +1,45 @@
+body{
+    background-color: black;
+}
+
+table{
+    background-color: #696969;   
+
+    .table-header { 
+      font-family: 'Montserrat', 'Helvetica Neue', sans-serif;
+      text-align: center;
+      font-size: 20pt; 
+      color: white;
+    }
+    .cell-data { 
+      font-family: 'Montserrat', 'Helvetica Neue', sans-serif;
+      text-align: center;
+      font-size: 16pt; 
+      color: white;
+    }
+
+    .table-footer {
+      align-items: center;
+    }
+}
+
+.current-drinks-table{
+    width: 500px;
+}
+
+.drink-table-div{
+    background-color: #696969;
+    float: left;
+    margin: 50px 50px 50px 50px;
+}
+
+.new-drink-form{
+    background-color: #696969;
+    float: left;
+    margin: 50px 50px 50px 50px;
+    width: 500px;
+}
+
+.drink-button{
+    margin: 10px;
+}

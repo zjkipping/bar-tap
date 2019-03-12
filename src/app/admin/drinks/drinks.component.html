@@ -1,1 +1,79 @@
-<h1>Drinks Component</h1>
+<h1>Drink Menu</h1>
+
+<div class=drink-table-div>
+        <h2>Current Drinks Available</h2>
+        <table mat-table [dataSource]="drinksArray" class="current-drinks-table">
+    
+                <!-- Name Column -->
+                <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef> Name </th>
+                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                </ng-container>
+            
+                <!-- Price Column -->
+                <ng-container matColumnDef="price">
+                <th mat-header-cell *matHeaderCellDef> Price </th>
+                <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+                </ng-container>
+            
+                <!-- Desc. Column -->
+                <ng-container matColumnDef="description">
+                <th mat-header-cell *matHeaderCellDef> Desc. </th>
+                <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+                </ng-container>
+    
+                <ng-container matColumnDef="type">
+                <th mat-header-cell *matHeaderCellDef> Type </th>
+                <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="edit">
+                    <th mat-header-cell *matHeaderCellDef>Edit</th>
+                    <td mat-cell *matCellDef="let element">
+                        <button mat-icon-button (click)="edit(element)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                    </td>
+                </ng-container> 
+
+                <ng-container matColumnDef="delete">
+                    <th mat-header-cell *matHeaderCellDef>Delete</th>
+                    <td mat-cell *matCellDef="let element">
+                        <button mat-icon-button (click)="delete(element)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </td>
+                </ng-container> 
+            
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </div>
+
+<div class=new-drink-form>
+    <form [formGroup]="details">
+        <h2>Create New Drink</h2>
+        <div>
+            <mat-form-field>
+                <input matInput [formControl] = "name" placeholder="Name" required />
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+                <input matInput [formControl] = "price" placeholder="Price" required />
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+                <input matInput [formControl] = "description" placeholder="Description" required />
+            </mat-form-field>
+            <br>  
+            <mat-form-field>
+                <input matInput [formControl] = "type" placeholder="Type" required />
+            </mat-form-field>
+            <br>
+            <button mat-raised-button color="primary" class="drink-button" (click)="save()">
+                Save
+            </button>
+        </div>
+    </form>
+</div>
+      

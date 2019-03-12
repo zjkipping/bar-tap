@@ -19,11 +19,22 @@ import { LogoutDialogComponent } from './dialogs/home/logout-dialog/logout.dialo
 import { EditSettingsComponent } from './dialogs/settings/edit-settings.component';
 import { EditHoursComponent } from './dialogs/hours/edit-hours.component';
 
+import { EditDrinkDialogComponent } from './dialogs/edit-drink-dialog/edit-drink-dialog.component';
+import { DeleteDrinkDialogComponent } from './dialogs/delete-drink-dialog/delete-drink-dialog.component';
+import { OrderInfoDialogComponent } from './dialogs/order-info-dialog/order-info-dialog.component';
+import { OrderDrinkInfoComponent } from './dialogs/order-drink-info/order-drink-info.component';
+import { OrderEmployeeNameComponent } from './dialogs/order-employee-name/order-employee-name.component';
+
 @NgModule({
   declarations: [
     AdminDashboardComponent,
     DrinksComponent,
     AnalyticsComponent,
+    EditDrinkDialogComponent,
+    DeleteDrinkDialogComponent,
+    OrderInfoDialogComponent,
+    OrderDrinkInfoComponent,
+    OrderEmployeeNameComponent,
     EmployeesComponent,
     SettingsComponent,
     HomeComponent,
@@ -37,6 +48,7 @@ import { EditHoursComponent } from './dialogs/hours/edit-hours.component';
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     AdminRoutingModule,
     MaterialModule,
     FormsModule,
@@ -49,6 +61,9 @@ import { EditHoursComponent } from './dialogs/hours/edit-hours.component';
     LoginDialogComponent,
     LogoutDialogComponent,
     EditSettingsComponent,
+    EditDrinkDialogComponent,
+    OrderInfoDialogComponent,
+    DeleteDrinkDialogComponent,
     EditHoursComponent
   ]
 })

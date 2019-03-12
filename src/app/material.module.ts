@@ -21,8 +21,12 @@ import {
   MatDatepickerModule,
   MatNativeDateModule,
   MatProgressBarModule,
-  MatSliderModule
+  MatSliderModule,
+  MatTabsModule
 } from '@angular/material';
+
+//import {MatTableModule} from '@angular/material/table';
+
 
 const MatModules = [
   MatButtonModule,
@@ -46,7 +50,8 @@ const MatModules = [
   MatDatepickerModule,
   MatNativeDateModule,
   MatProgressBarModule,
-  MatSliderModule
+  MatSliderModule,
+  MatTabsModule
 ];
 
 // Module that houses our Material Module Component imports (to keep app.module clean)

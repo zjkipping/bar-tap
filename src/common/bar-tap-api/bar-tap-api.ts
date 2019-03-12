@@ -66,6 +66,10 @@ export abstract class BarTapApi {
 
   abstract getBarLogs(barId: string): Observable<Log[]>;
 
+  abstract getBarLogsByQuery(barId: string, query: FirebaseQuery): Observable<Log[]>;
+
+  abstract getBarLogsByStatus(barId: string, status: string): Observable<Log[]>;
+
   abstract getBarApiKey(barID: string): Observable<string | undefined>;
 
   abstract getBarStripeSecret(barID: string): Observable<string | undefined>;

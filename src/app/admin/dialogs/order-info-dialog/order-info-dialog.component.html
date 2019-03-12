@@ -1,0 +1,10 @@
+<div class="info">
+  <ng-container *ngIf="order | async as order">
+    <app-order-drink-info
+      *ngFor="let drink of order.drinks" 
+      [drinkData]="drink"
+    ></app-order-drink-info>
+    <!--Order Total Price-->
+    <h5>Total Price w/ tax: ${{order.price.total}}</h5>
+  </ng-container>
+</div>

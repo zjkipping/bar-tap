@@ -1,0 +1,11 @@
+<ng-container *ngIf="(drink | async) as drink; else: loading">
+    <h3>{{drink.name}}</h3>
+    <p>Price per unit: ${{drink.price}}</p>
+    <p>Quantity: {{drinkData?.quantity}}</p>
+    <p>Drink Price Total: ${{drink.price * drinkData?.quantity}}</p> <hr>
+</ng-container>
+<ng-template #loading>
+    <div class = "loading">
+        <mat-spinner></mat-spinner>
+    </div>
+</ng-template>

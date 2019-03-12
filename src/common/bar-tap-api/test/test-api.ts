@@ -88,6 +88,14 @@ export class TestApi extends BarTapApi {
     return throwError('Not Yet Implemented');
   }
 
+  getBarLogsByQuery(barId: string, query: FirebaseQuery): Observable<Log[]>{
+    return throwError('Not Yet Implemented');
+  }
+
+  getBarLogsByStatus(barId: string, status: string): Observable<Log[]>{
+    return throwError('Not Yet Implemented');
+  }
+
   getConsumersFavoriteBars(userId: string): Observable<Bar[]> {
     return throwError('Not Yet Implemented');
   }
