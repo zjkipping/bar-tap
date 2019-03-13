@@ -14,7 +14,7 @@ export class NormalApi extends BarTapApi {
   }
 
   getBar(barID: string): Observable<Bar | undefined> {
-    return this.db.doc<RawBar>(`bars/${barID}}`).snapshotChanges().pipe(
+    return this.db.doc<RawBar>(`bars/${barID}`).snapshotChanges().pipe(
       map(result => {
         const data = result.payload.data();
         if (data) {
