@@ -1,0 +1,32 @@
+:host /deep/ {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+input {
+  width: 100%;
+  color: white;
+}
+.mat-form-field {
+  width: 100%;
+}
+:host /deep/ .mat-form-field-label {
+  color: white;
+}
+button {
+  margin: 0 auto;
+}
+.remove-button {
+  margin: 0;
+}
+.error {
+  color: red;
+}
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}

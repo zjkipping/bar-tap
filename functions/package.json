@@ -17,6 +17,7 @@
     "stripe": "^6.27.0"
   },
   "devDependencies": {
+    "@firebase/app-types": "^0.3.7",
     "@types/stripe": "^6.25.6",
     "tslint": "^5.12.0",
     "typescript": "^3.2.2"

@@ -1,4 +1,4 @@
-import { NgModule, Injector } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -15,6 +15,12 @@ import { BarMenuComponent } from './bars/bar-menu/bar-menu.component';
 import { ShoppingCartComponent } from './bars/shopping-cart/shopping-cart.component';
 import { DrinksPanelComponent } from './bars/bar-menu/drinks-panel/drinks-panel.component';
 import { BarsListComponent } from './bars/bars-list/bars-list.component';
+import { CreditCardMaskPipe } from './pipes/credit-card-mask.pipe';
+import { CheckoutComponent } from './dialogs/menu/checkout/checkout.component';
+import { TrackerComponent } from './tracker/tracker.component';
+import { TrackerDetailsComponent } from './tracker/tracker-details/tracker-details.component';
+import { TrackerListComponent } from './tracker/tracker-list/tracker-list.component';
+import { OrderStatusPipePipe } from './pipes/order-status-pipe.pipe';
 
 @NgModule({
   declarations: [
@@ -26,8 +32,14 @@ import { BarsListComponent } from './bars/bars-list/bars-list.component';
     SettingsComponent,
     BarMenuComponent,
     ShoppingCartComponent,
-    DrinksPanelComponent,
     BarsListComponent,
+    DrinksPanelComponent,
+    CreditCardMaskPipe,
+    CheckoutComponent,
+    TrackerComponent,
+    TrackerDetailsComponent,
+    TrackerListComponent,
+    OrderStatusPipePipe
   ],
   imports: [
     CommonModule,

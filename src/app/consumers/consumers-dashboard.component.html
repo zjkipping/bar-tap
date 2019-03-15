@@ -1,70 +1,86 @@
 <mat-drawer-container fullscreen class="side-nav">
   <mat-drawer #sidenavright class="side-nav__drawer" position="end" #drawer>
     <p class="side-nav__menu-item">
-      <a routerLink="">
-        <button mat-button (click)="drawer.toggle()" class="side-nav__button">
-          <mat-icon class="side-nav__icon">dashboard</mat-icon>
-          <span class="side-nav__menu-item-title">Home</span>
-        </button>
-      </a>
-    </p>
-    <p class="side-nav__menu-item">
-      <a routerLink="/bars">
-        <button mat-button (click)="drawer.toggle()" class="side-nav__button">
-          <mat-icon class="side-nav__icon">local_bar</mat-icon>
-          <span class="side-nav__menu-item-title">Bars</span>
-        </button>
-      </a>
-    </p>
-    <p class="side-nav__menu-item">
-      <a routerLink="/favorites">
-        <button mat-button (click)="drawer.toggle()" class="side-nav__button">
-          <mat-icon class="side-nav__icon">star</mat-icon>
-          <span class="side-nav__menu-item-title">Favorites</span>
-        </button>
-      </a>
-    </p>
-    <p class="side-nav__menu-item">
-      <a routerLink="/history">
-        <button mat-button (click)="drawer.toggle()" class="side-nav__button">
-          <mat-icon class="side-nav__icon">receipt</mat-icon>
-          <span class="side-nav__menu-item-title">History</span>
-        </button>
-      </a>
-    </p>
-    <p class="side-nav__menu-item">
-      <a routerLink="/settings">
-        <button mat-button (click)="drawer.toggle()" class="side-nav__button">
-          <mat-icon class="side-nav__icon">settings</mat-icon>
-          <span class="side-nav__menu-item-title">Settings</span>
-        </button>
-      </a>
-    </p>
-    <p class="side-nav__menu-item">
       <ng-container *ngIf="(user | async) as user; else noAuth">
-        <button
-          mat-button
-          (click)="drawer.toggle(); openLogoutDialog()"
-          class="side-nav__button"
-        >
+        <div class="side-nav__auth-name">
           <mat-icon class="side-nav__icon">account_circle</mat-icon>
           <span class="side-nav__menu-item-title"
             >Hi, {{ user.firstName }}</span
           >
-        </button>
+        </div>
       </ng-container>
-      <ng-template #noAuth>
-        <button
-          mat-button
-          class="side-nav__button"
-          (click)="drawer.toggle()"
-          routerLink=""
-        >
-          <mat-icon class="side-nav__icon">account_circle</mat-icon>
-          <span class="side-nav__menu-item-title">Sign in</span>
-        </button>
-      </ng-template>
     </p>
+    <div class="side-nav__menu">
+      <p class="side-nav__menu-item">
+        <a routerLink="">
+          <button mat-button (click)="drawer.toggle()" class="side-nav__button">
+            <mat-icon class="side-nav__icon">home</mat-icon>
+            <span class="side-nav__menu-item-title">Home</span>
+          </button>
+        </a>
+      </p>
+      <p class="side-nav__menu-item">
+        <a routerLink="/bars">
+          <button mat-button (click)="drawer.toggle()" class="side-nav__button">
+            <mat-icon class="side-nav__icon">local_bar</mat-icon>
+            <span class="side-nav__menu-item-title">Bars</span>
+          </button>
+        </a>
+      </p>
+      <p class="side-nav__menu-item">
+        <a routerLink="/favorites">
+          <button mat-button (click)="drawer.toggle()" class="side-nav__button">
+            <mat-icon class="side-nav__icon">favorite</mat-icon>
+            <span class="side-nav__menu-item-title">Favorites</span>
+          </button>
+        </a>
+      </p>
+      <p class="side-nav__menu-item">
+        <a routerLink="/history">
+          <button mat-button (click)="drawer.toggle()" class="side-nav__button">
+            <mat-icon class="side-nav__icon">receipt</mat-icon>
+            <span class="side-nav__menu-item-title">History</span>
+          </button>
+        </a>
+      </p>
+      <p class="side-nav__menu-item">
+        <a routerLink="/tracker">
+          <button mat-button (click)="drawer.toggle()" class="side-nav__button">
+            <mat-icon class="side-nav__icon">track_changes</mat-icon>
+            <span class="side-nav__menu-item-title">Order Tracker</span>
+          </button>
+        </a>
+      </p>
+      <p class="side-nav__menu-item">
+        <a routerLink="/settings">
+          <button mat-button (click)="drawer.toggle()" class="side-nav__button">
+            <mat-icon class="side-nav__icon">settings</mat-icon>
+            <span class="side-nav__menu-item-title">Settings</span>
+          </button>
+        </a>
+      </p>
+    </div>
+    <ng-container *ngIf="(user | async) as user">
+      <button
+        mat-button
+        (click)="drawer.toggle(); openLogoutDialog()"
+        class="side-nav__auth"
+      >
+        <mat-icon class="side-nav__icon">call_missed</mat-icon>
+        <span class="side-nav__menu-item-title">Sign Out</span>
+      </button>
+    </ng-container>
+    <ng-template #noAuth>
+      <button
+        mat-button
+        class="side-nav__auth"
+        (click)="drawer.toggle()"
+        routerLink=""
+      >
+        <mat-icon class="side-nav__icon">account_circle</mat-icon>
+        <span class="side-nav__menu-item-title">Sign in</span>
+      </button>
+    </ng-template>
   </mat-drawer>
   <mat-drawer-content>
     <div class="side-nav__header">
@@ -77,6 +93,8 @@
         <mat-icon class="side-nav__icon">menu</mat-icon>
       </button>
     </div>
-    <router-outlet></router-outlet>
+    <div class="side-nav__content">
+      <router-outlet></router-outlet>
+    </div>
   </mat-drawer-content>
 </mat-drawer-container>

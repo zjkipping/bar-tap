@@ -1,0 +1,47 @@
+.checkout-container {
+  width: 100%;
+}
+.change-payment-button {
+  width: 100%;
+  display: flex;
+  margin-bottom: 20px;
+}
+.tip {
+  &__field {
+    width: 40px;
+  }
+}
+.order-total {
+  text-align: center;
+  width: 100%;
+}
+:host /deep/ {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+input {
+  width: 100%;
+  color: white;
+}
+.mat-form-field {
+  width: 100%;
+}
+:host /deep/ .mat-form-field-label {
+  color: white;
+}
+:host /deep/ .mat-checkbox-layout {
+  white-space: inherit;
+}
+:host /deep/ .mat-checkbox-label {
+  padding-left: 20px;
+}
+button {
+  margin: 0 auto;
+}
+.error {
+  color: red;
+}
+:host /deep/ .mat-select-value-text {
+  color: white;
+}

@@ -13,8 +13,14 @@ import {
   MatSelectModule,
   MatProgressSpinnerModule,
   MatBottomSheetModule,
+  MatTableModule,
   MatSnackBarModule,
-  MatTableModule
+  MatBadgeModule,
+  MatCheckboxModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
+  MatProgressBarModule,
+  MatSliderModule
 } from '@angular/material';
 
 const MatModules = [
@@ -32,12 +38,19 @@ const MatModules = [
   MatProgressSpinnerModule,
   MatBottomSheetModule,
   MatSnackBarModule,
-  MatTableModule
+  MatTableModule,
+  MatBadgeModule,
+  MatCheckboxModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
+  MatProgressBarModule,
+  MatSliderModule
 ];
 
 // Module that houses our Material Module Component imports (to keep app.module clean)
 @NgModule({
   imports: MatModules,
-  exports: MatModules
+  exports: MatModules,
+  providers: [MatDatepickerModule]
 })
 export class MaterialModule {}

@@ -5,30 +5,45 @@
   color: rgba(255, 255, 255, 0.5);
   font-size: 14px;
 }
-
+:host /deep/ mat-icon {
+  color: white;
+}
 :host /deep/ .mat-form-field-underline {
   background-color: white;
 }
 :host /deep/ .mat-list-item {
   height: 150px !important ;
 }
-
+:host /deep/ .mat-form-field-infix {
+  border: 0 !important;
+}
+:host /deep/ .mat-list-base {
+  padding: 0 !important;
+}
 .search-form {
   display: flex;
   justify-content: center;
-  height: 50px;
-  margin-top: 5px;
+  align-items: center;
+  height: 10px;
+  padding: 20px 0 10px 0;
+  background-color: #333333;
+  border-radius: 30px;
 
+  &__icon {
+    padding-right: 15px;
+    padding-bottom: 10px;
+  }
   &__field {
     width: 75%;
-    max-width: 425px;
     color: white;
   }
   &__input {
     color: white;
   }
 }
-
+.page-header {
+  padding: 5px 0;
+}
 .loading-spinner {
   display: flex;
   justify-content: center;

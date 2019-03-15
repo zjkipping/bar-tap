@@ -1,0 +1,70 @@
+<ng-container *ngIf="(bar | async) as bar">
+  <ng-container *ngIf="(order | async) as order">
+    <h2 class="page-header">Order Tracker</h2>
+    <mat-expansion-panel class="order-panel">
+      <mat-expansion-panel-header
+        [ngStyle]="{ 'background-color': 'rgb(0, 0, 45)' }"
+        class="order-panel__header"
+      >
+        <mat-panel-title class="order-panel__title">
+          <h3>{{ bar.name }}</h3>
+          <h3>{{ order.total }}</h3>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <ng-container>
+        <mat-list class="order-list">
+          <!-- *ngFor="let drink of drinks" let order of (order | async) -->
+          <mat-list-item class="order-list-item">
+            <div class="details">
+              <h5>Drink name</h5>
+              <h5>Price</h5>
+            </div>
+            <mat-divider></mat-divider>
+          </mat-list-item>
+          <mat-list-item class="order-list-item">
+            <div class="details">
+              <h5>Tax</h5>
+              <h5>
+                Tax price{{ order.tax | currency: 'USD':'symbol':'.2-2' }}
+              </h5>
+            </div>
+            <mat-divider></mat-divider>
+          </mat-list-item>
+          <mat-list-item class="order-list-item">
+            <div class="details">
+              <h5>Tip</h5>
+              <h5>
+                Tip price{{ order.tip | currency: 'USD':'symbol':'.2-2' }}
+              </h5>
+            </div>
+            <mat-divider></mat-divider>
+          </mat-list-item>
+        </mat-list>
+        <div class="details">
+          <h4>Total</h4>
+          <h4>
+            Total price{{ order.price | currency: 'USD':'symbol':'.2-2' }}
+          </h4>
+        </div>
+      </ng-container>
+    </mat-expansion-panel>
+    <div class="tracker">
+      <div class="details">
+        <h5>Status:</h5>
+        <h5>{{ order.status | orderStatusPipe }}</h5>
+      </div>
+      <div class="tracker__progress-bar">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      </div>
+      <h5 class="text-center">
+        Your order is in the queue.
+      </h5>
+      <div class="text-center">
+        <h4>Order #46{{ order.number }}</h4>
+        <h6>
+          Show this order number to your bar tender on pickup.
+        </h6>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>

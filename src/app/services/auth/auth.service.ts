@@ -49,14 +49,20 @@ export class AuthService {
   }
 
   getUserAsEmployeeAuth(): Observable<EmployeesUser> {
-   return this.user.pipe(
+    return this.user.pipe(
       switchMap(user => {
         if (isEmployeesUser(user)) {
           return of(user);
         } else if (!user) {
-          return throwError({type: NO_AUTH_ERROR, message: 'User is not authenticated'});
+          return throwError({
+            type: NO_AUTH_ERROR,
+            message: 'User is not authenticated'
+          });
         } else {
-          return throwError({type: WRONG_USER_TYPE_ERROR, message: 'User is not of type: ' + EMPLOYEES_USER_TYPE});
+          return throwError({
+            type: WRONG_USER_TYPE_ERROR,
+            message: 'User is not of type: ' + EMPLOYEES_USER_TYPE
+          });
         }
       })
     );

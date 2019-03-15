@@ -19,7 +19,10 @@ import {
   RawBar,
   RawFavorite,
   History,
-  RawHistory
+  RawHistory,
+  Favorite,
+  PaymentMethod,
+  Tracking
 } from '@types';
 
 @Injectable()
@@ -242,15 +245,15 @@ export class NormalApi extends BarTapApi {
 
   getConsumersFavoriteBars(userId: string): Observable<Bar[]> {
     return this.db
-    .collection<RawFavorite>(`users/${userId}/favorites`)
+      .collection<RawFavorite>(`users/${userId}/favorites`)
       .snapshotChanges()
       .pipe(
         map(result => result.map(obj => obj.payload.doc.data().barId)),
         switchMap(favorites => {
           if (favorites) {
-            return combineLatest(...favorites.map(
-              favorite => this.getBar(favorite)
-            ));
+            return combineLatest(
+              ...favorites.map(favorite => this.getBar(favorite))
+            );
           } else {
             return of([]);
           }
@@ -261,29 +264,31 @@ export class NormalApi extends BarTapApi {
 
   checkIfFavorited(userId: string, barId: string): Observable<boolean> {
     return this.db
-    .collection<RawFavorite>(
-      `users/${userId}/favorites`,
-      ref => ref.where('barId', '==', barId)
-    ).valueChanges().pipe(
-      map(favorites => favorites.length > 0)
-    );
+      .collection<RawFavorite>(`users/${userId}/favorites`, ref =>
+        ref.where('barId', '==', barId)
+      )
+      .valueChanges()
+      .pipe(map(favorites => favorites.length > 0));
   }
 
   getBarApiKey(barId: string): Observable<string | undefined> {
-    return this.db.doc<{ apiKey: string }>(`stripe_api_keys/${barId}`).valueChanges().pipe(
-      map((result: { apiKey: string } | undefined) => {
-        if (result) {
-          return result.apiKey;
-        } else {
-          return undefined;
-        }
-      })
-    );
+    return this.db
+      .doc<{ apiKey: string }>(`stripe_api_keys/${barId}`)
+      .valueChanges()
+      .pipe(
+        map((result: { apiKey: string } | undefined) => {
+          if (result) {
+            return result.apiKey;
+          } else {
+            return undefined;
+          }
+        })
+      );
   }
 
   getConsumersHistory(userId: string): Observable<History[]> {
     return this.db
-    .collection<RawHistory>(`users/${userId}/history`)
+      .collection<RawHistory>(`users/${userId}/history`)
       .snapshotChanges()
       .pipe(
         map(result =>
@@ -293,31 +298,74 @@ export class NormalApi extends BarTapApi {
           }))
         ),
         switchMap(charges => {
-          return combineLatest(...charges.map(charge => {
-            return this.getBar(charge.barId).pipe(
-              map(bar => ({
-                barName: bar ? bar.name : '<Bar Redacted>',
-                total: charge.total,
-                date: charge.date,
-                uid: charge.uid
-              } as History))
-            );
-          }));
+          return combineLatest(
+            ...charges.map(charge => {
+              return this.getBar(charge.barId).pipe(
+                map(
+                  bar =>
+                    ({
+                      barName: bar ? bar.name : '<Bar Redacted>',
+                      total: charge.total,
+                      date: charge.date,
+                      uid: charge.uid
+                    } as History)
+                )
+              );
+            })
+          );
         })
       );
   }
 
+  getUserPaymentMethods(userID: string): Observable<PaymentMethod[]> {
+    return this.db
+      .collection<PaymentMethod>(`users/${userID}/paymentMethods`)
+      .snapshotChanges()
+      .pipe(
+        map(result =>
+          result.map(obj => ({
+            ...obj.payload.doc.data(),
+            uid: obj.payload.doc.id
+          }))
+        )
+      );
+  }
+
+  getUserTracking(userID: string): Observable<Tracking[]> {
+    return this.db
+      .collection<Tracking>(`users/${userID}/tracking`)
+      .snapshotChanges()
+      .pipe(
+        map(result =>
+          result.map(obj => ({
+            ...obj.payload.doc.data(),
+            uid: obj.payload.doc.id
+          }))
+        )
+      );
+  }
+
   getCheckedInEmployees(userID: string, barID: string): Observable<Employee[]> {
-    return this.db.collection<{ employeeUID: string }>(`users/${userID}/clockedIn`).valueChanges().pipe(
-      switchMap(employeesUIDs => {
-        if (employeesUIDs.length > 0) {
-          return combineLatest(...employeesUIDs.map(employee => this.getBarEmployee(barID, employee.employeeUID))).pipe(
-            map(employees => employees.filter(employee => !!employee) as Employee[])
-          );
-        } else {
-          return of([]);
-        }
-      })
-    )
+    return this.db
+      .collection<{ employeeUID: string }>(`users/${userID}/clockedIn`)
+      .valueChanges()
+      .pipe(
+        switchMap(employeesUIDs => {
+          if (employeesUIDs.length > 0) {
+            return combineLatest(
+              ...employeesUIDs.map(employee =>
+                this.getBarEmployee(barID, employee.employeeUID)
+              )
+            ).pipe(
+              map(
+                employees =>
+                  employees.filter(employee => !!employee) as Employee[]
+              )
+            );
+          } else {
+            return of([]);
+          }
+        })
+      );
   }
 }

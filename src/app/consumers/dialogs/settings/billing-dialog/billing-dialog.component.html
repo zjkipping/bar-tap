@@ -1,0 +1,63 @@
+<h2 mat-dialog-title>Billing Info</h2>
+<mat-dialog-content [formGroup]="billingInfo">
+  <mat-form-field>
+    <input
+      matInput
+      formControlName="address_line1"
+      placeholder="Address line 1"
+      required
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      matInput
+      formControlName="address_line2"
+      placeholder="Address line 2"
+      required
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      matInput
+      formControlName="address_city"
+      placeholder="City"
+      required
+    />
+  </mat-form-field>
+  <mat-form-field class="settings-list__field">
+    <input
+      matInput
+      class="settings-list__input"
+      formControlName="address_state"
+      placeholder="State"
+      required
+    />
+  </mat-form-field>
+  <mat-form-field class="settings-list__field">
+    <input
+      matInput
+      class="settings-list__input"
+      formControlName="address_zip"
+      placeholder="zip"
+      required
+    />
+  </mat-form-field>
+  <mat-form-field class="settings-list__field">
+    <input
+      matInput
+      class="settings-list__input"
+      formControlName="address_country"
+      placeholder="Country"
+      required
+    />
+  </mat-form-field>
+  <p class="error">{{ errorMessage }}</p>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="save()">
+    Save
+  </button>
+  <button mat-raised-button color="secondary" mat-dialog-close>
+    Cancel
+  </button>
+</mat-dialog-actions>

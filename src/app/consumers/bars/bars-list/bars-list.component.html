@@ -1,15 +1,15 @@
 <mat-list class="bars-list">
   <mat-list-item
-    *ngFor="let bar of (bars)"
+    *ngFor="let bar of bars"
     [routerLink]="'/bars/' + bar.uid"
     class="bars-list-item"
     [ngStyle]="{ 'background-image': 'url(/assets/header-image.jpg)' }"
   >
-    <div class="bars-list__details">
-      <h2>{{ bar.name }}</h2>
-      <h5>{{ bar.location }}</h5>
+    <div class="bars-list__fade-overlay">
+      <div class="bars-list__details">
+        <h2>{{ bar.name }}</h2>
+        <h5>{{ bar.location }}</h5>
+      </div>
     </div>
-    <div></div>
-    <mat-divider></mat-divider>
   </mat-list-item>
 </mat-list>

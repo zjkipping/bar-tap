@@ -1,6 +1,6 @@
 <button
   mat-raised-button
-  (click)="showRemoveButton()"
+  (click)="checkout()"
   class="cart-list__checkout-button"
   color="primary"
 >
@@ -8,19 +8,19 @@
 </button>
 <button
   mat-button
-  (click)="showRemoveButton()"
+  (click)="editCartButton()"
   class="cart-list__edit-button"
   color="warn"
-  *ngIf="!showRemove"
+  *ngIf="!editCart"
 >
   Edit Cart
 </button>
 <button
   mat-button
-  (click)="showRemoveButton()"
+  (click)="editCartButton()"
   class="cart-list__edit-button"
   color="primary"
-  *ngIf="showRemove"
+  *ngIf="editCart"
 >
   Save Cart
 </button>
@@ -37,7 +37,7 @@
             #icon
             mat-icon-button
             (click)="cart.removeDrink(item.drink)"
-            *ngIf="showRemove"
+            *ngIf="editCart"
             [@enterAnimation]
           >
             <mat-icon class="remove-icon">close</mat-icon>
@@ -50,7 +50,7 @@
           #icon
           mat-icon-button
           (click)="cart.removeQuantity(item.drink)"
-          *ngIf="showRemove"
+          *ngIf="editCart"
           [@enterAnimation]
         >
           <mat-icon class="quantity-icon" color="primary"
@@ -62,7 +62,7 @@
           #icon
           mat-icon-button
           (click)="cart.addQuantity(item.drink)"
-          *ngIf="showRemove"
+          *ngIf="editCart"
           [@enterAnimation]
         >
           <mat-icon class="quantity-icon" color="primary"

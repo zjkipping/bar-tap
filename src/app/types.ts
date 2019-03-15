@@ -29,7 +29,8 @@ export interface EmployeesUser extends BaseUser {
 }
 
 export interface ConsumerUser extends BaseUser {
-  favorites: string[];
+  dob: string;
+  billingInfo: BillingInfo;
 }
 
 export interface AdminUser extends BaseUser {
@@ -102,19 +103,27 @@ export interface Favorite extends RawFavorite {
   uid: string;
 }
 
+export interface RawTracking {
+  barId: string;
+  orderId: string;
+}
+
+export interface Tracking extends RawTracking {
+  uid: string;
+}
+
 export interface RouteAuthData {
   redirect: string[];
   requiredAuthState: boolean;
   userType?: string;
 }
 
-export type FirebaseQuery = (
-  ref: CollectionReference
-) => Query;
+export type FirebaseQuery = (ref: CollectionReference) => Query;
 
 export type FirebaseCloudFunction<T> = (data: T) => Observable<any>;
 
 export interface RawPaymentMethod {
+  fullName: string;
   cardNumber: string;
   cvc: number;
   expiration: string;

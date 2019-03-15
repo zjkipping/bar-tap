@@ -37,7 +37,7 @@ export class AddToCartComponent {
 
   addToCart() {
     this.cart.addDrink(this.drink, this.quantity.value);
-    this.sbs.openSuccess('Drink added to cart successfully', 3000);
+    this.sbs.openSuccess('Drink added to cart successfully.', 3000);
     this.dialogRef.close();
   }
 }

@@ -1,4 +1,4 @@
-:host {
+:host /deep/ {
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -19,5 +19,4 @@ button {
 }
 .error {
   color: red;
-  font-family: 'Helvetica Neue', sans-serif;
 }

@@ -1,3 +1,105 @@
-<p>
-  settings works!
-</p>
+<h2 class="page-header">Settings</h2>
+<ng-container *ngIf="(user | async); let user">
+  <mat-list class="settings-list">
+    <mat-list-item
+      ><div class="settings-list__details">
+        <h4>Personal Information</h4>
+        <button mat-icon-button (click)="openPersonalDialog()">
+          <mat-icon class="settings-list__edit-icon">edit</mat-icon>
+        </button>
+      </div></mat-list-item
+    >
+    <mat-list-item class="settings-list__item">
+      <div class="settings-list__details">
+        <h5>First name:</h5>
+        <h5>{{ user.firstName }}</h5>
+      </div>
+    </mat-list-item>
+    <mat-list-item class="settings-list__item">
+      <div class="settings-list__details">
+        <h5>Last name:</h5>
+        <h5>{{ user.lastName }}</h5>
+      </div>
+    </mat-list-item>
+    <mat-list-item class="settings-list__item">
+      <div class="settings-list__details">
+        <h5>Date of Birth:</h5>
+        <h5>{{ user.dob | date: 'mediumDate' }}</h5>
+      </div>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+  </mat-list>
+
+  <mat-list class="settings-list">
+    <mat-list-item
+      ><div class="settings-list__details">
+        <h4>Payment Methods</h4>
+        <button mat-icon-button (click)="openAddCardDialog()">
+          <mat-icon class="settings-list__edit-icon"
+            >add_circle_outline</mat-icon
+          >
+        </button>
+      </div></mat-list-item
+    >
+    <mat-list-item
+      class="settings-list__item"
+      *ngFor="let card of (cards | async)"
+    >
+      <div class="settings-list__details">
+        <h5>{{ card.cardNumber | creditCardMask }}</h5>
+
+        <button mat-icon-button (click)="openEditCardDialog(card)">
+          <mat-icon class="settings-list__edit-icon">edit</mat-icon>
+        </button>
+      </div>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+  </mat-list>
+
+  <mat-list class="settings-list">
+    <mat-list-item>
+      <div class="settings-list__details">
+        <h4>Billing Information</h4>
+        <button mat-icon-button>
+          <mat-icon
+            class="settings-list__edit-icon"
+            (click)="openBillingDialog()"
+            >edit</mat-icon
+          >
+        </button>
+      </div>
+    </mat-list-item>
+    <ng-container *ngIf="user.billingInfo as billingInfo; else noBilling">
+      <mat-list-item class="settings-list__item">
+        <h5>{{ billingInfo.name | titlecase }}</h5>
+      </mat-list-item>
+      <mat-list-item class="settings-list__item">
+        <div class="settings-list__address">
+          <h5>
+            {{ billingInfo.address_line1 | titlecase
+            }}<ng-container *ngIf="billingInfo.address_line2">,</ng-container>
+          </h5>
+          <h5>
+            {{ billingInfo.address_line2 | titlecase }}
+          </h5>
+        </div>
+      </mat-list-item>
+      <mat-list-item class="settings-list__item">
+        <div class="settings-list__address">
+          <h5>{{ billingInfo.address_city | titlecase }}</h5>
+          <h5>{{ billingInfo.address_state | titlecase }},</h5>
+          <h5>{{ billingInfo.address_zip }}</h5>
+        </div>
+      </mat-list-item>
+      <mat-list-item class="settings-list__item">
+        <h5>{{ billingInfo.address_country | titlecase }}</h5>
+      </mat-list-item>
+    </ng-container>
+    <ng-template #noBilling>
+      <h5 class="settings-list__billing">
+        Add billing information to prove account ownership, transaction history,
+        and to ensure the safety of your account.
+      </h5></ng-template
+    >
+  </mat-list>
+</ng-container>

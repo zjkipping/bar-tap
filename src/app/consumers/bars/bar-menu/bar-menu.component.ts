@@ -20,6 +20,7 @@ import { ShoppingCartComponent } from '../shopping-cart/shopping-cart.component'
 export class BarMenuComponent {
   bar: Observable<Bar>;
   drinks: Observable<Drink[]>;
+  drinkCount: Observable<number>;
   favorite: Observable<boolean>;
 
   constructor(
@@ -29,7 +30,7 @@ export class BarMenuComponent {
     private bottomSheet: MatBottomSheet,
     public auth: AuthService,
     private api: BarTapApi,
-    private cart: Cart,
+    public cart: Cart,
     private cs: ConsumersService
   ) {
     this.cart.clearCart();
@@ -65,6 +66,11 @@ export class BarMenuComponent {
     this.bar = barDetails.pipe(map(([bar, _drinks]) => bar));
     this.drinks = barDetails.pipe(map(([_bar, drinks]) => drinks));
     this.cart.bar = barDetails.pipe(map(([bar, _drinks]) => bar));
+    this.drinkCount = this.cart.cartItems.pipe(
+      map(items =>
+        items.map(item => item.quantity).reduce((sum, val) => sum + val, 0)
+      )
+    );
   }
 
   openAddToCartDialog(drink: Drink) {
@@ -73,8 +79,10 @@ export class BarMenuComponent {
     });
   }
 
-  openCart() {
-    this.bottomSheet.open(ShoppingCartComponent, {});
+  openCart(barID: string) {
+    this.bottomSheet.open(ShoppingCartComponent, {
+      data: barID
+    });
   }
 
   addFavorite(barId: string) {

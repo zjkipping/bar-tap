@@ -1,0 +1,73 @@
+.settings-list {
+  width: 100%;
+
+  &__title {
+    margin: 10px 0 10px 16px !important;
+  }
+  &__details {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+  &__item {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    color: white;
+    height: 30px !important;
+  }
+  &__input {
+    color: white;
+    margin-top: 20px;
+  }
+  &__field {
+    margin-bottom: 20px;
+    height: 100px;
+  }
+  &__address {
+    display: flex;
+    flex-direction: row;
+  }
+  &__address * {
+    padding-right: 5px;
+  }
+  &__edit-icon {
+    font-size: 21px;
+  }
+  &__card-edit {
+    background-color: #323232;
+  }
+  &__billing {
+    margin: 0 5%;
+  }
+}
+.cart-edit-icon {
+  font-size: 15px;
+}
+h5 {
+  margin: 0;
+}
+.page-header {
+  padding: 20px 0;
+}
+:host /deep/ .mat-form-field-label {
+  color: white;
+}
+:host /deep/ .mat-list-item-content {
+  width: 100%;
+}
+:host /deep/ .mat-form-field {
+  width: 50px;
+}
+:host /deep/ .mat-form-field-underline {
+  background-color: white;
+}
+:host /deep/ mat-icon {
+  color: white;
+}
+:host /deep/ .mat-select {
+  width: 50px;
+  color: white;
+}

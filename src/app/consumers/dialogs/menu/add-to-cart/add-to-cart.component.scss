@@ -1,4 +1,4 @@
-:host {
+:host /deep/ {
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -9,9 +9,6 @@ input {
 mat-form-field {
   width: 100%;
 }
-:host /deep/ mat-divider {
-  margin-bottom: 15px;
-}
 :host /deep/ .mat-select-value-text {
   color: white;
 }
@@ -20,7 +17,6 @@ button {
 }
 .error {
   color: red;
-  font-family: 'Helvetica Neue', sans-serif;
 }
 h3,
 h4,
@@ -29,13 +25,15 @@ h5 {
 }
 .drink-details {
   width: 100%;
-  font-family: 'Helvetica Neue', sans-serif;
 
   &__header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+  }
+  &__description {
+    margin-top: 10px;
   }
 }
 .quantity {
@@ -44,7 +42,6 @@ h5 {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  font-family: 'Helvetica Neue', sans-serif;
 
   &__select {
     width: 50px;
@@ -55,7 +52,6 @@ h5 {
 }
 .total {
   width: 100%;
-  font-family: 'Helvetica Neue', sans-serif;
 
   &__details {
     display: flex;

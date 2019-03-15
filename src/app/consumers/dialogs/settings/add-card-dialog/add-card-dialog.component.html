@@ -1,0 +1,39 @@
+<h2 mat-dialog-title>Add Card</h2>
+<mat-dialog-content>
+  <mat-form-field>
+    <input
+      matInput
+      [formControl]="cardNumber"
+      placeholder="Card Number"
+      maxlength="16"
+      required
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      matInput
+      [formControl]="expiration"
+      placeholder="Expiration"
+      required
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      matInput
+      type="number"
+      [formControl]="cvc"
+      placeholder="CVC"
+      maxlength="3"
+      required
+    />
+  </mat-form-field>
+  <h5 class="error">{{ errorMessage }}</h5>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="save()">
+    Save
+  </button>
+  <button mat-raised-button color="secondary" mat-dialog-close>
+    Cancel
+  </button>
+</mat-dialog-actions>

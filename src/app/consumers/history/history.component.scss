@@ -7,12 +7,9 @@ div {
   display: flex;
   flex-direction: column;
 }
-
 .consumer-history-title {
-  margin: 0;
-  padding: 20px 0px;
+  padding: 20px 0;
 }
-
 .consumer-history-subtitle {
   display: flex;
   flex-direction: row;
@@ -42,11 +39,7 @@ div {
   justify-content: space-evenly;
 }
 
-.history-list-item *{
+.history-list-item * {
   text-align: center;
   width: 33%;
-}
-
-:host /deep/ .mat-divider {
-  background-color: white !important;
 }

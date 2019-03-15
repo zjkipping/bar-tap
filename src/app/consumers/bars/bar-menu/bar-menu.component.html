@@ -1,9 +1,12 @@
 <ng-container *ngIf="(bar | async) as bar; else loading">
   <div
-    class="bar-header"
+    class="page-header bar-header"
     [ngStyle]="{ 'background-image': 'url(/assets/header-image.jpg)' }"
   >
     <div class="overlay">
+      <button routerLink="/bars" class="back-button" mat-icon-button>
+        <mat-icon>chevron_left</mat-icon>
+      </button>
       <button
         (click)="addFavorite(bar.uid)"
         class="favorite-button"
@@ -44,37 +47,43 @@
     [barUid]="bar.uid"
     [type]="'beer'"
     [title]="'Beer'"
+    [color]="'45'"
   ></app-drinks-panel>
   <app-drinks-panel
     [barUid]="bar.uid"
     [type]="'shot'"
     [title]="'Shots'"
+    [color]="'50'"
   ></app-drinks-panel>
   <app-drinks-panel
     [barUid]="bar.uid"
     [type]="'mixed'"
     [title]="'Mixed Drinks'"
+    [color]="'55'"
   ></app-drinks-panel>
   <app-drinks-panel
     [barUid]="bar.uid"
     [type]="'wine'"
     [title]="'Wine'"
+    [color]="'60'"
   ></app-drinks-panel>
   <app-drinks-panel
     [barUid]="bar.uid"
     [type]="'other'"
     [title]="'Other'"
+    [color]="'65'"
   ></app-drinks-panel>
 
   <div style="height: 70px; background-color: rgb(0, 0, 45);"></div>
+
   <button
     class="cart-button"
     mat-fab
     color="primary"
-    matBadge="8"
+    [matBadge]="drinkCount | async"
     matBadgePosition="before"
     matBadgeColor="accent"
-    (click)="openCart()"
+    (click)="openCart(bar.uid)"
   >
     <mat-icon>shopping_cart</mat-icon>
   </button>

@@ -9,6 +9,8 @@ import { HistoryComponent } from './history/history.component';
 import { SettingsComponent } from './settings/settings.component';
 import { AuthGuardService } from '@services/auth/auth-guard.service';
 import { BarMenuComponent } from './bars/bar-menu/bar-menu.component';
+import { TrackerComponent } from './tracker/tracker.component';
+import { TrackerDetailsComponent } from './tracker/tracker-details/tracker-details.component';
 
 const routes: Routes = [
   {
@@ -39,6 +41,24 @@ const routes: Routes = [
       {
         path: 'history',
         component: HistoryComponent,
+        data: {
+          redirect: ['', ''],
+          requiredAuthState: true
+        },
+        canActivate: [AuthGuardService]
+      },
+      {
+        path: 'tracker',
+        component: TrackerComponent,
+        data: {
+          redirect: ['', ''],
+          requiredAuthState: true
+        },
+        canActivate: [AuthGuardService]
+      },
+      {
+        path: 'tracker/:barid/:oid',
+        component: TrackerDetailsComponent,
         data: {
           redirect: ['', ''],
           requiredAuthState: true

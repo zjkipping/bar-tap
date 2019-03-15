@@ -1,9 +1,15 @@
-import { Component } from '@angular/core';
-import { MatBottomSheetRef } from '@angular/material';
-import { FormControl, Validators } from '@angular/forms';
+import { Component, Inject } from '@angular/core';
+import { Cart } from '../../../services/cart.service';
 import { trigger, transition, style, animate } from '@angular/animations';
-
-import { Cart } from '@services/cart.service';
+import { FormControl, Validators } from '@angular/forms';
+import {
+  MatBottomSheetRef,
+  MAT_BOTTOM_SHEET_DATA,
+  MatDialog
+} from '@angular/material';
+import { CheckoutComponent } from '../../dialogs/menu/checkout/checkout.component';
+import { SnackBarService } from '@services/snackbar/snackbar.service';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -25,19 +31,43 @@ import { Cart } from '@services/cart.service';
 export class ShoppingCartComponent {
   trackByIndex = (index: number) => index;
   quantity = new FormControl(1, Validators.required);
-  showRemove: boolean;
+  editCart: boolean;
 
   constructor(
     public cart: Cart,
-    private cartRef: MatBottomSheetRef<ShoppingCartComponent>
+    private cartRef: MatBottomSheetRef<ShoppingCartComponent>,
+    @Inject(MAT_BOTTOM_SHEET_DATA) public barID: string,
+    private dialog: MatDialog,
+    private sbs: SnackBarService
   ) {
-    this.showRemove = false;
+    this.editCart = false;
     this.cartRef.afterDismissed().subscribe(() => {
-      this.showRemove = false;
+      this.editCart = false;
     });
   }
 
-  showRemoveButton() {
-    this.showRemove = !this.showRemove;
+  checkout() {
+    if (this.editCart == true) {
+      this.sbs.openError(
+        'You need to save your cart before checking out.',
+        2000
+      );
+      return;
+    } else if (!this.cart.total) {
+      this.sbs.openError('You have no items in your cart.', 2000);
+      return;
+    }
+
+    this.cartRef.dismiss();
+    this.dialog.open(CheckoutComponent, {
+      data: {
+        price: this.cart.total,
+        barId: this.barID
+      }
+    });
+  }
+
+  editCartButton() {
+    this.editCart = !this.editCart;
   }
 }

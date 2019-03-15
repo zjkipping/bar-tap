@@ -1,4 +1,4 @@
-:host {
+:host /deep/ {
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -15,5 +15,4 @@ button {
 }
 
 h3 {
-  font-family: "Helvetica Neue", sans-serif;
 }

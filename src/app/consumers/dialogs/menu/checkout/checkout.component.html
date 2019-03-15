@@ -1,0 +1,73 @@
+<div class="checkout-container">
+  <ng-container *ngIf="!addCard">
+    <mat-form-field>
+      <mat-select [formControl]="selectedCard" required>
+        <mat-option
+          *ngFor="let card of (cards | async)"
+          [value]="card"
+          (click)="hideAddCard()"
+        >
+          {{ card.cardNumber | creditCardMask }}
+        </mat-option>
+        <mat-option (click)="showAddCard()">
+          Add a new card
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </ng-container>
+  <ng-container *ngIf="addCard">
+    <div class="change-payment-button">
+      <button mat-raised-button color="primary" (click)="hideAddCard()">
+        Change Payment Option
+      </button>
+    </div>
+    <mat-form-field>
+      <input
+        matInput
+        [formControl]="cardNumber"
+        type="number"
+        maxlength="16"
+        placeholder="Card number"
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        [formControl]="expiration"
+        type="string"
+        placeholder="Expiration"
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput maxlength="3" [formControl]="cvc" placeholder="CVC" />
+    </mat-form-field>
+    <div>
+      <mat-checkbox>
+        <h5>Save this card to your stored payment methods.</h5>
+      </mat-checkbox>
+    </div>
+  </ng-container>
+  <div class="tip details">
+    <h5>Tip:</h5>
+    <mat-slider min="0" max="2000" (input)="getTip($event)"></mat-slider>
+    <h5>{{ tip | currency: "USD":"symbol":".2-2" }}</h5>
+  </div>
+  <div class="order-total details">
+    <h5>Order total:</h5>
+    <h5>{{ data.price | currency: "USD":"symbol":".2-2" }}</h5>
+  </div>
+  <mat-divider></mat-divider>
+  <div class="order-total details">
+    <h5>Order total w/ tip:</h5>
+    <h5>{{ data.price + tip | currency: "USD":"symbol":".2-2" }}</h5>
+  </div>
+  <mat-dialog-actions>
+    <button mat-raised-button color="primary" (click)="buy()">
+      Place Order
+    </button>
+    <button mat-raised-button color="secondary" (click)="back()">
+      Back to Cart
+    </button>
+  </mat-dialog-actions>
+  <h5 class="error">{{ errorMessage }}</h5>
+</div>

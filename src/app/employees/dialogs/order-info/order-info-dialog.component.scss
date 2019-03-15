@@ -1,5 +1,5 @@
-:host {
-  display:flex;
+:host /deep/ {
+  display: flex;
   flex-direction: column;
   height: 100%;
 }

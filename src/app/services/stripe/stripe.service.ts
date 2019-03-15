@@ -21,14 +21,27 @@ export class StripeService {
     return this.api.getBarApiKey(barId).pipe(
       switchMap(apiKey => {
         if (apiKey) {
+          let card: any;
+          if (billing) {
+            card = { ...method, ...billing };
+          } else {
+            card = method;
+          }
+          delete card['uid'];
           const stripe = new StripeInstance(apiKey);
-          return stripe.createToken(method, billing);
+          return stripe.createToken(card);
         } else {
           return throwError({ message: 'No bar with that ID exists' });
         }
       }),
       switchMap(token => {
-        return this.chargeFunction({ barId, token, drinks, price, userId });
+        return this.chargeFunction({
+          barId,
+          token,
+          drinks,
+          price,
+          userId
+        });
       })
     );
   }

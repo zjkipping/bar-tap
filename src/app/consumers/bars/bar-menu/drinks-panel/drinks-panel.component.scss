@@ -1,18 +1,5 @@
-:host /deep/ .mat-expansion-panel-header {
-  background-color: rgb(0, 0, 45) !important;
-}
-:host /deep/ .mat-expansion-panel {
-  background-color: rgb(0, 0, 45) !important;
-}
-.mat-expansion-panel {
-  background-color: rgb(0, 0, 45) !important;
-}
-::ng-deep .mat-expansion-indicator:after {
-  color: white;
-}
 .drink-list {
-  font-family: 'Helvetica Neue', sans-serif;
-  background-color: rgb(0, 0, 45);
+  background-color: #1b1b1b;
   color: white;
 
   &__details {
@@ -33,5 +20,12 @@ h5,
 h6 {
   font-weight: 100;
   letter-spacing: 1px;
+  color: white;
+}
+
+:host /deep/ .mat-expansion-panel {
+  background-color: #1b1b1b;
+}
+::ng-deep .mat-expansion-indicator:after {
   color: white;
 }

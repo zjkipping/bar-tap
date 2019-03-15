@@ -1,16 +1,19 @@
 <ng-container *ngIf="(bars | async) as bars; else loading">
-  <form class="search-form">
-    <mat-form-field class="search-form__field">
-      <input
-        type="text"
-        placeholder="Search for bars"
-        class="search-form__input"
-        matInput
-        [formControl]="barsSearchBar"
-      />
-    </mat-form-field>
-  </form>
-  ><app-bars-list [bars]="bars"></app-bars-list>
+  <div class="page-header">
+    <div class="search-form">
+      <mat-icon class="search-form__icon">search</mat-icon>
+      <mat-form-field class="search-form__field">
+        <input
+          type="text"
+          class="search-form__input"
+          matInput
+          [formControl]="barsSearchBar"
+        />
+        <mat-placeholder class="placeholder">Search for Bars</mat-placeholder>
+      </mat-form-field>
+    </div>
+  </div>
+  <app-bars-list [bars]="bars"></app-bars-list>
 </ng-container>
 <ng-template #loading
   ><div class="loading">

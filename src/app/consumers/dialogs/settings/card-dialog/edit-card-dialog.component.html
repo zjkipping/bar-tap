@@ -1,0 +1,39 @@
+<div class="header">
+  <h2>Edit Card</h2>
+  <button mat-button color="warn" class="remove-button">Remove Card</button>
+</div>
+
+<mat-dialog-content>
+  <mat-form-field>
+    <input matInput [formControl]="fullName" placeholder="Full name" required />
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      matInput
+      [formControl]="cardNumber"
+      placeholder="cardNumber"
+      required
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      matInput
+      [formControl]="expiration"
+      placeholder="Expiration"
+      required
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [formControl]="cvc" placeholder="CVC" required />
+  </mat-form-field>
+  <p class="error">{{ errorMessage }}</p>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="save()">
+    Save
+  </button>
+  <button mat-raised-button color="secondary" mat-dialog-close>
+    Cancel
+  </button>
+</mat-dialog-actions>
