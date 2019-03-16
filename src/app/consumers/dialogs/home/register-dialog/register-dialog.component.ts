@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { AuthService } from '@services/auth/auth.service';
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogRef } from '@angular/material';
+import { AuthService } from '@services/auth/auth.service';
 import { CONSUMER_USER_TYPE } from '@constants';
 
 @Component({

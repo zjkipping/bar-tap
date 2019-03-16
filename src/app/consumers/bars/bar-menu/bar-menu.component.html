@@ -5,16 +5,16 @@
   >
     <div class="overlay">
       <button
-        (click)="toggleFavorite()"
+        (click)="addFavorite(bar.uid)"
         class="favorite-button"
-        *ngIf="!favorite; else favoriteButton"
+        *ngIf="!(favorite | async); else favoriteButton"
         mat-icon-button
       >
         <mat-icon>favorite_border</mat-icon>
       </button>
       <ng-template #favoriteButton>
         <button
-          (click)="toggleFavorite()"
+          (click)="removeFavorite(bar.uid)"
           class="favorite-button"
           mat-icon-button
         >

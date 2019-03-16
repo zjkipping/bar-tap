@@ -1,10 +1,9 @@
-import { Component, Inject } from '@angular/core';
-import { Cart } from '../../../services/cart.service';
-import { trigger, transition, style, animate } from '@angular/animations';
+import { Component } from '@angular/core';
+import { MatBottomSheetRef } from '@angular/material';
 import { FormControl, Validators } from '@angular/forms';
-import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from '@angular/material';
-import { Bar } from '@types';
-import { Observable } from 'rxjs';
+import { trigger, transition, style, animate } from '@angular/animations';
+
+import { Cart } from '@services/cart.service';
 
 @Component({
   selector: 'app-shopping-cart',

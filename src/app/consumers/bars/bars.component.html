@@ -10,21 +10,7 @@
       />
     </mat-form-field>
   </form>
-  ><mat-list class="bars-list">
-    <mat-list-item
-      *ngFor="let bar of bars"
-      [routerLink]="'/bars/' + bar.uid"
-      class="bars-list-item"
-      [ngStyle]="{ 'background-image': 'url(/assets/header-image.jpg)' }"
-    >
-      <div class="bars-list__details">
-        <h2>{{ bar.name }}</h2>
-        <h5>{{ bar.location }}</h5>
-      </div>
-      <div></div>
-      <mat-divider></mat-divider>
-    </mat-list-item>
-  </mat-list>
+  ><app-bars-list [bars]="bars"></app-bars-list>
 </ng-container>
 <ng-template #loading
   ><div class="loading">

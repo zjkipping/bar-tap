@@ -1,0 +1,32 @@
+.bars-list {
+  margin: 0 auto;
+  max-width: 425px;
+
+  &__item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 150px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  &__details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(1, 1, 1, 0.5);
+  }
+
+  &__details * {
+    margin: 0;
+    text-align: center;
+    color: white;
+    text-shadow: -0.5px -0.5px 0 #000, 0.5px -0.5px 0 #000, -0.5px 0.5px 0 #000,
+      0.5px 0.5px 0 #000;
+  }
+}

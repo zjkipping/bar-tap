@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { from, Observable, of, combineLatest, throwError } from 'rxjs';
-import { shareReplay, switchMap, pairwise, take, map, first } from 'rxjs/operators';
+import { shareReplay, switchMap, pairwise, map, first } from 'rxjs/operators';
 
-import { BaseUser, EmployeesUser } from '@types';
-import { isEmployeesUser } from '@type-guards';
-import { NO_AUTH_ERROR, WRONG_USER_TYPE_ERROR, EMPLOYEES_USER_TYPE } from '@constants';
+import { BaseUser, EmployeesUser, ConsumerUser, RawUser } from '@types';
+import { isEmployeesUser, isConsumerUser } from '@type-guards';
+import { NO_AUTH_ERROR, WRONG_USER_TYPE_ERROR, EMPLOYEES_USER_TYPE, CONSUMER_USER_TYPE } from '@constants';
 
 @Injectable({
   providedIn: 'root'
@@ -19,15 +19,27 @@ export class AuthService {
     private afAuth: AngularFireAuth,
     private database: AngularFirestore
   ) {
-    this.currentAuth = afAuth.user.pipe();
+    this.currentAuth = afAuth.user;
 
     this.user = this.currentAuth.pipe(
       switchMap((auth: firebase.User | null) => {
         if (auth) {
           return this.database
             .collection('users')
-            .doc<BaseUser>(auth.uid)
-            .valueChanges();
+            .doc<RawUser>(auth.uid)
+            .valueChanges()
+            .pipe(
+              map(user => {
+                if (user) {
+                  return {
+                    ...user,
+                    uid: auth.uid
+                  };
+                } else {
+                  return undefined;
+                }
+              })
+            );
         } else {
           return of(undefined);
         }
@@ -50,11 +62,26 @@ export class AuthService {
     );
   }
 
+  getUserAsConsumerAuth(): Observable<ConsumerUser> {
+    return this.user.pipe(
+       switchMap(user => {
+         if (isConsumerUser(user)) {
+           return of(user);
+         } else if (!user) {
+           return throwError({type: NO_AUTH_ERROR, message: 'User is not authenticated'});
+         } else {
+           return throwError({type: WRONG_USER_TYPE_ERROR, message: 'User is not of type: ' + CONSUMER_USER_TYPE});
+         }
+       })
+     );
+   }
+
   loginWithEmail(email: string, password: string) {
     return combineLatest(
       from(this.afAuth.auth.signInWithEmailAndPassword(email, password)),
       this.user.pipe(pairwise(), first())
-    )}
+    );
+  }
 
   registerWithEmail(email: string, password: string) {
     return from(

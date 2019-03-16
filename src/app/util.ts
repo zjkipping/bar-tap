@@ -1,10 +1,10 @@
+import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable, throwError } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 import { BaseUser } from '@types';
 import { isEmployeesUser } from '@type-guards';
 import { EMPLOYEES_USER_TYPE, NO_AUTH_ERROR, WRONG_USER_TYPE_ERROR } from '@constants';
-import { AngularFirestore } from '@angular/fire/firestore';
 import { BarTapApi } from '@api';
 
 export const fetchDataAsEmployee = <T>(

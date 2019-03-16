@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { LoginDialogComponent } from '../dialogs/home/login-dialog/login-dialog.component';
 import { RegisterDialogComponent } from '../dialogs/home/register-dialog/register-dialog.component';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',

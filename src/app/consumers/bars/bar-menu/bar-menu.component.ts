@@ -1,21 +1,16 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { Observable, of, combineLatest, pipe, BehaviorSubject } from 'rxjs';
+import { MatDialog, MatBottomSheet } from '@angular/material';
+import { Observable, of, combineLatest } from 'rxjs';
 import { map, switchMap, tap, filter } from 'rxjs/operators';
-import { Bar, Drink, BaseUser } from '@types';
-import {
-  MatDialog,
-  MatBottomSheet,
-  MatSnackBar,
-  MAT_BOTTOM_SHEET_DATA,
-  MatBottomSheetRef
-} from '@angular/material';
+
 import { AddToCartComponent } from '../../dialogs/menu/add-to-cart/add-to-cart.component';
-import { ShoppingCartComponent } from '../shopping-cart/shopping-cart.component';
 import { AuthService } from '@services/auth/auth.service';
+import { Bar, Drink } from '@types';
 import { BarTapApi } from '@api';
 import { Cart } from '@services/cart.service';
+import { ConsumersService } from '../../consumers.service';
+import { ShoppingCartComponent } from '../shopping-cart/shopping-cart.component';
 
 @Component({
   selector: 'app-bar-menu',
@@ -25,7 +20,7 @@ import { Cart } from '@services/cart.service';
 export class BarMenuComponent {
   bar: Observable<Bar>;
   drinks: Observable<Drink[]>;
-  favorite: boolean;
+  favorite: Observable<boolean>;
 
   constructor(
     route: ActivatedRoute,
@@ -34,12 +29,14 @@ export class BarMenuComponent {
     private bottomSheet: MatBottomSheet,
     public auth: AuthService,
     private api: BarTapApi,
-    private cart: Cart
+    private cart: Cart,
+    private cs: ConsumersService
   ) {
-    this.favorite = false;
     this.cart.clearCart();
-    const barDetails = route.params.pipe(
-      map<Params, string>(params => params['uid']),
+    const barId = route.params.pipe(
+      map<Params, string>(params => params['uid'])
+    );
+    const barDetails = barId.pipe(
       switchMap(uid => {
         if (uid) {
           return combineLatest(
@@ -58,6 +55,13 @@ export class BarMenuComponent {
       filter((bar): bar is [Bar, Drink[]] => !!bar)
     );
 
+    this.favorite = combineLatest(
+      this.auth.getUserAsConsumerAuth(),
+      barId
+    ).pipe(
+      switchMap(([user, uid]) => this.api.checkIfFavorited(user.uid, uid))
+    );
+
     this.bar = barDetails.pipe(map(([bar, _drinks]) => bar));
     this.drinks = barDetails.pipe(map(([_bar, drinks]) => drinks));
     this.cart.bar = barDetails.pipe(map(([bar, _drinks]) => bar));
@@ -73,5 +77,11 @@ export class BarMenuComponent {
     this.bottomSheet.open(ShoppingCartComponent, {});
   }
 
-  toggleFavorite() {}
+  addFavorite(barId: string) {
+    this.cs.addFavorite(barId);
+  }
+
+  removeFavorite(barId: string) {
+    this.cs.removeFavorite(barId);
+  }
 }

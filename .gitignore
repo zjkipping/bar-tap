@@ -41,3 +41,9 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# Angulardoc.json
+{
+  "repoId": "d492032e-31dc-4588-85e9-43891114d086",
+  "lastSync": 0
+}

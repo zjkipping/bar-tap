@@ -5,12 +5,14 @@ import {
   MatSnackBar,
   MatDialogRef
 } from '@angular/material';
+
 import { FormControl, Validators } from '@angular/forms';
-import { Drink, CartItem } from '@types';
-import { Cart } from '@services/cart.service';
-import { SuccessNotificationComponent } from '../success-notification/success-notification.component';
-import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+
+import { Drink } from '@types';
+import { Cart } from '@services/cart.service';
+import { SnackBarService } from '@services/snackbar/snackbar.service';
 
 @Component({
   selector: 'app-add-to-cart',
@@ -23,8 +25,7 @@ export class AddToCartComponent {
 
   constructor(
     private cart: Cart,
-    public dialog: MatDialog,
-    public snackBar: MatSnackBar,
+    private sbs: SnackBarService,
     private dialogRef: MatDialogRef<AddToCartComponent>,
     @Inject(MAT_DIALOG_DATA) public drink: Drink
   ) {
@@ -36,9 +37,7 @@ export class AddToCartComponent {
 
   addToCart() {
     this.cart.addDrink(this.drink, this.quantity.value);
-    this.snackBar.openFromComponent(SuccessNotificationComponent, {
-      duration: 2000
-    });
+    this.sbs.openSuccess('Drink added to cart successfully', 2000);
     this.dialogRef.close();
   }
 }

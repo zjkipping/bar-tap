@@ -31,7 +31,7 @@ export class Cart {
 
   addDrink(drink: Drink, quantity?: number) {
     const cartValue = this.cartItems.value;
-    let indexInCart = cartValue.findIndex(item => item.drink.uid === drink.uid);
+    const indexInCart = cartValue.findIndex(item => item.drink.uid === drink.uid);
     if (indexInCart > -1) {
       const item = cartValue[indexInCart];
       this.cartItems.next([
@@ -49,7 +49,7 @@ export class Cart {
 
   addQuantity(drink: Drink) {
     const cartValue = this.cartItems.value;
-    let indexInCart = cartValue.findIndex(item => item.drink.uid === drink.uid);
+    const indexInCart = cartValue.findIndex(item => item.drink.uid === drink.uid);
     if (indexInCart > -1) {
       const item = cartValue[indexInCart];
       this.cartItems.next([
@@ -63,7 +63,7 @@ export class Cart {
   removeQuantity(drink: Drink) {
     const cartValue = this.cartItems.value;
 
-    let indexInCart = cartValue.findIndex(item => item.drink.uid === drink.uid);
+    const indexInCart = cartValue.findIndex(item => item.drink.uid === drink.uid);
     if (indexInCart > -1) {
       const item = cartValue[indexInCart];
       if (item.quantity - 1 === 0) {

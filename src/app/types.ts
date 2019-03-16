@@ -12,19 +12,24 @@ export interface Bar extends RawBar {
   uid: string;
 }
 
-export interface BaseUser {
-  uid: string;
+export interface RawUser {
   firstName: string;
   lastName: string;
   email: string;
   type: string;
 }
 
+export interface BaseUser extends RawUser {
+  uid: string;
+}
+
 export interface EmployeesUser extends BaseUser {
   barId: string;
 }
 
-export interface NormalUser extends BaseUser {}
+export interface ConsumerUser extends BaseUser {
+  favorites: string[];
+}
 
 export interface AdminUser extends BaseUser {}
 
@@ -79,6 +84,14 @@ export interface RawOrder {
 export interface Order extends RawOrder {
   uid: string;
   created: Date;
+}
+
+export interface RawFavorite {
+  barId: string;
+}
+
+export interface Favorite extends RawFavorite {
+  uid: string;
 }
 
 export interface RouteAuthData {

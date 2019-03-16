@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Observable, combineLatest } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, combineLatest, of } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 import { flatten } from 'lodash';
 
 import { BarTapApi } from '../bar-tap-api';
@@ -16,7 +16,9 @@ import {
   RawDrink,
   RawLog,
   Bar,
-  RawBar
+  RawBar,
+  RawFavorite,
+  Favorite
 } from '@types';
 
 @Injectable()
@@ -243,6 +245,35 @@ export class NormalApi extends BarTapApi {
           }))
         )
       );
+  }
+
+  getConsumersFavoriteBars(userID: string): Observable<Bar[]> {
+    return this.db
+    .collection<RawFavorite>(`users/${userID}/favorites`)
+      .snapshotChanges()
+      .pipe(
+        map(result => result.map(obj => obj.payload.doc.data().barId)),
+        switchMap(favorites => {
+          if (favorites) {
+            return combineLatest(...favorites.map(
+              favorite => this.getBar(favorite)
+            ));
+          } else {
+            return of([]);
+          }
+        }),
+        map(bars => bars.filter(bar => !!bar) as Bar[])
+      );
+  }
+
+  checkIfFavorited(userID: string, barID: string): Observable<boolean> {
+    return this.db
+    .collection<RawFavorite>(
+      `users/${userID}/favorites`,
+      ref => ref.where('barId', '==', barID)
+    ).valueChanges().pipe(
+      map(favorites => favorites.length > 0)
+    );
   }
 
   getBarApiKey(barID: string): Observable<string | undefined> {

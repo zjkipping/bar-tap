@@ -79,6 +79,14 @@ export class TestApi extends BarTapApi {
     return throwError('Not Yet Implemented');
   }
 
+  getConsumersFavoriteBars(userID: string): Observable<Bar[]> {
+    return throwError('Not Yet Implemented');
+  }
+
+  checkIfFavorited(userID: string, barId: string): Observable<boolean> {
+    return throwError('Not Yet Implemented');
+  }
+
   getBarApiKey(barID: string): Observable<string | undefined> {
     return throwError('Not Yet Implemented');
   }

@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { AuthService } from '@services/auth/auth.service';
-import { Observable } from 'rxjs';
-import { filter, switchMap } from 'rxjs/operators';
-import { LogoutDialogComponent } from './dialogs/home/logout-dialog/logout-dialog.component';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { filter, switchMap } from 'rxjs/operators';
+
+import { AuthService } from '@services/auth/auth.service';
 import { BaseUser } from '@types';
+import { LogoutDialogComponent } from './dialogs/home/logout-dialog/logout-dialog.component';
 
 @Component({
   selector: 'app-consumers-dashboard',

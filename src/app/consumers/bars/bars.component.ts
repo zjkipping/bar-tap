@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable, combineLatest } from 'rxjs';
 import { map, startWith, tap, debounceTime } from 'rxjs/operators';
-import { AngularFirestore } from '@angular/fire/firestore';
 
 import { Bar } from '@types';
 import { BarTapApi } from '@api';

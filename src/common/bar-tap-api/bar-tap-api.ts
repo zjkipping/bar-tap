@@ -10,12 +10,12 @@ export abstract class BarTapApi {
   abstract getBarEmployee(barID: string, employeeID: string): Observable<Employee | undefined>;
 
   abstract getBarEmployees(barID: string): Observable<Employee[]>;
-  
+
   abstract getBarOrder(barID: string, orderID: string): Observable<Order | undefined>;
 
   abstract getBarOrders(barID: string): Observable<Order[]>;
 
-  abstract getBarOrdersByQuery(barID: string, query: FirebaseQuery): Observable<Order[]>
+  abstract getBarOrdersByQuery(barID: string, query: FirebaseQuery): Observable<Order[]>;
 
   abstract getBarOrdersByType(barID: string, type: string): Observable<Order[]>;
 
@@ -25,7 +25,7 @@ export abstract class BarTapApi {
 
   abstract getBarDrinks(barID: string): Observable<Drink[]>;
 
-  abstract getBarDrinksByQuery(barID: string, query: FirebaseQuery): Observable<Drink[]>
+  abstract getBarDrinksByQuery(barID: string, query: FirebaseQuery): Observable<Drink[]>;
 
   abstract getBarDrinksByType(barID: string, type: string): Observable<Drink[]>;
 
@@ -36,4 +36,8 @@ export abstract class BarTapApi {
   abstract getBarLogs(barID: string): Observable<Log[]>;
 
   abstract getBarApiKey(barID: string): Observable<string | undefined>;
+  abstract getConsumersFavoriteBars(userID: string): Observable<Bar[]>;
+
+  abstract checkIfFavorited(userID: string, barId: string): Observable<boolean>;
+
 }

@@ -1,6 +1,7 @@
 import { NgModule, Injector } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { ConsumersRoutingModule } from './consumers-routing.module';
 import { ConsumersDashboardComponent } from './consumers-dashboard.component';
 import { MaterialModule } from '../material.module';
@@ -13,6 +14,7 @@ import { DialogsModule } from './dialogs/dialogs.module';
 import { BarMenuComponent } from './bars/bar-menu/bar-menu.component';
 import { ShoppingCartComponent } from './bars/shopping-cart/shopping-cart.component';
 import { MenuExpansionPanelComponent } from './bars/bar-menu/menu-expansion-panel/menu-expansion-panel.component';
+import { BarsListComponent } from './bars/bars-list/bars-list.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { MenuExpansionPanelComponent } from './bars/bar-menu/menu-expansion-pane
     SettingsComponent,
     BarMenuComponent,
     ShoppingCartComponent,
-    MenuExpansionPanelComponent
+    MenuExpansionPanelComponent,
+    BarsListComponent,
   ],
   imports: [
     CommonModule,

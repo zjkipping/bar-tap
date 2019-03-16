@@ -43,6 +43,22 @@ mat-bottom-sheet-container {
   flex: 1;
 }
 
+.success-snackbar {
+  background-color: #44e78e;
+}
+
+.success-snackbar .mat-simple-snackbar {
+  justify-content: center;
+}
+
+.error-snackbar {
+  background-color: #ff5252;
+}
+
+.error-snackbar .mat-simple-snackbar {
+  justify-content: center;
+}
+
 @-webkit-keyframes rotate {
   from {
     -webkit-transform: rotate(0deg);
