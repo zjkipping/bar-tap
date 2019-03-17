@@ -78,4 +78,8 @@ export class TestApi extends BarTapApi {
   getBarLogs(barID: string): Observable<Log[]> {
     return throwError('Not Yet Implemented');
   }
+
+  getBarApiKey(barID: string): Observable<string | undefined> {
+    return throwError('Not Yet Implemented');
+  }
 }

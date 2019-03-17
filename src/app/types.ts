@@ -1,10 +1,11 @@
+import { Observable } from 'rxjs';
+
 export interface RawBar {
   ownerId: string;
   name: string;
   description: string;
   location: string;
   hours: string;
-  apiKey: string;
 }
 
 export interface Bar extends RawBar {
@@ -88,3 +89,25 @@ export interface RouteAuthData {
 export type FirebaseQuery = (
   ref: firebase.firestore.CollectionReference
 ) => firebase.firestore.Query;
+
+export type FirebaseCloudFunction = (data: any) => Observable<any>;
+
+export interface RawPaymentMethod {
+  cardNumber: string;
+  cvc: number;
+  expiration: string;
+}
+
+export interface PaymentMethod extends RawPaymentMethod {
+  uid: string;
+}
+
+export interface BillingInfo {
+  name: string;
+  address_line1: string;
+  address_line2: string
+  address_city: string
+  address_state: string
+  address_zip: string
+  address_country: string;
+}

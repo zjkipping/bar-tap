@@ -35,4 +35,5 @@ export abstract class BarTapApi {
 
   abstract getBarLogs(barID: string): Observable<Log[]>;
 
+  abstract getBarApiKey(barID: string): Observable<string | undefined>;
 }

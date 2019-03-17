@@ -244,4 +244,16 @@ export class NormalApi extends BarTapApi {
         )
       );
   }
+
+  getBarApiKey(barID: string): Observable<string | undefined> {
+    return this.db.doc<{ apiKey: string }>(`stripe_api_keys/${barID}`).valueChanges().pipe(
+      map((result: { apiKey: string } | undefined) => {
+        if (result) {
+          return result.apiKey;
+        } else {
+          return undefined;
+        }
+      })
+    );
+  }
 }
