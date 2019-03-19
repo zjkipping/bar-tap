@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { throwError, Observable } from 'rxjs';
 
-import { Employee, Order, FirebaseQuery, Drink, Log, Bar } from '@types';
+import { Employee, Order, FirebaseQuery, Drink, Log, Bar, History } from '@types';
 import { BarTapApi } from '../bar-tap-api';
 
 @Injectable()
@@ -88,6 +88,10 @@ export class TestApi extends BarTapApi {
   }
 
   getBarApiKey(barID: string): Observable<string | undefined> {
+    return throwError('Not Yet Implemented');
+  }
+
+  getConsumersHistory(userID: string): Observable<History[]> {
     return throwError('Not Yet Implemented');
   }
 }

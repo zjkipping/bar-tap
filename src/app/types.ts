@@ -118,9 +118,22 @@ export interface PaymentMethod extends RawPaymentMethod {
 export interface BillingInfo {
   name: string;
   address_line1: string;
-  address_line2: string
-  address_city: string
-  address_state: string
-  address_zip: string
+  address_line2: string;
+  address_city: string;
+  address_state: string;
+  address_zip: string;
   address_country: string;
+}
+
+export interface RawHistory {
+  barId: string;
+  date: string;
+  total: number;
+}
+
+export interface History {
+  uid: string;
+  total: number;
+  date: string;
+  barName: string;
 }

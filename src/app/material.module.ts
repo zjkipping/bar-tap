@@ -1,4 +1,4 @@
-import { NgModule } from "@angular/core";
+import { NgModule } from '@angular/core';
 import {
   MatButtonModule,
   MatToolbarModule,
@@ -13,7 +13,8 @@ import {
   MatSelectModule,
   MatProgressSpinnerModule,
   MatBottomSheetModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatTableModule
 } from '@angular/material';
 
 const MatModules = [
@@ -30,7 +31,8 @@ const MatModules = [
   MatSelectModule,
   MatProgressSpinnerModule,
   MatBottomSheetModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatTableModule
 ];
 
 // Module that houses our Material Module Component imports (to keep app.module clean)

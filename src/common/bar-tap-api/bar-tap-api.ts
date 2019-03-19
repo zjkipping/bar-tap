@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 
-import { Employee, Order, FirebaseQuery, Drink, Log, Bar } from '@types';
+import { Employee, Order, FirebaseQuery, Drink, Log, Bar, History } from '@types';
 
 export abstract class BarTapApi {
   abstract getBar(barID: string): Observable<Bar | undefined>;
@@ -36,8 +36,11 @@ export abstract class BarTapApi {
   abstract getBarLogs(barID: string): Observable<Log[]>;
 
   abstract getBarApiKey(barID: string): Observable<string | undefined>;
+
   abstract getConsumersFavoriteBars(userID: string): Observable<Bar[]>;
 
   abstract checkIfFavorited(userID: string, barId: string): Observable<boolean>;
+
+  abstract getConsumersHistory(userID: string): Observable<History[]>;
 
 }

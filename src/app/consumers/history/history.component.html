@@ -1,3 +1,23 @@
-<p>
-  history works!
-</p>
+<div class="consumer-history-list">
+  <h2 class="text-center accent consumer-history-title">Order History</h2>
+    <div class="consumer-history-subtitle">
+      <h2 class="history-information-detail">Name</h2>
+      <h2 class="history-information-detail">Date</h2>
+      <h2 class="history-information-detail text">Total</h2>
+    </div>
+    <mat-divider></mat-divider>
+      <div class="history-list" *ngFor="let history of (history | async)">
+        <div class="history-list-item">
+            <h5>{{ history.barName }}</h5>
+            <h5>{{ history.date }}</h5>
+            <h5>{{ history.total | currency: 'USD':'symbol':'.2-2' }}</h5>
+          </div>
+          <mat-divider></mat-divider>
+          <ng-container *ngIf= "history; let history; else: noHistory">
+
+          </ng-container>
+              <ng-template #noHistory>
+                No charges have been made.
+              </ng-template>
+      </div>
+</div>

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable, combineLatest, of } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
 import { flatten } from 'lodash';
 
 import { BarTapApi } from '../bar-tap-api';
@@ -18,7 +18,9 @@ import {
   Bar,
   RawBar,
   RawFavorite,
-  Favorite
+  Favorite,
+  History,
+  RawHistory
 } from '@types';
 
 @Injectable()
@@ -286,5 +288,31 @@ export class NormalApi extends BarTapApi {
         }
       })
     );
+  }
+
+  getConsumersHistory(userID: string): Observable<History[]> {
+    return this.db
+    .collection<RawHistory>(`users/${userID}/history`)
+      .snapshotChanges()
+      .pipe(
+        map(result =>
+          result.map(obj => ({
+            ...obj.payload.doc.data(),
+            uid: obj.payload.doc.id
+          }))
+        ),
+        switchMap(charges => {
+          return combineLatest(...charges.map(charge => {
+            return this.getBar(charge.barId).pipe(
+              map(bar => ({
+                barName: bar ? bar.name : '<Bar Redacted>',
+                total: charge.total,
+                date: charge.date,
+                uid: charge.uid
+              } as History))
+            );
+          }));
+        })
+      );
   }
 }

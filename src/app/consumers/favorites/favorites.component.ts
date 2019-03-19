@@ -18,6 +18,5 @@ export class FavoritesComponent {
     this.favorites = this.auth.getUserAsConsumerAuth().pipe(
       switchMap(user => api.getConsumersFavoriteBars(user.uid))
     );
-
   }
  }
