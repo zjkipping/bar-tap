@@ -1,7 +1,7 @@
 <div class="statuses">
   <h2 class="text-center accent status-list-title">Order Statuses</h2>
   <div class="order-list">
-    <ng-container *ngIf="orders; let orders; else loading">
+    <ng-container *ngIf="orders as orders; else loading">
       <app-order-status *ngFor="let order of orders" [order]="order"></app-order-status>
     </ng-container>
     <ng-template #loading>

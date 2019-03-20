@@ -3,7 +3,7 @@ import { AngularFireFunctions } from '@angular/fire/functions';
 import { throwError } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import { PaymentMethod, BillingInfo, FirebaseCloudFunction } from '@types';
+import { PaymentMethod, BillingInfo, FirebaseCloudFunction, DrinkData, StripePaymentData } from '@types';
 import { BarTapApi } from '@api';
 import { StripeInstance } from '@stripe/stripe-instance';
 
@@ -11,13 +11,13 @@ import { StripeInstance } from '@stripe/stripe-instance';
   providedIn: 'root'
 })
 export class StripeService {
-  private chargeFunction: FirebaseCloudFunction;
+  private chargeFunction: FirebaseCloudFunction<StripePaymentData>;
   
   constructor(private api: BarTapApi, fns: AngularFireFunctions) {
     this.chargeFunction = fns.httpsCallable('stripePayment');
   }
 
-  chargeUser(barId: string, price: number, method: PaymentMethod, billing?: BillingInfo, userId?: string) {
+  chargeUser(barId: string, method: PaymentMethod, drinks: DrinkData[], price: number, billing?: BillingInfo, userId?: string) {
     return this.api.getBarApiKey(barId).pipe(
       switchMap(apiKey => {
         if (apiKey) {
@@ -28,7 +28,7 @@ export class StripeService {
         }
       }),
       switchMap(token => {
-        return this.chargeFunction({ barId, token, price, userId });
+        return this.chargeFunction({ barId, token, drinks, price, userId });
       })
     );
   }

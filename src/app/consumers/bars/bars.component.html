@@ -1,4 +1,4 @@
-<ng-container *ngIf="(bars | async); let bars; else: loading">
+<ng-container *ngIf="(bars | async) as bars; else loading">
   <form class="search-form">
     <mat-form-field class="search-form__field">
       <input

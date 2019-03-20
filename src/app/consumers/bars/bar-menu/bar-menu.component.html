@@ -1,4 +1,4 @@
-<ng-container *ngIf="(bar | async); let bar; else: loading">
+<ng-container *ngIf="(bar | async) as bar; else loading">
   <div
     class="bar-header"
     [ngStyle]="{ 'background-image': 'url(/assets/header-image.jpg)' }"
@@ -40,31 +40,31 @@
       <mat-divider></mat-divider>
     </mat-list-item>
   </mat-list>
-  <app-menu-expansion-panel
+  <app-drinks-panel
     [barUid]="bar.uid"
     [type]="'beer'"
     [title]="'Beer'"
-  ></app-menu-expansion-panel>
-  <app-menu-expansion-panel
+  ></app-drinks-panel>
+  <app-drinks-panel
     [barUid]="bar.uid"
     [type]="'shot'"
     [title]="'Shots'"
-  ></app-menu-expansion-panel>
-  <app-menu-expansion-panel
+  ></app-drinks-panel>
+  <app-drinks-panel
     [barUid]="bar.uid"
     [type]="'mixed'"
     [title]="'Mixed Drinks'"
-  ></app-menu-expansion-panel>
-  <app-menu-expansion-panel
+  ></app-drinks-panel>
+  <app-drinks-panel
     [barUid]="bar.uid"
     [type]="'wine'"
     [title]="'Wine'"
-  ></app-menu-expansion-panel>
-  <app-menu-expansion-panel
+  ></app-drinks-panel>
+  <app-drinks-panel
     [barUid]="bar.uid"
     [type]="'other'"
     [title]="'Other'"
-  ></app-menu-expansion-panel>
+  ></app-drinks-panel>
 
   <div style="height: 70px; background-color: rgb(0, 0, 45);"></div>
   <button

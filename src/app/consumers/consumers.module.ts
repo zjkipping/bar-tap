@@ -13,7 +13,7 @@ import { SettingsComponent } from './settings/settings.component';
 import { DialogsModule } from './dialogs/dialogs.module';
 import { BarMenuComponent } from './bars/bar-menu/bar-menu.component';
 import { ShoppingCartComponent } from './bars/shopping-cart/shopping-cart.component';
-import { MenuExpansionPanelComponent } from './bars/bar-menu/menu-expansion-panel/menu-expansion-panel.component';
+import { DrinksPanelComponent } from './bars/bar-menu/drinks-panel/drinks-panel.component';
 import { BarsListComponent } from './bars/bars-list/bars-list.component';
 
 @NgModule({
@@ -26,7 +26,7 @@ import { BarsListComponent } from './bars/bars-list/bars-list.component';
     SettingsComponent,
     BarMenuComponent,
     ShoppingCartComponent,
-    MenuExpansionPanelComponent,
+    DrinksPanelComponent,
     BarsListComponent,
   ],
   imports: [

@@ -41,7 +41,7 @@
       </a>
     </p>
     <p class="side-nav__menu-item">
-      <ng-container *ngIf="(user | async); let user; else: noAuth">
+      <ng-container *ngIf="(user | async) as user; else noAuth">
         <button
           mat-button
           (click)="drawer.toggle(); openLogoutDialog()"

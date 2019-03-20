@@ -5,7 +5,7 @@
     <button color="primary" class="employee-status-action-button" mat-raised-button>Sign In</button>
   </div>
   <div class="employee-list">
-    <ng-container *ngIf="employees; let employees; else loading">
+    <ng-container *ngIf="employees as employees; else loading">
 
     </ng-container>
     <ng-template #loading>

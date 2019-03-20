@@ -1,3 +1,4 @@
+import { Query, CollectionReference } from '@angular/fire/firestore/interfaces';
 import { Observable } from 'rxjs';
 
 export interface RawBar {
@@ -31,7 +32,9 @@ export interface ConsumerUser extends BaseUser {
   favorites: string[];
 }
 
-export interface AdminUser extends BaseUser {}
+export interface AdminUser extends BaseUser {
+  [key: string]: any; // replace this eventually
+}
 
 export interface RawDrink {
   name: string;
@@ -46,6 +49,11 @@ export interface Drink extends RawDrink {
 
 export interface CartItem {
   drink: Drink;
+  quantity: number;
+}
+
+export interface DrinkData {
+  drinkId: string;
   quantity: number;
 }
 
@@ -103,10 +111,10 @@ export interface RouteAuthData {
 }
 
 export type FirebaseQuery = (
-  ref: firebase.firestore.CollectionReference
-) => firebase.firestore.Query;
+  ref: CollectionReference
+) => Query;
 
-export type FirebaseCloudFunction = (data: any) => Observable<any>;
+export type FirebaseCloudFunction<T> = (data: T) => Observable<any>;
 
 export interface RawPaymentMethod {
   cardNumber: string;
@@ -139,4 +147,18 @@ export interface History {
   total: number;
   date: number;
   barName: string;
+}
+
+export interface EmployeeCheckInOutData {
+  barId: string;
+  id: string;
+  pin: string;
+}
+
+export interface StripePaymentData {
+  barId: string;
+  token: string;
+  price: number;
+  drinks: DrinkData[];
+  userId?: string;
 }

@@ -2,7 +2,7 @@
   <h2 class="text-center accent queue-title">Order Queue</h2>
   <button color="primary" class="start-order-button" (click)="startNextDrink()" mat-raised-button>Start Next Order</button>
   <div class="order-list">
-    <ng-container *ngIf="orders; let orders; else loading">
+    <ng-container *ngIf="orders as orders; else loading">
       <app-order-queue-item *ngFor="let order of orders" [order]="order"></app-order-queue-item>
     </ng-container>
     <ng-template #loading>

@@ -1,0 +1,23 @@
+<ng-container *ngIf="(drinks | async) as drinks; else loadingTemplate">
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <h3>{{ title }}</h3> 
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <ng-container>
+      <mat-list class="drink-list">
+        <mat-list-item *ngFor="let drink of drinks" class="drink-list-item">
+          <div class="drink-list__details" (click)="openAddToCartDialog(drink)">
+            <h5>{{ drink.name }}</h5>
+            <h5>{{ drink.price | currency: 'USD':'symbol':'.2-2' }}</h5>
+          </div>
+          <mat-divider></mat-divider>
+        </mat-list-item>
+      </mat-list>
+    </ng-container>
+  </mat-expansion-panel>
+<ng-container>
+<ng-template #loading>
+  Loading...
+</ng-template>

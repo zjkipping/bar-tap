@@ -3,7 +3,7 @@ import * as admin from 'firebase-admin';
 import * as Stripe from 'stripe';
 import * as moment from 'moment';
 
-import { StripePaymentData, EmployeeCheckInOutData } from './types';
+import { StripePaymentData, EmployeeCheckInOutData } from '../../src/app/types';
 
 const NEW_ORDER_TYPE = 'new';
 
