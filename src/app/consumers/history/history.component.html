@@ -9,7 +9,7 @@
       <div class="history-list" *ngFor="let history of (history | async)">
         <div class="history-list-item">
             <h5>{{ history.barName }}</h5>
-            <h5>{{ history.date }}</h5>
+            <h5>{{ history.date | date: 'mediumDate' }}</h5>
             <h5>{{ history.total | currency: 'USD':'symbol':'.2-2' }}</h5>
           </div>
           <mat-divider></mat-divider>

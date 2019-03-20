@@ -63,7 +63,7 @@ export interface Employee extends RawEmployee {
 export interface RawLog {
   orderId: string;
   employeeId: string;
-  timestamp: Date;
+  timestamp: number;
   transitionFrom: string;
   transitionTo: string;
 }
@@ -72,18 +72,21 @@ export interface Log extends RawLog {
   uid: string;
 }
 
+export interface OrderDrink {
+  drinkId: string;
+  quantity: number;
+}
+
 export interface RawOrder {
-  uid: string;
   status: string;
-  created: number | Date;
+  created: number;
+  drinkIds: OrderDrink[];
   employeeId?: string;
-  drinkIds: string[];
-  userId: string;
+  userId?: string;
 }
 
 export interface Order extends RawOrder {
   uid: string;
-  created: Date;
 }
 
 export interface RawFavorite {
@@ -127,13 +130,13 @@ export interface BillingInfo {
 
 export interface RawHistory {
   barId: string;
-  date: string;
+  date: number;
   total: number;
 }
 
 export interface History {
   uid: string;
   total: number;
-  date: string;
+  date: number;
   barName: string;
 }

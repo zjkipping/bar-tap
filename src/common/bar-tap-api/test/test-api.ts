@@ -6,7 +6,7 @@ import { BarTapApi } from '../bar-tap-api';
 
 @Injectable()
 export class TestApi extends BarTapApi {
-  getBar(barID: string): Observable<Bar | undefined> {
+  getBar(barId: string): Observable<Bar | undefined> {
     return throwError('Not Yet Implemented');
   }
 
@@ -15,83 +15,83 @@ export class TestApi extends BarTapApi {
   }
 
   getBarEmployee(
-    barID: string,
-    employeeID: string
+    barId: string,
+    employeeId: string
   ): Observable<Employee | undefined> {
     return throwError('Not Yet Implemented');
   }
 
-  getBarEmployees(barID: string): Observable<Employee[]> {
+  getBarEmployees(barId: string): Observable<Employee[]> {
     return throwError('Not Yet Implemented');
   }
 
-  getBarOrder(barID: string, orderID: string): Observable<Order | undefined> {
+  getBarOrder(barId: string, orderId: string): Observable<Order | undefined> {
     return throwError('Not Yet Implemented');
   }
 
-  getBarOrders(barID: string): Observable<Order[]> {
+  getBarOrders(barId: string): Observable<Order[]> {
     return throwError('Not Yet Implemented');
   }
 
   getBarOrdersByQuery(
-    barID: string,
+    barId: string,
     query: FirebaseQuery
   ): Observable<Order[]> {
     return throwError('Not Yet Implemented');
   }
 
-  getBarOrdersByType(barID: string, type: string): Observable<Order[]> {
+  getBarOrdersByType(barId: string, type: string): Observable<Order[]> {
     return throwError('Not Yet Implemented');
   }
 
-  getBarOrdersByTypes(barID: string, types: string[]): Observable<Order[]> {
+  getBarOrdersByTypes(barId: string, types: string[]): Observable<Order[]> {
     return throwError('Not Yet Implemented');
   }
 
-  getBarDrink(barID: string, drinkID: string): Observable<Drink | undefined> {
+  getBarDrink(barId: string, drinkId: string): Observable<Drink | undefined> {
     return throwError('Not Yet Implemented');
   }
 
-  getBarDrinks(barID: string): Observable<Drink[]> {
+  getBarDrinks(barId: string): Observable<Drink[]> {
     return throwError('Not Yet Implemented');
   }
 
   getBarDrinksByQuery(
-    barID: string,
+    barId: string,
     query: FirebaseQuery
   ): Observable<Drink[]> {
     return throwError('Not Yet Implemented');
   }
 
-  getBarDrinksByType(barID: string, type: string): Observable<Drink[]> {
+  getBarDrinksByType(barId: string, type: string): Observable<Drink[]> {
     return throwError('Not Yet Implemented');
   }
 
-  getBarDrinksByTypes(barID: string, types: string[]): Observable<Drink[]> {
+  getBarDrinksByTypes(barId: string, types: string[]): Observable<Drink[]> {
     return throwError('Not Yet Implemented');
   }
 
-  getBarLog(barID: string, logID: string): Observable<Log | undefined> {
+  getBarLog(barId: string, logId: string): Observable<Log | undefined> {
     return throwError('Not Yet Implemented');
   }
 
-  getBarLogs(barID: string): Observable<Log[]> {
+  getBarLogs(barId: string): Observable<Log[]> {
     return throwError('Not Yet Implemented');
   }
 
-  getConsumersFavoriteBars(userID: string): Observable<Bar[]> {
+  getConsumersFavoriteBars(userId: string): Observable<Bar[]> {
     return throwError('Not Yet Implemented');
   }
 
-  checkIfFavorited(userID: string, barId: string): Observable<boolean> {
+  checkIfFavorited(userId: string, barId: string): Observable<boolean> {
     return throwError('Not Yet Implemented');
   }
 
-  getBarApiKey(barID: string): Observable<string | undefined> {
+  getBarApiKey(barId: string): Observable<string | undefined> {
     return throwError('Not Yet Implemented');
   }
 
-  getConsumersHistory(userID: string): Observable<History[]> {
+  getConsumersHistory(userId: string): Observable<History[]> {
     return throwError('Not Yet Implemented');
   }
 }

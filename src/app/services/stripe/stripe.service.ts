@@ -7,10 +7,6 @@ import { PaymentMethod, BillingInfo, FirebaseCloudFunction } from '@types';
 import { BarTapApi } from '@api';
 import { StripeInstance } from '@stripe/stripe-instance';
 
-// Might convert this to be entirely in the cloud as a trigger to the transitions change of an order?
-// Depends if we can force a charge when they order or if we need to charge them after the drink is picked up/delivered.
-// This is all depends on how age verification will work with our application.
-
 @Injectable({
   providedIn: 'root'
 })
@@ -21,8 +17,8 @@ export class StripeService {
     this.chargeFunction = fns.httpsCallable('stripePayment');
   }
 
-  chargeUser(barID: string, price: number, method: PaymentMethod, billing?: BillingInfo) {
-    return this.api.getBarApiKey(barID).pipe(
+  chargeUser(barId: string, price: number, method: PaymentMethod, billing?: BillingInfo, userId?: string) {
+    return this.api.getBarApiKey(barId).pipe(
       switchMap(apiKey => {
         if (apiKey) {
           const stripe = new StripeInstance(apiKey);
@@ -32,7 +28,7 @@ export class StripeService {
         }
       }),
       switchMap(token => {
-        return this.chargeFunction({ barID, token, price });
+        return this.chargeFunction({ barId, token, price, userId });
       })
     );
   }

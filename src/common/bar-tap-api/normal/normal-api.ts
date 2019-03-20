@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable, combineLatest, of } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { flatten } from 'lodash';
 
 import { BarTapApi } from '../bar-tap-api';
@@ -18,7 +18,6 @@ import {
   Bar,
   RawBar,
   RawFavorite,
-  Favorite,
   History,
   RawHistory
 } from '@types';
@@ -29,9 +28,9 @@ export class NormalApi extends BarTapApi {
     super();
   }
 
-  getBar(barID: string): Observable<Bar | undefined> {
+  getBar(barId: string): Observable<Bar | undefined> {
     return this.db
-      .doc<RawBar>(`bars/${barID}`)
+      .doc<RawBar>(`bars/${barId}`)
       .snapshotChanges()
       .pipe(
         map(result => {
@@ -60,11 +59,11 @@ export class NormalApi extends BarTapApi {
   }
 
   getBarEmployee(
-    barID: string,
-    employeeID: string
+    barId: string,
+    employeeId: string
   ): Observable<Employee | undefined> {
     return this.db
-      .doc<RawEmployee>(`bars/${barID}/employees/${employeeID}`)
+      .doc<RawEmployee>(`bars/${barId}/employees/${employeeId}`)
       .snapshotChanges()
       .pipe(
         map(result => {
@@ -78,9 +77,9 @@ export class NormalApi extends BarTapApi {
       );
   }
 
-  getBarEmployees(barID: string): Observable<Employee[]> {
+  getBarEmployees(barId: string): Observable<Employee[]> {
     return this.db
-      .collection<RawEmployee>(`bars/${barID}/employees`)
+      .collection<RawEmployee>(`bars/${barId}/employees`)
       .snapshotChanges()
       .pipe(
         map(result =>
@@ -92,77 +91,9 @@ export class NormalApi extends BarTapApi {
       );
   }
 
-  getBarOrder(barID: string, orderID: string): Observable<Order | undefined> {
+  getBarOrder(barId: string, orderId: string): Observable<Order | undefined> {
     return this.db
-      .doc<RawOrder>(`bars/${barID}/orders/${orderID}`)
-      .snapshotChanges()
-      .pipe(
-        map(result => {
-          const data = result.payload.data();
-          if (data) {
-            return {
-              ...data,
-              uid: result.payload.id,
-              created: new Date(data.created)
-            };
-          } else {
-            return undefined;
-          }
-        })
-      );
-  }
-
-  getBarOrders(barID: string): Observable<Order[]> {
-    return this.db
-      .collection<RawOrder>(`bars/${barID}/orders`)
-      .snapshotChanges()
-      .pipe(
-        map(result =>
-          result.map(obj => {
-            const uid = obj.payload.doc.id;
-            const data = obj.payload.doc.data();
-            return { ...data, uid, created: new Date(data.created) };
-          })
-        )
-      );
-  }
-
-  getBarOrdersByQuery(
-    barID: string,
-    query: FirebaseQuery
-  ): Observable<Order[]> {
-    return this.db
-      .collection<RawOrder>(`bars/${barID}/orders`, ref => query(ref))
-      .snapshotChanges()
-      .pipe(
-        map(result =>
-          result
-            .map(obj => ({
-              ...obj.payload.doc.data(),
-              uid: obj.payload.doc.id
-            }))
-            .map(
-              order => ({ ...order, created: new Date(order.created) } as Order)
-            )
-        )
-      );
-  }
-
-  getBarOrdersByType(barID: string, type: string): Observable<Order[]> {
-    return this.getBarOrdersByQuery(barID, ref =>
-      ref.where('status', '==', type)
-    );
-  }
-
-  getBarOrdersByTypes(barID: string, types: string[]): Observable<Order[]> {
-    return combineLatest(
-      ...types.map(type => this.getBarOrdersByType(barID, type))
-    ).pipe(map(ordersByType => flatten(ordersByType)));
-  }
-
-  getBarDrink(barID: string, drinkID: string): Observable<Drink | undefined> {
-    return this.db
-      .doc<RawDrink>(`bars/${barID}/drinks/${drinkID}`)
+      .doc<RawOrder>(`bars/${barId}/orders/${orderId}`)
       .snapshotChanges()
       .pipe(
         map(result => {
@@ -176,9 +107,68 @@ export class NormalApi extends BarTapApi {
       );
   }
 
-  getBarDrinks(barID: string): Observable<Drink[]> {
+  getBarOrders(barId: string): Observable<Order[]> {
     return this.db
-      .collection<RawDrink>(`bars/${barID}/drinks`)
+      .collection<RawOrder>(`bars/${barId}/orders`)
+      .snapshotChanges()
+      .pipe(
+        map(result =>
+          result.map(obj => ({
+            ...obj.payload.doc.data(),
+            uid: obj.payload.doc.id
+          }))
+        )
+      );
+  }
+
+  getBarOrdersByQuery(
+    barId: string,
+    query: FirebaseQuery
+  ): Observable<Order[]> {
+    return this.db
+      .collection<RawOrder>(`bars/${barId}/orders`, ref => query(ref))
+      .snapshotChanges()
+      .pipe(
+        map(result =>
+          result.map(obj => ({
+            ...obj.payload.doc.data(),
+            uid: obj.payload.doc.id
+          }))
+        )
+      );
+  }
+
+  getBarOrdersByType(barId: string, type: string): Observable<Order[]> {
+    return this.getBarOrdersByQuery(barId, ref =>
+      ref.where('status', '==', type)
+    );
+  }
+
+  getBarOrdersByTypes(barId: string, types: string[]): Observable<Order[]> {
+    return combineLatest(
+      ...types.map(type => this.getBarOrdersByType(barId, type))
+    ).pipe(map(ordersByType => flatten(ordersByType)));
+  }
+
+  getBarDrink(barId: string, drinkId: string): Observable<Drink | undefined> {
+    return this.db
+      .doc<RawDrink>(`bars/${barId}/drinks/${drinkId}`)
+      .snapshotChanges()
+      .pipe(
+        map(result => {
+          const data = result.payload.data();
+          if (data) {
+            return { ...data, uid: result.payload.id };
+          } else {
+            return undefined;
+          }
+        })
+      );
+  }
+
+  getBarDrinks(barId: string): Observable<Drink[]> {
+    return this.db
+      .collection<RawDrink>(`bars/${barId}/drinks`)
       .snapshotChanges()
       .pipe(
         map(result =>
@@ -191,11 +181,11 @@ export class NormalApi extends BarTapApi {
   }
 
   getBarDrinksByQuery(
-    barID: string,
+    barId: string,
     query: FirebaseQuery
   ): Observable<Drink[]> {
     return this.db
-      .collection<Drink>(`bars/${barID}/drinks`, ref => query(ref))
+      .collection<Drink>(`bars/${barId}/drinks`, ref => query(ref))
       .snapshotChanges()
       .pipe(
         map(result =>
@@ -207,21 +197,21 @@ export class NormalApi extends BarTapApi {
       );
   }
 
-  getBarDrinksByType(barID: string, type: string): Observable<Drink[]> {
-    return this.getBarDrinksByQuery(barID, ref =>
+  getBarDrinksByType(barId: string, type: string): Observable<Drink[]> {
+    return this.getBarDrinksByQuery(barId, ref =>
       ref.where('type', '==', type)
     );
   }
 
-  getBarDrinksByTypes(barID: string, types: string[]): Observable<Drink[]> {
+  getBarDrinksByTypes(barId: string, types: string[]): Observable<Drink[]> {
     return combineLatest(
-      ...types.map(type => this.getBarDrinksByType(barID, type))
+      ...types.map(type => this.getBarDrinksByType(barId, type))
     ).pipe(map(DrinksByType => flatten(DrinksByType)));
   }
 
-  getBarLog(barID: string, logID: string): Observable<Log | undefined> {
+  getBarLog(barId: string, logId: string): Observable<Log | undefined> {
     return this.db
-      .doc<RawLog>(`bars/${barID}/logs/${logID}`)
+      .doc<RawLog>(`bars/${barId}/logs/${logId}`)
       .snapshotChanges()
       .pipe(
         map(result => {
@@ -235,9 +225,9 @@ export class NormalApi extends BarTapApi {
       );
   }
 
-  getBarLogs(barID: string): Observable<Log[]> {
+  getBarLogs(barId: string): Observable<Log[]> {
     return this.db
-      .collection<RawLog>(`bars/${barID}/logs`)
+      .collection<RawLog>(`bars/${barId}/logs`)
       .snapshotChanges()
       .pipe(
         map(result =>
@@ -249,9 +239,9 @@ export class NormalApi extends BarTapApi {
       );
   }
 
-  getConsumersFavoriteBars(userID: string): Observable<Bar[]> {
+  getConsumersFavoriteBars(userId: string): Observable<Bar[]> {
     return this.db
-    .collection<RawFavorite>(`users/${userID}/favorites`)
+    .collection<RawFavorite>(`users/${userId}/favorites`)
       .snapshotChanges()
       .pipe(
         map(result => result.map(obj => obj.payload.doc.data().barId)),
@@ -268,18 +258,18 @@ export class NormalApi extends BarTapApi {
       );
   }
 
-  checkIfFavorited(userID: string, barID: string): Observable<boolean> {
+  checkIfFavorited(userId: string, barId: string): Observable<boolean> {
     return this.db
     .collection<RawFavorite>(
-      `users/${userID}/favorites`,
-      ref => ref.where('barId', '==', barID)
+      `users/${userId}/favorites`,
+      ref => ref.where('barId', '==', barId)
     ).valueChanges().pipe(
       map(favorites => favorites.length > 0)
     );
   }
 
-  getBarApiKey(barID: string): Observable<string | undefined> {
-    return this.db.doc<{ apiKey: string }>(`stripe_api_keys/${barID}`).valueChanges().pipe(
+  getBarApiKey(barId: string): Observable<string | undefined> {
+    return this.db.doc<{ apiKey: string }>(`stripe_api_keys/${barId}`).valueChanges().pipe(
       map((result: { apiKey: string } | undefined) => {
         if (result) {
           return result.apiKey;
@@ -290,9 +280,9 @@ export class NormalApi extends BarTapApi {
     );
   }
 
-  getConsumersHistory(userID: string): Observable<History[]> {
+  getConsumersHistory(userId: string): Observable<History[]> {
     return this.db
-    .collection<RawHistory>(`users/${userID}/history`)
+    .collection<RawHistory>(`users/${userId}/history`)
       .snapshotChanges()
       .pipe(
         map(result =>
