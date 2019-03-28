@@ -1,0 +1,42 @@
+mat-dialog-content {
+  font-family: 'Montserrat', 'Helvetica Neue', sans-serif;
+}
+
+:host {
+    display: flex;
+    flex-direction: column;
+}
+
+input, .mat-form-field {
+    width: 100%;
+    color: white;
+}
+
+.field-clmn {
+  display: flex;
+  flex-direction: column;
+}
+
+h2 {
+  text-align: center;
+}
+  
+:host /deep/ .mat-form-field-label {
+  color: white;
+}
+button {
+  margin: 0 auto;
+}
+
+.rand {
+  border-radius: 50%;
+  background-color: white;
+  float: right;
+  font-size: 8pt;
+  color: black;
+}
+.error {
+  text-align: center;
+  color: red;
+  font-family: 'Helvetica Neue', sans-serif;
+}

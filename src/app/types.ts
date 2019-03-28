@@ -34,7 +34,7 @@ export interface ConsumerUser extends BaseUser {
 }
 
 export interface AdminUser extends BaseUser {
-  [key: string]: any; // replace this eventually
+  barId: string;
 }
 
 export interface RawDrink {

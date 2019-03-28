@@ -1,0 +1,41 @@
+<mat-dialog-content>
+    <form [formGroup]="settingsForm">
+        <h2 mat-dialog-title>Edit Bar</h2>
+        <mat-form-field>
+            <input matInput formControlName="name" placeholder="Bar Name" required />
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput formControlName="description" placeholder="Description" required />
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput formControlName="location" placeholder="Location" required />
+        </mat-form-field>
+
+        <!-- FIX TO MAT SELECT-->
+        <div>
+            <mat-label>Monday: </mat-label>
+            <mat-form-field class="hours-field">
+                <!--
+                    <input matInput formControlName="hours" placeholder="Hours" required />
+                -->
+                <mat-select [formControl]="disableClosed" class="hours-input" requried >
+                    <mat-option value="Closed">Closed</mat-option>
+                    <mat-option *ngFor="let hour of hours" [value]="hour">{{hour}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-label> to </mat-label>
+            <mat-form-field class="hours-field">
+                <mat-select [disabled]="disableClosed.value" class="hours-input">
+                    <mat-option *ngFor="let hour of hours" [value]="hour">{{hour}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <p class="error">{{ errorLabel }}</p>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-raised-button [mat-dialog-close]="settingsForm.value">Save</button>
+</mat-dialog-actions>

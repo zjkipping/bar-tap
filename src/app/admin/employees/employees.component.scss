@@ -1,0 +1,38 @@
+h2 {
+  text-align: center;
+  font-size: 24pt;
+}
+
+.employee-container {
+  height: 400px;
+  overflow: auto;
+} 
+
+table {
+    width: 100%;
+    background-color: #696969;   
+
+    .table-header { 
+      font-family: 'Montserrat', 'Helvetica Neue', sans-serif;
+      text-align: center;
+      font-size: 20pt; 
+      color: white;
+    }
+    .cell-data { 
+      font-family: 'Montserrat', 'Helvetica Neue', sans-serif;
+      text-align: center;
+      font-size: 16pt; 
+      color: white;
+    }
+
+    .table-footer {
+      align-items: center;
+    }
+}
+.create-employee {
+  margin: 20px 25%;
+  background-color: green;
+  padding: 10px;
+  width: 50%;
+  
+}

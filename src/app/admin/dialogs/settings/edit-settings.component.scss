@@ -1,0 +1,38 @@
+:host {
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+input, .mat-form-field {
+    width: 100%;
+    color: white;
+    .hours-input {
+      background-color: orange;
+      width: 100%;
+      color: white;
+    }
+}
+
+.hours-field {
+  width: 15%;
+}
+
+h2 {
+  text-align: center;
+}
+  
+:host /deep/ .mat-form-field-label {
+  color: white;
+}
+button {
+  margin: 0 auto;
+}
+
+
+.error {
+  text-align: center;
+  color: red;
+  font-family: 'Helvetica Neue', sans-serif;
+}

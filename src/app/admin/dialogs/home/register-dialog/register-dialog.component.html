@@ -1,0 +1,44 @@
+<h2 mat-dialog-title>Register</h2>
+<mat-dialog-content>
+  <mat-form-field>
+    <input
+      matInput
+      [formControl]="firstName"
+      placeholder="First name"
+      required
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [formControl]="lastName" placeholder="Last name" required />
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [formControl]="email" placeholder="Email" required />
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [formControl]="barName" placeholder="Enter Bar Name" required />
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      matInput
+      type="password"
+      [formControl]="password"
+      placeholder="Password"
+      required
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      matInput
+      type="password"
+      [formControl]="password2"
+      placeholder="Confirm Password"
+      required
+    />
+  </mat-form-field>
+  <p class="error">{{ errorMessage }}</p>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="register()">
+    Register
+  </button>
+</mat-dialog-actions>

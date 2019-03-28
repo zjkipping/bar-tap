@@ -1,11 +1,33 @@
-.nav-title {
-  margin-right: 20px;
-}
+body {
+  background-color: #2f4353;
 
-.mat-button {
-  font-size: 18px;
-}
+  .toolbar {
+    font-family: "Helvetica Neue, sans-serif";
+    background-color: rgb(0, 0, 45);
+    color: white;
+    .mat-button {
+      font-size: 18px;
+      margin: auto 20px;
+    }
+  }
+  .nav-title {
+    margin-right: 125px;
+    font-family: 'Helvetica Neue', sans-serif;
+  }
 
-.active-route {
-  background-color: teal;
+  .mat-button:hover {
+    opacity: 0.7;
+    background-image: linear-gradient(to bottom right, #2f4353, #8A919E);
+    color: white;
+  }
+
+  .active-route {
+    background-image: linear-gradient(to bottom right, #2f4353, #8A919E);
+    color: white;
+  }
+
+  a {
+    color: white;
+    text-decoration: none;
+  }
 }

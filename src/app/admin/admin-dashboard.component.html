@@ -1,9 +1,31 @@
-<mat-toolbar color="primary">
-  <mat-toolbar-row>
-    <span class="nav-title">Admin Dashboard</span>
-    <button mat-button routerLinkActive="active-route" routerLink="drinks">Drinks</button>
-    <button mat-button routerLinkActive="active-route" routerLink="analytics">Analytics</button>
-  </mat-toolbar-row>
-</mat-toolbar>
-
-<router-outlet></router-outlet>
+<body>
+  <mat-toolbar class="toolbar">
+    <mat-toolbar-row class="toolbar-row">
+      <span class="nav-title">Admin Dashboard</span>
+      <p>
+        <a routerLink='/admin'>
+          <button mat-button routerLinkActive="active-route">Home</button>
+        </a>
+        <a routerLink="analytics">
+          <button mat-button routerLinkActive="active-route">Analytics</button>
+        </a>
+        <a routerLink="drinks">
+          <button mat-button routerLinkActive="active-route">Drinks</button>
+        </a>
+        <a routerLink="employees">
+          <button mat-button routerLinkActive="active-route">Employees</button>
+        </a>
+        <a routerLink="settings">
+          <button mat-button routerLinkActive="active-route">Settings</button>
+        </a>
+        <ng-container *ngIf="(user | async) as user; else noAuth">
+          <button mat-button (click)="openLogoutDialog()">
+            <mat-icon>account_circle</mat-icon>
+            <span> Hi, {{ user.firstName }}</span>
+          </button>
+        </ng-container>
+      </p>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <router-outlet></router-outlet>
+</body>

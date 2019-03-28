@@ -2,17 +2,12 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { from, Observable, of, combineLatest, throwError } from 'rxjs';
-import { shareReplay, switchMap, pairwise, map, first } from 'rxjs/operators';
+import { shareReplay, switchMap, pairwise, map, first, tap, filter } from 'rxjs/operators';
 import * as moment from 'moment';
 
-import { BaseUser, EmployeesUser, ConsumerUser, RawUser } from '@types';
-import { isEmployeesUser, isConsumerUser } from '@type-guards';
-import {
-  NO_AUTH_ERROR,
-  WRONG_USER_TYPE_ERROR,
-  EMPLOYEES_USER_TYPE,
-  CONSUMER_USER_TYPE
-} from '@constants';
+import { BaseUser, EmployeesUser, ConsumerUser, RawUser, AdminUser } from '@types';
+import { isEmployeesUser, isConsumerUser, isAdminUser } from '@type-guards';
+import { NO_AUTH_ERROR, WRONG_USER_TYPE_ERROR, EMPLOYEES_USER_TYPE, CONSUMER_USER_TYPE, OWNER_USER_TYPE } from '@constants';
 
 @Injectable({
   providedIn: 'root'
@@ -94,6 +89,20 @@ export class AuthService {
     );
   }
 
+   getUserAsAdminAuth(): Observable<AdminUser> {
+    return this.user.pipe(
+      switchMap(user => {
+        if (isAdminUser(user)) {
+          return of(user);
+        } else if (!user) {
+          return throwError({type: NO_AUTH_ERROR, message: 'User is not authenticated'});
+        } else {
+          return throwError({type: WRONG_USER_TYPE_ERROR, message: 'User is not of type: ' + OWNER_USER_TYPE});
+        }
+      })
+    );
+   }
+
   loginWithEmail(email: string, password: string) {
     return combineLatest(
       from(this.afAuth.auth.signInWithEmailAndPassword(email, password)),
@@ -105,8 +114,14 @@ export class AuthService {
   }
 
   registerWithEmail(email: string, password: string) {
-    return from(
-      this.afAuth.auth.createUserWithEmailAndPassword(email, password)
+    return combineLatest(
+      from(this.afAuth.auth.createUserWithEmailAndPassword(email, password)),
+      this.currentAuth.pipe(
+        pairwise(),
+        first()
+      )
+    ).pipe(
+      map(([res, _auth]) => res)
     );
   }
 
@@ -126,6 +141,21 @@ export class AuthService {
       email,
       type
     });
+  }
+
+  createAdminUserEntry(
+    uid: string,
+    email: string,
+    firstName: string,
+    lastName: string,
+    type: string
+  ) {
+    return from(this.database.doc('users/' + uid).set({
+      firstName,
+      lastName,
+      email,
+      type
+    }));
   }
 
   logout() {
