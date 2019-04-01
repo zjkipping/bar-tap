@@ -5,6 +5,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireFunctionsModule } from '@angular/fire/functions';
+import { TimeagoModule } from 'ngx-timeago';
 
 import { environment, BarTapApiModule } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
@@ -24,7 +25,8 @@ import { DialogsModule } from './employees/dialogs/dialogs.module';
     AngularFireFunctionsModule,
     MaterialModule,
     DialogsModule,
-    BarTapApiModule
+    BarTapApiModule,
+    TimeagoModule.forRoot()
   ],
   bootstrap: [AppComponent]
 })

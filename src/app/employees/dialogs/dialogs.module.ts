@@ -3,19 +3,27 @@ import { CommonModule } from '@angular/common';
 
 import { MaterialModule } from 'src/app/material.module';
 import { OrderInfoDialogComponent } from './order-info/order-info-dialog.component';
-import { DrinkInfoComponent } from './order-info/drink-info/drink-info.component';
+import { DrinkInfoComponent } from './drink-info/drink-info.component';
+import { EmployeClockerDialogComponent } from './employee-clocker/employee-clocker-dialog.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { StartOrderDialogComponent } from './start-order/start-order-dialog.component';
 
 @NgModule({
   declarations: [
     OrderInfoDialogComponent,
-    DrinkInfoComponent
+    DrinkInfoComponent,
+    EmployeClockerDialogComponent,
+    StartOrderDialogComponent
   ],
   imports: [
     CommonModule,
-    MaterialModule
+    MaterialModule,
+    ReactiveFormsModule
   ],
   entryComponents: [
-    OrderInfoDialogComponent
+    OrderInfoDialogComponent,
+    EmployeClockerDialogComponent,
+    StartOrderDialogComponent
   ]
 })
 export class DialogsModule { }

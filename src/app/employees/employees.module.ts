@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import { TimeAgoPipe } from 'time-ago-pipe';
+import { TimeagoModule } from 'ngx-timeago';
 
 import { MaterialModule } from '../material.module';
 import { EmployeesRoutingModule } from './employees-routing.module';
@@ -10,7 +10,7 @@ import { OrderQueueComponent } from './order-queue/order-queue.component';
 import { OrderQueueItemComponent } from './order-queue/order-queue-item/order-queue-item.component';
 import { OrderStatusListComponent } from './order-status-list/order-status-list.component';
 import { EmployeeLoginComponent } from './login/employee-login.component';
-import { EmployeeStatusListComponent } from './employee-status-list/employe-status-list.component';
+import { EmployeeStatusListComponent } from './employee-status-list/employee-status-list.component';
 import { OrderStatusComponent } from './order-status-list/order-status/order-status.component';
 
 @NgModule({
@@ -21,14 +21,14 @@ import { OrderStatusComponent } from './order-status-list/order-status/order-sta
     OrderStatusListComponent,
     OrderStatusComponent,
     EmployeeLoginComponent,
-    EmployeeStatusListComponent,
-    TimeAgoPipe
+    EmployeeStatusListComponent
   ],
   imports: [
     CommonModule,
     EmployeesRoutingModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TimeagoModule.forChild()
   ],
 })
 export class EmployeesModule {}

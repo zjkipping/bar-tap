@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+
+import { Drink } from '@types';
 
 @Component({
   selector: 'app-drink-info',
@@ -6,5 +8,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./drink-info.component.scss']
 })
 export class DrinkInfoComponent {
-  constructor() { }
+  @Input() drink?: Drink;
 }

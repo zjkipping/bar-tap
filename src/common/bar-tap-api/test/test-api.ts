@@ -94,4 +94,8 @@ export class TestApi extends BarTapApi {
   getConsumersHistory(userId: string): Observable<History[]> {
     return throwError('Not Yet Implemented');
   }
+
+  getCheckedInEmployees(userID: string, barID: string): Observable<Employee[]> {
+    return throwError('Not Yet Implemented');
+  }
 }

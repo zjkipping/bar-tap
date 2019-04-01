@@ -35,12 +35,16 @@ export abstract class BarTapApi {
 
   abstract getBarLogs(barId: string): Observable<Log[]>;
 
-  abstract getBarApiKey(barId: string): Observable<string | undefined>;
+  abstract getBarApiKey(barID: string): Observable<string | undefined>;
+  
+  abstract getConsumersFavoriteBars(userID: string): Observable<Bar[]>;
 
   abstract getConsumersFavoriteBars(userId: string): Observable<Bar[]>;
 
+  abstract getCheckedInEmployees(userID: string, barID: string): Observable<Employee[]>;
+  
   abstract checkIfFavorited(userId: string, barId: string): Observable<boolean>;
-
+  
   abstract getConsumersHistory(userId: string): Observable<History[]>;
 
 }

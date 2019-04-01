@@ -31,8 +31,25 @@ mat-bottom-sheet-container {
 :host /deep/ .mat-divider {
   background-color: rgba(0, 0, 0, 0.4) !important;
 }
+.mat-form-field-label {
+  color: white !important;
+}
 .text-center {
   text-align: center;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.half-width {
+  width: 50%;
+}
+
+.center-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .accent {

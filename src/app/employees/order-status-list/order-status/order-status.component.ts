@@ -1,5 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Order } from '@types';
+import { MatDialog } from '@angular/material';
+import { OuterSubscriber } from 'rxjs/internal/OuterSubscriber';
 
 @Component({
   selector: 'app-order-status',
@@ -8,10 +10,5 @@ import { Order } from '@types';
 })
 export class OrderStatusComponent {
   @Input() order?: Order;
-
-  constructor() { }
-
-  openOrderInfo() {
-    
-  }
+  @Output() openOrderInfo = new EventEmitter();
 }

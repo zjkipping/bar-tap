@@ -12,7 +12,7 @@ import { StripeInstance } from '@stripe/stripe-instance';
 })
 export class StripeService {
   private chargeFunction: FirebaseCloudFunction<StripePaymentData>;
-  
+
   constructor(private api: BarTapApi, fns: AngularFireFunctions) {
     this.chargeFunction = fns.httpsCallable('stripePayment');
   }

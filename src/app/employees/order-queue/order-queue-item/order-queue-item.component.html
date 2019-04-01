@@ -1,2 +1,4 @@
-<span class="drink-count">{{order?.drinkIds?.length || 0}} drinks</span>
-<span class="time-ago">{{order?.created | timeAgo}}</span>
+<ng-container *ngIf="order as order">  
+  <span class="drink-count">{{drinkCount}} drinks</span>
+  <span class="time-ago">{{order.created * 1000 | timeago:true}}</span>
+</ng-container>

@@ -1,0 +1,36 @@
+:host {
+  display:flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+mat-dialog-content {
+  flex-grow: 1;
+}
+
+.columns {
+  display: flex;
+}
+
+.drinks-list {
+  width: 50%;
+  display: block;
+  border-right: solid 2px white;
+}
+
+.employees-list {
+  width: 50%;
+  display: block;
+}
+
+.employee {
+  font-size: 20px;
+  border-top: 2px solid white;
+  border-bottom: 2px solid white;
+  padding: 10px;
+  margin: 0px;
+}
+
+.selected-employee {
+  background-color: teal;
+}

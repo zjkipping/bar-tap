@@ -6,8 +6,8 @@
     <button color="warn" mat-raised-button (click)="logout()">Log Out</button>
   </div>
 </mat-toolbar>
-<div class="dashboard-container">  
-  <app-order-status-list class="dashboard-column" [orders]="ordersInProgress | async"></app-order-status-list>
-  <app-order-queue class="dashboard-column" [orders]="newOrders | async"></app-order-queue>
-  <app-employee-status-list class="dashboard-column" [employees]="employees | async"></app-employee-status-list>
+<div class="dashboard-container">
+  <app-order-status-list class="dashboard-column" [barId]="barId | async" [orders]="ordersInProgress | async"></app-order-status-list>
+  <app-order-queue class="dashboard-column" [barId]="barId | async" [orders]="newOrders | async"></app-order-queue>
+  <app-employee-status-list class="dashboard-column" [barId]="barId | async" [employees]="employees | async"></app-employee-status-list>
 </div>

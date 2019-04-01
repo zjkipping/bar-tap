@@ -1,0 +1,23 @@
+<h2 mat-dialog-title class="text-center">Start Next Order</h2>
+<mat-dialog-content>
+  <div class="columns">
+    <div class="drinks-list">
+      <app-drink-info *ngFor="let drink of drinks | async" [drink]="drink"></app-drink-info>
+    </div>
+    <div class="employees-list">
+      <p
+        class="employee text-center"
+        *ngFor="let employee of employees | async"
+        (click)="selectEmployee(employee)"
+        [class.selected-employee]="selectedEmployee === employee"
+      >
+        {{employee.id}}
+      </p>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-raised-button mat-dialog-close color="warn">Cancel</button>
+  <span class="spacer"></span>
+  <button mat-raised-button [disabled]="!selectedEmployee" [mat-dialog-close]="selectedEmployee" color="primary">Start</button>
+</mat-dialog-actions>

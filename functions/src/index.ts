@@ -3,7 +3,7 @@ import * as admin from 'firebase-admin';
 import * as Stripe from 'stripe';
 import * as moment from 'moment';
 
-import { StripePaymentData, EmployeeCheckInOutData } from '../../src/app/types';
+import { StripePaymentData, EmployeeCheckInOutData, RawOrder } from '../../src/app/types';
 
 const NEW_ORDER_TYPE = 'new';
 
@@ -142,3 +142,18 @@ export const employeeCheckOut = functions.https.onCall(async (data: EmployeeChec
       'The function must be called with 2 arguments: barID, id, and pin');
   }
 });
+
+export const logOrderUpdate = functions.firestore
+  .document('bars/{barId}/orders/{orderId}')
+  .onWrite(async (change, context) => {
+    const data = change.after.data() as RawOrder;
+    const previousData = change.before.data() as RawOrder;
+
+    return firestore.collection(`bars/${context.params.barId}/logs`).add({
+      orderId: context.params.orderId,
+      employeeId: data.employeeId ? data.employeeId : '',
+      timestamp: moment().unix(),
+      transitionFrom: (previousData && previousData.status) ? previousData.status : '',
+      transitionTo: data.status
+    })
+  });

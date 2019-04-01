@@ -5,6 +5,7 @@ import { map, tap } from 'rxjs/operators';
 
 import { AuthService } from './auth.service';
 import { RouteAuthData } from '@types';
+import { EMPLOYEES_USER_TYPE, OWNER_USER_TYPE } from '@constants';
 
 @Injectable({
   providedIn: 'root'
@@ -18,10 +19,25 @@ export class AuthGuardService implements CanActivate {
   ): Observable<boolean> {
     const data = next.data as RouteAuthData;
     return this.auth.user.pipe(
-      map(user => !!user === data.requiredAuthState),
-      tap(shouldActivate => {
-        if (!shouldActivate) {
+      map(user => {
+        if (!!user !== data.requiredAuthState) {
           this.router.navigate(data.redirect);
+          return false;
+        } else if (!!user) {
+          if (!data.userType || (data.userType && user.type === data.userType)) {
+            return true;
+          } else {
+            if (user.type === EMPLOYEES_USER_TYPE) {
+              this.router.navigate(['employees']);
+            } else if (user.type === OWNER_USER_TYPE) {
+              this.router.navigate(['admin']);
+            } else {
+              this.router.navigate(['']);
+            }
+            return false;
+          }
+        } else {
+          return true;
         }
       })
     );

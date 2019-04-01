@@ -134,7 +134,8 @@ export class NormalApi extends BarTapApi {
             ...obj.payload.doc.data(),
             uid: obj.payload.doc.id
           }))
-        )
+        ),
+        map(orders => orders.sort((o1, o2) => o1.created - o2.created))
       );
   }
 
@@ -304,5 +305,19 @@ export class NormalApi extends BarTapApi {
           }));
         })
       );
+  }
+
+  getCheckedInEmployees(userID: string, barID: string): Observable<Employee[]> {
+    return this.db.collection<{ employeeUID: string }>(`users/${userID}/clockedIn`).valueChanges().pipe(
+      switchMap(employeesUIDs => {
+        if (employeesUIDs.length > 0) {
+          return combineLatest(...employeesUIDs.map(employee => this.getBarEmployee(barID, employee.employeeUID))).pipe(
+            map(employees => employees.filter(employee => !!employee) as Employee[])
+          );
+        } else {
+          return of([]);
+        }
+      })
+    )
   }
 }

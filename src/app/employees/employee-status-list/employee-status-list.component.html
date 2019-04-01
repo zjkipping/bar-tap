@@ -1,12 +1,12 @@
 <div class="employee-status-list">
   <h2 class="text-center accent employee-status-title">Employee Statuses</h2>
   <div class="employee-status-actions">
-    <button color="warn" class="employee-status-action-button" mat-raised-button>Sign Out</button>
-    <button color="primary" class="employee-status-action-button" mat-raised-button>Sign In</button>
+    <button color="warn" class="employee-status-action-button" mat-raised-button (click)="signOut()">Sign Out</button>
+    <button color="primary" class="employee-status-action-button" mat-raised-button (click)="signIn()">Sign In</button>
   </div>
   <div class="employee-list">
-    <ng-container *ngIf="employees as employees; else loading">
-
+    <ng-container *ngIf="employees !== undefined; else loading">
+      <p class="text-center employee" *ngFor="let employee of employees">{{employee.firstName}} {{employee.lastName}}</p>
     </ng-container>
     <ng-template #loading>
       <div class="spinner-spacing">

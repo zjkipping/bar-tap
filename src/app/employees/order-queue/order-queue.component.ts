@@ -1,8 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material';
+import { filter, switchMap } from 'rxjs/operators';
 
-import { Order } from '@types';
-import { OrderInfoDialogComponent } from '../dialogs/order-info/order-info-dialog.component';
+import { Order, Employee } from '@types';
+import { StartOrderDialogComponent } from '../dialogs/start-order/start-order-dialog.component';
+import { OrderStatusService } from '@services/order-status/order-status.service';
+import { SnackBarService } from '@services/snackbar/snackbar.service';
 
 @Component({
   selector: 'app-order-queue',
@@ -11,18 +14,24 @@ import { OrderInfoDialogComponent } from '../dialogs/order-info/order-info-dialo
 })
 export class OrderQueueComponent {
   @Input() orders?: Order[];
+  @Input() barId?: string;
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog, private orderStatusService: OrderStatusService, private sbs: SnackBarService) { }
 
   startNextDrink() {
-    if (this.orders && this.orders.length > 0) {
-      this.dialog.open(OrderInfoDialogComponent, {
-        data: this.orders[0],
+    if (this.orders && this.orders.length > 0 && this.barId) {
+      const order = this.orders[0];
+      this.dialog.open(StartOrderDialogComponent, {
+        data: { order, barID: this.barId },
         width: '600px',
         height: '500px'
-      }).afterClosed().subscribe(choice => {
-        console.log(choice);
-      });
+      }).afterClosed().pipe(
+        filter(employee => !!employee),
+        switchMap(employee => this.orderStatusService.transitionOrderToInProgress(this.barId as string, order.uid, employee.id))
+      ).subscribe(
+        () => this.sbs.openSuccess('Order started successfully', 3000),
+        error => this.sbs.openError(error.message, 3000)
+      );
     }
   }
 }

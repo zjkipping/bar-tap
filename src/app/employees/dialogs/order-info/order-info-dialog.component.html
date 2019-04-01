@@ -1,9 +1,20 @@
-<h2 mat-dialog-title class="text-center">Start Next Order</h2>
+<h2 mat-dialog-title class="text-center">Order Information</h2>
 <mat-dialog-content>
-  <app-drink-info *ngFor="let drinkId of order.drinkIds"></app-drink-info>
+  <div class="drink-list">
+    <app-drink-info *ngFor="let drink of drinks | async" [drink]="drink"></app-drink-info>
+  </div>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-raised-button mat-dialog-close color="warn">Cancel</button>
-  <span class="spacer"></span>
-  <button mat-raised-button [mat-dialog-close]="true" color="primary">Start</button>
+  <ng-container *ngIf="status === 'in_progress'; else toFinish">
+    <button mat-raised-button mat-dialog-close color="warn">Cancel</button>
+    <span class="spacer"></span>
+    <button mat-raised-button [mat-dialog-close]="'pickup'" color="primary">Pickup</button>
+    <span class="spacer"></span>
+    <button mat-raised-button [mat-dialog-close]="'delivery'" color="primary">Deliver</button>
+  </ng-container>
+  <ng-template #toFinish>
+    <button mat-raised-button mat-dialog-close color="warn">Cancel</button>
+    <span class="spacer"></span>
+    <button mat-raised-button [mat-dialog-close]="'finished'" color="primary">Complete Order</button>
+  </ng-template>
 </mat-dialog-actions>

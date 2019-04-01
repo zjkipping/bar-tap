@@ -61,7 +61,7 @@ export interface RawEmployee {
   firstName: string;
   lastName: string;
   id: string;
-  pin: number;
+  pin: string;
 }
 
 export interface Employee extends RawEmployee {
@@ -81,14 +81,14 @@ export interface Log extends RawLog {
 }
 
 export interface OrderDrink {
-  drinkId: string;
+  id: string;
   quantity: number;
 }
 
 export interface RawOrder {
   status: string;
   created: number;
-  drinkIds: OrderDrink[];
+  drinks: OrderDrink[];
   employeeId?: string;
   userId?: string;
 }
@@ -108,6 +108,7 @@ export interface Favorite extends RawFavorite {
 export interface RouteAuthData {
   redirect: string[];
   requiredAuthState: boolean;
+  userType?: string;
 }
 
 export type FirebaseQuery = (
@@ -138,15 +139,20 @@ export interface BillingInfo {
 
 export interface RawHistory {
   barId: string;
-  date: number;
+  date: string;
   total: number;
 }
 
 export interface History {
   uid: string;
   total: number;
-  date: number;
+  date: string;
   barName: string;
+}
+
+export interface EmployeeLogin {
+  id: string;
+  pin: string;
 }
 
 export interface EmployeeCheckInOutData {

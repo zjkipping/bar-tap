@@ -27,11 +27,11 @@ export class ConsumersService {
     ).subscribe(
       () => this.sbs.openSuccess(
         'Bar successfully added to favorites',
-        2000
+        3000
       ), // success
       error => this.sbs.openError(
         error.message,
-        2000
+        3000
       ) // error
     );
   }
@@ -55,11 +55,11 @@ export class ConsumersService {
     ).subscribe(
       () => this.sbs.openSuccess(
         'Bar successfully removed from favorites',
-        2000
+        3000
       ), // success
       error => this.sbs.openError(
         error.message,
-        2000
+        3000
       ) // error
     );
   }

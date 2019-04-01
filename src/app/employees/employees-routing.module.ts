@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { EmployeesDashboardComponent } from './employees-dashboard.component';
 import { EmployeeLoginComponent } from './login/employee-login.component';
 import { AuthGuardService } from '@services/auth/auth-guard.service';
+import { EMPLOYEES_USER_TYPE } from '@constants';
 
 const routes: Routes = [
   {
@@ -21,8 +22,9 @@ const routes: Routes = [
     component: EmployeesDashboardComponent,
     data: {
       redirect: ['employees', 'login'],
-      requiredAuthState: true
-    },  
+      requiredAuthState: true,
+      userType: EMPLOYEES_USER_TYPE
+    },
     canActivate: [AuthGuardService]
   },
   {
