@@ -4,6 +4,7 @@ import * as Stripe from 'stripe';
 import * as moment from 'moment';
 
 import { StripePaymentData, EmployeeCheckInOutData, RawOrder } from '../../src/app/types';
+import { FINISHED_ORDER_STATUS } from '../../src/app/constants';
 
 const NEW_ORDER_TYPE = 'new';
 
@@ -18,9 +19,9 @@ export const stripePayment = functions.https.onCall(async (data: StripePaymentDa
       if (doc) {
         const stripe = new Stripe(doc.secret);
         try {
-          const charge = await stripe.charges.create({ amount: data.price * 100, currency: 'usd', source: data.token },
+          await stripe.charges.create({ amount: data.price * 100, currency: 'usd', source: data.token },
             { idempotency_key: firestore.collection('_').doc().id });
-          const now = moment().unix;
+          const now = moment().unix();
           if (data.userId) {
             await firestore.collection(`users/${data.userId}/history`).add({
               barId: data.barId,
@@ -28,14 +29,19 @@ export const stripePayment = functions.https.onCall(async (data: StripePaymentDa
               total: data.price
             });
           }
-          await firestore.collection(`bars/${data.barId}/orders`).add({
+          const obj: any = {
             status: NEW_ORDER_TYPE,
             created: now,
             drinks: data.drinks,
-            userId: data.userId ? data.userId : undefined,
-            employeeId: undefined
-          });
-          return charge;
+          }
+          if (data.userId) {
+            obj.userId = data.userId;
+          }
+          const order = await firestore.collection(`bars/${data.barId}/orders`).add(obj);
+          return {
+            barId: data.barId,
+            orderId: order.id
+          };
         } catch (error) {
           throw new functions.https.HttpsError('unknown', error.message, error);
         }
@@ -156,4 +162,30 @@ export const logOrderUpdate = functions.firestore
       transitionFrom: (previousData && previousData.status) ? previousData.status : '',
       transitionTo: data.status
     })
+  });
+
+export const orderTrackingUpdate = functions.firestore
+  .document('bars/{barId}/orders/{orderId}')
+  .onWrite(async (change, context) => {
+    const data = change.after.data() as RawOrder;
+    const previousData = change.before.data() as RawOrder;
+
+    if (!previousData && data.userId) {
+      return firestore.collection(`users/${data.userId}/tracking`).add({
+        barId: context.params.barId,
+        orderId: context.params.orderId
+      });
+    } else if (data.status === FINISHED_ORDER_STATUS && data.userId) {
+      const result = await firestore.collection(`users/${data.userId}/tracking`)
+        .where('orderId', '==', context.params.orderId)
+        .where('barId', '==', context.params.barId)
+        .limit(1)
+        .get();
+
+        if (result.size > 0) {
+          const doc = result.docs[0];
+          return firestore.doc(`users/${data.userId}/tracking/${doc.id}`).delete();
+        }
+    }
+    return;
   });
