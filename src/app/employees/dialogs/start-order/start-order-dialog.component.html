@@ -2,17 +2,20 @@
 <mat-dialog-content>
   <div class="columns">
     <div class="drinks-list">
-      <app-drink-info *ngFor="let drink of drinks | async" [drink]="drink"></app-drink-info>
+      <mat-accordion>
+        <app-drink-info *ngFor="let drinkData of drinks | async" [drink]="drinkData"></app-drink-info>
+      </mat-accordion>
     </div>
     <div class="employees-list">
-      <p
-        class="employee text-center"
-        *ngFor="let employee of employees | async"
-        (click)="selectEmployee(employee)"
-        [class.selected-employee]="selectedEmployee === employee"
-      >
-        {{employee.id}}
-      </p>
+      <div class="employee-container" *ngFor="let employee of employees | async">
+        <div
+          (click)="selectEmployee(employee)"
+          [class.selected-employee]="selectedEmployee === employee"
+          class="text-center employee accent"
+        >
+          {{employee.id}}
+        </div>
+      </div>
     </div>
   </div>
 </mat-dialog-content>

@@ -1,0 +1,28 @@
+.login-container {
+  width: 100%;
+  max-width: 720px;
+  background-color: #5a5a5a;
+  padding: 25px;
+  border-radius: 5px;
+
+  -webkit-box-shadow: 0px 0px 10px 0px #031926;
+  -moz-box-shadow: 0px 0px 10px 0px #031926;
+  box-shadow: 0px 0px 10px 0px #031926;
+}
+
+.title-hr {
+  margin-bottom: 25px;
+}
+
+.login-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.error {
+  height: 20px;
+}
+
+.background-color {
+  background-color: #222222;
+}

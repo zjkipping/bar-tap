@@ -1,6 +1,4 @@
 .start-order-button {
-  width: 100%;
-  height: 64px;
   font-size: 20px;
 }
 
@@ -16,7 +14,11 @@
   min-height: 0;
 }
 
-.queue-title {
+.queue-title, .start-order-button {
   margin: 0;
   padding: 20px 0px;
+}
+
+.order-spacing {
+  margin: 10px 0px;
 }

@@ -60,8 +60,21 @@ mat-divider {
 .text-center {
   text-align: center;
 }
+
+.text-right {
+  text-align: right;
+}
+
+.text-left {
+  text-align: left;
+}
+
 .full-width {
   width: 100%;
+}
+
+.full-height {
+  height: 100%;
 }
 
 .half-width {
@@ -74,6 +87,10 @@ mat-divider {
   align-items: center;
 }
 
+.primary {
+  background-color: #3f51b5;
+}
+
 .accent {
   background-color: teal;
 }
@@ -81,12 +98,27 @@ mat-divider {
 .spacer {
   flex: 1;
 }
+
+.clickable {
+  cursor: pointer;
+}
+
+.warn {
+  background-color: #f44336;
+  color: white;
+}
+
+.success {
+  background-color: #28a745;
+  color: white;
+}
+
 .mat-focused .placeholder {
   color: transparent;
 }
+
 .success-snackbar {
-  // background-color: #007c34;
-  background-color: #01bd01;
+  background-color: #28a745;
 }
 
 .success-snackbar .mat-simple-snackbar {
@@ -104,6 +136,27 @@ mat-divider {
 
 .error-snackbar .mat-simple-snackbar {
   justify-content: center;
+}
+
+.error {
+  color: #ff5252;
+}
+
+.mat-expansion-panel {
+  background-color: rgba(128, 128, 128, 0.5) !important;
+  color: white !important;
+}
+
+.mat-expansion-panel-header-description, .mat-expansion-panel-header-title {
+  color: white !important;
+}
+
+.mat-expansion-panel-body {
+  padding: 24px 16px !important;
+}
+
+.mat-expansion-indicator::after {
+  border-color: white !important;
 }
 
 @-webkit-keyframes rotate {

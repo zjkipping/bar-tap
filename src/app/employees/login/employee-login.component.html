@@ -1,11 +1,19 @@
-<mat-form-field>
-  <input matInput [formControl]="email" required>
-</mat-form-field>
-
-<mat-form-field>
-  <input matInput type="password" [formControl]="password" required>
-</mat-form-field>
-
-<p class="error">{{errorMessage}}</p>
-
-<button mat-raised-button color="primary" (click)="login()">Login!</button>
+<div class="center-container full-height background-color">
+  <div class="login-container">
+    <h2 class="text-center">Employees Dashboard Login</h2>
+    <hr class="title-hr">
+    <form [formGroup]="loginForm" (keyup.enter)="login()">
+      <mat-form-field class="full-width">
+        <input matInput formControlName="email" required placeholder="Email" matTooltip="Email is created in your administration dashboard" matTooltipPosition="left">
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <input matInput type="password" formControlName="password" required placeholder="Password">
+      </mat-form-field>
+    </form>
+    <p class="error">{{errorMessage}}</p>
+    <div class="login-actions">
+      <div class="spacer"></div>
+      <button mat-raised-button color="primary" [disabled]="loginForm.invalid" (click)="login()">Login</button>
+    </div>
+  </div>
+</div>

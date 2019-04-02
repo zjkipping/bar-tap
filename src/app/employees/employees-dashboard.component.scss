@@ -1,14 +1,25 @@
 .dashboard-container {
   display: flex;
-  height: calc(100% - 64px);
+  height: calc(100% - 66px);
+  background-color: #222222;
 }
 
 .dashboard-column {
-  flex: 1 1 0;
   display: flex;
   justify-content: center;
-  height: calc(100% - 4px);
-  border: 2px solid white;
+  height: calc(100% - 2px);
+}
+
+.large-column {
+  width: 40%;
+}
+
+.small-column {
+  width: 20%;
+}
+
+.dashboard-container, .dashboard-column {
+  border: 1px solid white;
 }
 
 .logout-button {
@@ -18,4 +29,8 @@
 
 .dashboard-title {
   font-size: 20px;
+}
+
+.toolbar {
+  background: #363636;
 }

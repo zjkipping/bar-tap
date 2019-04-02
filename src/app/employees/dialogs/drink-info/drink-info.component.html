@@ -1,1 +1,7 @@
-<p class="text-center">{{drink?.name}}</p>
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>{{data?.quantity}}</mat-panel-title>
+    <mat-panel-description>{{data?.drink.name}}</mat-panel-description>
+  </mat-expansion-panel-header>
+  {{data?.drink.description}}
+</mat-expansion-panel>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { AuthService } from '@services/auth/auth.service';
@@ -10,17 +10,21 @@ import { AuthService } from '@services/auth/auth.service';
   styleUrls: ['./employee-login.component.scss']
 })
 export class EmployeeLoginComponent {
-  email = new FormControl('', [Validators.required, Validators.email]);
-  password = new FormControl('', Validators.required);
+  loginForm: FormGroup;
   errorMessage = '';
 
-  constructor(private auth: AuthService, private router: Router) { }
+  constructor(private auth: AuthService, private router: Router, fb: FormBuilder) {
+    this.loginForm = fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required]
+    });
+  }
 
   login() {
-    this.auth.loginWithEmail(this.email.value, this.password.value).subscribe(_user => {
+    this.auth.loginWithEmail(this.loginForm.value.email, this.loginForm.value.password).subscribe(_user => {
       this.router.navigate(['employees', 'dashboard']);
     }, err => {
-      this.errorMessage = err.message;
+      this.errorMessage = 'Email or password is incorrect! Please try again.';
     });
   }
 }

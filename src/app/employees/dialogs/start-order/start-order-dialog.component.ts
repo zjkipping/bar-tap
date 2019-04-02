@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { Order, Drink, Employee } from '@types';
+import { Order, Employee, ExpandedDrinkData } from '@types';
 import { MAT_DIALOG_DATA } from '@angular/material';
 import { Observable } from 'rxjs';
 import { EmployeesService } from '../../employees.service';
@@ -10,7 +10,7 @@ import { EmployeesService } from '../../employees.service';
   styleUrls: ['./start-order-dialog.component.scss']
 })
 export class StartOrderDialogComponent {
-  // drinks: Observable<Drink[]>;
+  drinks: Observable<ExpandedDrinkData[]>;
   employees: Observable<Employee[]>;
   selectedEmployee?: Employee;
 
@@ -19,7 +19,7 @@ export class StartOrderDialogComponent {
     employeesService: EmployeesService
   ) {
     this.employees = employeesService.employees;
-    // this.drinks = employeesService.getDrinksFromIDs(data.order.drinks.map(drink => drink.id), data.barID);
+    this.drinks = employeesService.getDrinksFromIDs(data.order.drinks, data.barID);
   }
 
   selectEmployee(employee: Employee) {

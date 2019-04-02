@@ -1,3 +1,5 @@
-<span>{{order?.employeeId}}</span>
-<span>{{order?.status}}</span>
-<mat-icon aria-label="order info" class="info-icon" (click)="openOrderInfo.emit()">info</mat-icon>
+<div class="order-container" *ngIf="order as order">  
+  <span class="order-column text-left">Order #{{order.number}}</span>
+  <span class="order-column text-center">{{order.employeeId}}</span>
+  <span class="order-column text-right">{{statusDisplay[order.status]}}</span>
+</div>

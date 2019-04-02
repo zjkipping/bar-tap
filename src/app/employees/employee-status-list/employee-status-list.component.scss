@@ -30,10 +30,21 @@
   min-height: 0;
 }
 
+.employee-container {
+  padding: 0px 10px;
+  margin: 10px 0px;
+}
+
 .employee {
-  font-size: 24px;
-  border-top: 2px solid white;
-  border-bottom: 2px solid white;
+  border-radius: 5px;
+  font-size: 20px;
   padding: 10px;
-  margin: 0px;
+  min-height: 30px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  -webkit-box-shadow: 0px 0px 5px 0px #000000;
+  -moz-box-shadow: 0px 0px 5px 0px #000000;
+  box-shadow: 0px 0px 5px 0px #000000;
 }

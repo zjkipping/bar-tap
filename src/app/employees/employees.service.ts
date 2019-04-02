@@ -44,16 +44,11 @@ export class EmployeesService {
       .pipe(switchMap(user => api.getCheckedInEmployees(user.uid, user.barId)));
   }
 
-  getDrinksFromIDs(
-    drinkData: DrinkData[],
-    barID: string
-  ): Observable<ExpandedDrinkData[]> {
-    return combineLatest(
-      ...drinkData.map(drink =>
-        this.api
-          .getBarDrink(barID, drink.id)
-          .pipe(map(obj => ({ drink: obj, quantity: drink.quantity })))
-      )
-    ).pipe(filter((drinks): drinks is ExpandedDrinkData[] => !!drinks));
+  getDrinksFromIDs(drinkData: DrinkData[], barID: string): Observable<ExpandedDrinkData[]> {
+    return combineLatest(...drinkData.map(drink => this.api.getBarDrink(barID, drink.id).pipe(
+      map(obj => ({ drink: obj, quantity: drink.quantity }))
+    ))).pipe(
+      filter((drinks): drinks is ExpandedDrinkData[] => !!drinks)
+    );
   }
 }

@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { Drink } from '@types';
+import { DrinkData } from '@types';
 
 @Component({
   selector: 'app-drink-info',
@@ -8,5 +8,5 @@ import { Drink } from '@types';
   styleUrls: ['./drink-info.component.scss']
 })
 export class DrinkInfoComponent {
-  @Input() drink?: Drink;
+  @Input('drink') data?: DrinkData;
 }
