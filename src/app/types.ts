@@ -53,7 +53,7 @@ export interface CartItem {
 }
 
 export interface DrinkData {
-  drinkId: string;
+  id: string;
   quantity: number;
 }
 
