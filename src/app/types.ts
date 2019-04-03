@@ -80,15 +80,12 @@ export interface Log extends RawLog {
   uid: string;
 }
 
-export interface OrderDrink {
-  id: string;
-  quantity: number;
-}
-
 export interface RawOrder {
   status: string;
   created: number;
-  drinks: OrderDrink[];
+  drinks: DrinkData[];
+  price: OrderPrice;
+  number: number;
   employeeId?: string;
   userId?: string;
 }
@@ -161,10 +158,16 @@ export interface EmployeeCheckInOutData {
   pin: string;
 }
 
+export interface OrderPrice {
+  total: number;
+  tip: number;
+  tax: number;
+}
+
 export interface StripePaymentData {
   barId: string;
   token: string;
-  price: number;
+  price: OrderPrice;
   drinks: DrinkData[];
   userId?: string;
 }

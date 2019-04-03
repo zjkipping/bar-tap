@@ -19,36 +19,58 @@ export const stripePayment = functions.https.onCall(async (data: StripePaymentDa
       if (doc) {
         const stripe = new Stripe(doc.secret);
         try {
-          await stripe.charges.create({ amount: data.price * 100, currency: 'usd', source: data.token },
-            { idempotency_key: firestore.collection('_').doc().id });
-          const now = moment().unix();
-          if (data.userId) {
-            await firestore.collection(`users/${data.userId}/history`).add({
-              barId: data.barId,
-              date: now,
-              total: data.price
+          const bar = (await firestore.doc(`bars/${data.barId}`).get()).data();
+          if (bar) {
+            const now = moment();
+            const lastOrder = bar.lastOrder;
+            let orderNumber = 1;
+            if (lastOrder && moment(lastOrder.timestamp).isSame(now, 'day')) {
+              orderNumber = lastOrder.number + 1;
+            }
+            await firestore.doc(`bars/${data.barId}`).update({
+              lastOrder: {
+                timestamp: now.unix(),
+                number: orderNumber
+              }
             });
+            const totalPrice = (data.price.total + data.price.tip + data.price.tax) * 100;
+            await stripe.charges.create({ amount: totalPrice, currency: 'usd', source: data.token },
+              { idempotency_key: firestore.collection('_').doc().id });
+            
+            if (data.userId) {
+              await firestore.collection(`users/${data.userId}/history`).add({
+                barId: data.barId,
+                date: now,
+                total: totalPrice
+              });
+            }
+            const obj: RawOrder = {
+              status: NEW_ORDER_TYPE,
+              created: now.unix(),
+              drinks: data.drinks,
+              price: data.price,
+              number: orderNumber
+            };
+            if (data.userId) {
+              obj.userId = data.userId;
+            }
+            const order = await firestore.collection(`bars/${data.barId}/orders`).add(obj);
+            return {
+              barId: data.barId,
+              orderId: order.id
+            };
+          } else {
+            throw new functions.https.HttpsError(
+              'invalid-argument',
+              'There is no existing Bar document for the barID provided');
           }
-          const obj: any = {
-            status: NEW_ORDER_TYPE,
-            created: now,
-            drinks: data.drinks,
-          }
-          if (data.userId) {
-            obj.userId = data.userId;
-          }
-          const order = await firestore.collection(`bars/${data.barId}/orders`).add(obj);
-          return {
-            barId: data.barId,
-            orderId: order.id
-          };
         } catch (error) {
           throw new functions.https.HttpsError('unknown', error.message, error);
         }
       } else {
         throw new functions.https.HttpsError(
           'invalid-argument',
-          'There is no existing Bar document for the barID provided');
+          'The bar provided has not setup their Stripes payment information');
       }
     } catch (error) {
       throw new functions.https.HttpsError('unknown', error.message, error);
