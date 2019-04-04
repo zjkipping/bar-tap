@@ -40,7 +40,7 @@ export const stripePayment = functions.https.onCall(async (data: StripePaymentDa
             if (data.userId) {
               await firestore.collection(`users/${data.userId}/history`).add({
                 barId: data.barId,
-                date: now,
+                date: now.unix(),
                 total: totalPrice
               });
             }
