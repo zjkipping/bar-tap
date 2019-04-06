@@ -19,7 +19,7 @@ export class Cart {
       map(drinks =>
         drinks
           .map(item => item.drink.price * item.quantity)
-          .reduce((total, price) => total + price, 0)
+          .reduce((total, price) => Math.round(total + price), 0)
       )
     );
     this.subtotal = sub;

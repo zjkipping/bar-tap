@@ -9,7 +9,6 @@ import {
 } from '@angular/material';
 import { CheckoutComponent } from '../../dialogs/menu/checkout/checkout.component';
 import { SnackBarService } from '@services/snackbar/snackbar.service';
-import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -58,12 +57,8 @@ export class ShoppingCartComponent {
       return;
     }
 
-    this.cartRef.dismiss();
-    this.dialog.open(CheckoutComponent, {
-      data: {
-        price: this.cart.total,
-        barId: this.barID
-      }
+    this.cartRef.dismiss({
+      openCheckout: true
     });
   }
 

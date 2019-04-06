@@ -19,9 +19,5 @@ export class TrackerComponent {
     this.tracking = this.user.pipe(
       switchMap(user => this.api.getUserTracking(user.uid))
     );
-    this.tracking.subscribe(data => console.log(data));
   }
 }
-/* 
-  Need bar name and total price
-*/

@@ -58,6 +58,11 @@ export interface DrinkData {
   quantity: number;
 }
 
+export interface ExpandedDrinkData {
+  quantity: number;
+  drink: Drink;
+}
+
 export interface RawEmployee {
   firstName: string;
   lastName: string;

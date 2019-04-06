@@ -10,7 +10,7 @@
         </div>
       </ng-container>
     </p>
-    <div class="side-nav__menu">
+    <div [class.side-nav__menu]="!!(user | async)">
       <p class="side-nav__menu-item">
         <a routerLink="">
           <button mat-button (click)="drawer.toggle()" class="side-nav__button">

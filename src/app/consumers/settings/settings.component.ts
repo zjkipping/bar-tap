@@ -1,15 +1,17 @@
 import { Component } from '@angular/core';
-import { AuthService } from '@services/auth/auth.service';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable, from } from 'rxjs';
-import { BaseUser, PaymentMethod, ConsumerUser } from '@types';
-import { BarTapApi } from '@api';
 import { MatDialog } from '@angular/material';
-import { PersonalDialogComponent } from '../dialogs/settings/personal-dialog/personal-dialog.component';
 import { switchMap, filter, take } from 'rxjs/operators';
+import * as moment from 'moment';
+
+import { PaymentMethod, ConsumerUser } from '@types';
+import { BarTapApi } from '@api';
+import { PersonalDialogComponent } from '../dialogs/settings/personal-dialog/personal-dialog.component';
 import { BillingDialogComponent } from '../dialogs/settings/billing-dialog/billing-dialog.component';
 import { EditCardDialogComponent } from '../dialogs/settings/card-dialog/edit-card-dialog.component';
 import { AddCardDialogComponent } from '../dialogs/settings/add-card-dialog/add-card-dialog.component';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AuthService } from '@services/auth/auth.service';
 import { SnackBarService } from '@services/snackbar/snackbar.service';
 
 @Component({
@@ -42,6 +44,7 @@ export class SettingsComponent {
       .pipe(
         filter(data => !!data),
         switchMap(data => {
+          data.dob = moment(data.dob).valueOf();
           return this.auth.getUserAsConsumerAuth().pipe(
             take(1),
             switchMap(user => {

@@ -1,5 +1,5 @@
 <h2 class="page-header">Settings</h2>
-<ng-container *ngIf="(user | async); let user">
+<ng-container *ngIf="(user | async); let user; else: loading">
   <mat-list class="settings-list">
     <mat-list-item
       ><div class="settings-list__details">
@@ -99,7 +99,12 @@
       <h5 class="settings-list__billing">
         Add billing information to prove account ownership, transaction history,
         and to ensure the safety of your account.
-      </h5></ng-template
-    >
+      </h5>
+    </ng-template>
   </mat-list>
 </ng-container>
+<ng-template #loading>
+  <div class="loading">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>

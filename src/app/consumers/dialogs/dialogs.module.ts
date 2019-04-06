@@ -6,12 +6,12 @@ import { LoginDialogComponent } from './home/login-dialog/login-dialog.component
 import { RegisterDialogComponent } from './home/register-dialog/register-dialog.component';
 import { LogoutDialogComponent } from './home/logout-dialog/logout-dialog.component';
 import { AddToCartComponent } from './menu/add-to-cart/add-to-cart.component';
-import { SuccessNotificationComponent } from './menu/success-notification/success-notification.component';
 import { PersonalDialogComponent } from './settings/personal-dialog/personal-dialog.component';
 import { BillingDialogComponent } from './settings/billing-dialog/billing-dialog.component';
 import { EditCardDialogComponent } from './settings/card-dialog/edit-card-dialog.component';
 import { AddCardDialogComponent } from './settings/add-card-dialog/add-card-dialog.component';
 import { CheckoutComponent } from './menu/checkout/checkout.component';
+import { UserAgreementComponent } from './menu/user-agreement/user-agreement.component';
 
 @NgModule({
   declarations: [
@@ -19,12 +19,11 @@ import { CheckoutComponent } from './menu/checkout/checkout.component';
     RegisterDialogComponent,
     LogoutDialogComponent,
     AddToCartComponent,
-    SuccessNotificationComponent,
     PersonalDialogComponent,
     BillingDialogComponent,
     EditCardDialogComponent,
     AddCardDialogComponent,
-    SuccessNotificationComponent
+    UserAgreementComponent
   ],
   imports: [CommonModule, MaterialModule, FormsModule, ReactiveFormsModule],
   entryComponents: [
@@ -32,13 +31,12 @@ import { CheckoutComponent } from './menu/checkout/checkout.component';
     RegisterDialogComponent,
     LogoutDialogComponent,
     AddToCartComponent,
-    SuccessNotificationComponent,
     PersonalDialogComponent,
     BillingDialogComponent,
     EditCardDialogComponent,
     AddCardDialogComponent,
-    SuccessNotificationComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    UserAgreementComponent
   ]
 })
 export class DialogsModule {}

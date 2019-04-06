@@ -1,13 +1,12 @@
 .bars-container {
-  background-image: url("/assets/bar-background.jpg");
+  background-image: url('/assets/bar-background-2.jpg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
   display: flex;
-  margin-top: -1px;
   align-items: center;
   flex-direction: column;
-
+  height: 100%;
   button {
     width: 150px;
     height: 40px;

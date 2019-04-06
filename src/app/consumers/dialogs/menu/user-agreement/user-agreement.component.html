@@ -1,0 +1,35 @@
+<div class="dialog">
+  <h1 class="dialog__title">Bar Tap</h1>
+  <h4 class="dialog__header">User Agreement</h4>
+  <mat-dialog-content>
+    <h6 class="dialog__disclaimer">
+      Bar Tap is not the seller of any product purchased through this
+      application. Bar Tap is a tool utilized by business' to process payments
+      electronically. In no way is Bar Tap claiming ownership of the products
+      being sold, nor will Bar Tap be held responsible for minors whom obtained
+      alcoholic beverages though this application.
+    </h6>
+    <ul>
+      <li>
+        <h5>You must be 21 years of age to order through Bar Tap.</h5>
+      </li>
+      <li>
+        <h5>Please have a photo ID ready when picking up your order.</h5>
+      </li>
+      <li>
+        <h5>All orders placed through Bar Tap are final.</h5>
+      </li>
+      <li>
+        <h5>Please drink responsibly.</h5>
+      </li>
+    </ul>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <div class="details">
+      <button mat-raised-button color="primary" (click)="continue()">
+        Accept
+      </button>
+      <button mat-raised-button (click)="continue()">Decline</button>
+    </div>
+  </mat-dialog-actions>
+</div>

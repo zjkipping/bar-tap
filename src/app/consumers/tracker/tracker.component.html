@@ -1,7 +1,6 @@
 <h2 class="page-header">Order Tracker</h2>
-<ng-container *ngFor="let tracker of (tracking | async)">
-  <app-tracker-list
-    [barId]="tracker.barId"
-    [orderId]="tracker.orderId"
-  ></app-tracker-list>
-</ng-container>
+<app-tracker-list
+  *ngFor="let tracker of (tracking | async)"
+  [barId]="tracker.barId"
+  [orderId]="tracker.orderId"
+></app-tracker-list>

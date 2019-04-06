@@ -1,0 +1,22 @@
+.order-panel {
+  &__header {
+  }
+  &__title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    width: 100%;
+  }
+}
+.order-list {
+  background-color: #333333;
+  color: white;
+}
+.price-breakdown {
+  height: 30px;
+}
+.quantity-divider {
+  padding: 0 10px;
+}

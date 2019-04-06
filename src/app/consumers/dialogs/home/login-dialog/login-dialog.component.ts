@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material';
 import { AuthService } from '@services/auth/auth.service';
 
 @Component({
@@ -17,7 +17,6 @@ export class LoginDialogComponent {
   constructor(
     private auth: AuthService,
     private router: Router,
-    public dialog: MatDialog,
     private dialogRef: MatDialogRef<LoginDialogComponent>
   ) {}
 
@@ -31,5 +30,9 @@ export class LoginDialogComponent {
         this.errorMessage = err.message;
       }
     );
+  }
+
+  cancel() {
+    this.dialogRef.close();
   }
 }

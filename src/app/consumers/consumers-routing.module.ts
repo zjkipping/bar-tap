@@ -11,22 +11,14 @@ import { AuthGuardService } from '@services/auth/auth-guard.service';
 import { BarMenuComponent } from './bars/bar-menu/bar-menu.component';
 import { TrackerComponent } from './tracker/tracker.component';
 import { TrackerDetailsComponent } from './tracker/tracker-details/tracker-details.component';
+import { CONSUMER_USER_TYPE } from '@constants';
 
 const routes: Routes = [
   {
     path: '',
     component: ConsumersDashboardComponent,
     children: [
-      {
-        path: '',
-        component: HomeComponent,
-        data: {
-          redirect: ['', 'bars'],
-          requiredAuthState: false
-        },
-        canActivate: [AuthGuardService]
-      },
-
+      { path: '', component: HomeComponent },
       { path: 'bars', component: BarsComponent },
       { path: 'bars/:uid', component: BarMenuComponent },
       {
@@ -34,7 +26,8 @@ const routes: Routes = [
         component: FavoritesComponent,
         data: {
           redirect: ['', ''],
-          requiredAuthState: true
+          requiredAuthState: true,
+          userType: CONSUMER_USER_TYPE
         },
         canActivate: [AuthGuardService]
       },
@@ -43,7 +36,8 @@ const routes: Routes = [
         component: HistoryComponent,
         data: {
           redirect: ['', ''],
-          requiredAuthState: true
+          requiredAuthState: true,
+          userType: CONSUMER_USER_TYPE
         },
         canActivate: [AuthGuardService]
       },
@@ -52,7 +46,8 @@ const routes: Routes = [
         component: TrackerComponent,
         data: {
           redirect: ['', ''],
-          requiredAuthState: true
+          requiredAuthState: true,
+          userType: CONSUMER_USER_TYPE
         },
         canActivate: [AuthGuardService]
       },
@@ -70,7 +65,8 @@ const routes: Routes = [
         component: SettingsComponent,
         data: {
           redirect: ['', ''],
-          requiredAuthState: true
+          requiredAuthState: true,
+          userType: CONSUMER_USER_TYPE
         },
         canActivate: [AuthGuardService]
       },

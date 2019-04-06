@@ -3,10 +3,16 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { from, Observable, of, combineLatest, throwError } from 'rxjs';
 import { shareReplay, switchMap, pairwise, map, first } from 'rxjs/operators';
+import * as moment from 'moment';
 
 import { BaseUser, EmployeesUser, ConsumerUser, RawUser } from '@types';
 import { isEmployeesUser, isConsumerUser } from '@type-guards';
-import { NO_AUTH_ERROR, WRONG_USER_TYPE_ERROR, EMPLOYEES_USER_TYPE, CONSUMER_USER_TYPE } from '@constants';
+import {
+  NO_AUTH_ERROR,
+  WRONG_USER_TYPE_ERROR,
+  EMPLOYEES_USER_TYPE,
+  CONSUMER_USER_TYPE
+} from '@constants';
 
 @Injectable({
   providedIn: 'root'
@@ -70,22 +76,31 @@ export class AuthService {
 
   getUserAsConsumerAuth(): Observable<ConsumerUser> {
     return this.user.pipe(
-       switchMap(user => {
-         if (isConsumerUser(user)) {
-           return of(user);
-         } else if (!user) {
-           return throwError({type: NO_AUTH_ERROR, message: 'User is not authenticated'});
-         } else {
-           return throwError({type: WRONG_USER_TYPE_ERROR, message: 'User is not of type: ' + CONSUMER_USER_TYPE});
-         }
-       })
-     );
-   }
+      switchMap(user => {
+        if (isConsumerUser(user)) {
+          return of(user);
+        } else if (!user) {
+          return throwError({
+            type: NO_AUTH_ERROR,
+            message: 'User is not authenticated'
+          });
+        } else {
+          return throwError({
+            type: WRONG_USER_TYPE_ERROR,
+            message: 'User is not of type: ' + CONSUMER_USER_TYPE
+          });
+        }
+      })
+    );
+  }
 
   loginWithEmail(email: string, password: string) {
     return combineLatest(
       from(this.afAuth.auth.signInWithEmailAndPassword(email, password)),
-      this.user.pipe(pairwise(), first())
+      this.user.pipe(
+        pairwise(),
+        first()
+      )
     );
   }
 
@@ -100,11 +115,14 @@ export class AuthService {
     email: string,
     firstName: string,
     lastName: string,
+    date: Date,
     type: string
   ) {
+    const dob = moment(date).valueOf();
     this.database.doc('users/' + uid).set({
       firstName,
       lastName,
+      dob,
       email,
       type
     });

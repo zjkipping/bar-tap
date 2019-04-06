@@ -12,6 +12,17 @@
     <input matInput [formControl]="lastName" placeholder="Last name" required />
   </mat-form-field>
   <mat-form-field>
+    <input
+      matInput
+      [matDatepicker]="picker"
+      [formControl]="dob"
+      placeholder="Date of Birth"
+      required
+    />
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker touchUi #picker></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field>
     <input matInput [formControl]="email" placeholder="Email" required />
   </mat-form-field>
   <mat-form-field>
@@ -37,5 +48,8 @@
 <mat-dialog-actions>
   <button mat-raised-button color="primary" (click)="register()">
     Register
+  </button>
+  <button mat-raised-button (click)="close()">
+    Cancel
   </button>
 </mat-dialog-actions>

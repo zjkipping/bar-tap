@@ -8,9 +8,9 @@ import {
 import { StripeService } from '@services/stripe/stripe.service';
 import { Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, map } from 'rxjs/operators';
 import { AuthService } from '@services/auth/auth.service';
-import { PaymentMethod, ConsumerUser, DrinkData } from '@types';
+import { PaymentMethod, ConsumerUser, DrinkData, OrderPrice } from '@types';
 import { BarTapApi } from '@api';
 import {
   MAT_DIALOG_DATA,
@@ -23,7 +23,8 @@ import { Cart } from '@services/cart.service';
 import * as _ from 'lodash';
 
 interface CheckoutData {
-  price: number;
+  total: number;
+  tax: number;
   barId: string;
 }
 
@@ -35,15 +36,17 @@ interface CheckoutData {
 export class CheckoutComponent {
   card?: FormGroup;
   selectedCard = new FormControl('', Validators.required);
-  tip: number = 0.0;
   cardNumber = new FormControl('', Validators.required);
   expiration = new FormControl('', Validators.required);
   cvc = new FormControl('', Validators.required);
   errorMessage = '';
-  addCard = false;
+  showLoading: boolean = false;
+  showAddCard: boolean = false;
+  saveCard: boolean = false;
   user: Observable<ConsumerUser>;
   cards: Observable<PaymentMethod[]>;
   drinks: DrinkData[];
+  orderPrice: OrderPrice;
 
   constructor(
     public route: ActivatedRoute,
@@ -57,9 +60,16 @@ export class CheckoutComponent {
     private dialogRef: MatDialogRef<CheckoutComponent>,
     private cart: Cart
   ) {
-    this.cards = this.auth
-      .getUserAsConsumerAuth()
-      .pipe(switchMap(user => this.api.getUserPaymentMethods(user.uid)));
+    this.user = this.auth.getUserAsConsumerAuth();
+    this.auth.currentAuth.subscribe(user => {
+      if (user === null) {
+        this.showAddCard = true;
+      }
+    });
+
+    this.cards = this.user.pipe(
+      switchMap(user => this.api.getUserPaymentMethods(user.uid))
+    );
 
     this.drinks = this.cart.cartItems.value.map(drink => {
       return {
@@ -68,26 +78,33 @@ export class CheckoutComponent {
       };
     });
 
-    this.user = this.auth.getUserAsConsumerAuth();
+    this.orderPrice = {
+      total: this.data.total,
+      tip: 0,
+      tax: this.data.tax
+    };
   }
 
   getTip(event: any) {
-    this.tip = event.value / 100;
+    this.orderPrice.tip = event.value / 100;
   }
 
-  showAddCard() {
-    this.addCard = true;
+  toggleSaveCard() {
+    this.saveCard = !this.saveCard;
   }
 
-  hideAddCard() {
-    this.addCard = false;
+  addCard(show: boolean) {
+    this.showAddCard = show;
   }
 
   back() {
-    this.dialogRef.close();
+    this.dialogRef.close({
+      openCart: true
+    });
   }
 
   buy() {
+    this.showLoading = true;
     this.card = this.fb.group({
       cardNumber: this.cardNumber.value,
       expiration: this.expiration.value,
@@ -98,8 +115,6 @@ export class CheckoutComponent {
       ? this.selectedCard.value
       : this.card.value;
 
-    const total = this.data.price + this.tip;
-
     // remove this when we update our validation
     if (/^\d{2}\/\d{2}$/.test(card.expiration)) {
       this.user
@@ -109,7 +124,7 @@ export class CheckoutComponent {
               this.data.barId,
               card,
               this.drinks,
-              total,
+              this.orderPrice,
               user.billingInfo,
               user.uid
             );
@@ -117,17 +132,31 @@ export class CheckoutComponent {
         )
         .subscribe(
           res => {
+            this.showLoading = false;
             this.sbs.openSuccess(
-              `Order created! Your card was charged: $${total}.`,
+              `Order created! Your card was charged: $${(
+                this.orderPrice.total +
+                this.orderPrice.tax +
+                this.orderPrice.tip
+              ).toFixed(2)}`,
               3000
             );
             this.cart.clearCart();
-            console.log(res);
-            this.dialogRef.close();
+            if (this.saveCard) {
+              this.dialogRef.close({
+                card: {
+                  cardNumber: card.cardNumber.toString(),
+                  expiration: card.expiration,
+                  cvc: card.cvc
+                }
+              });
+            } else {
+              this.dialogRef.close();
+            }
+
             this.router.navigate(['', 'tracker', res.barId, res.orderId]);
           },
-          err => {
-            console.log('err: ', err);
+          () => {
             this.sbs.openError(
               'Oops! Something went wrong, please check your card information.',
               3000
@@ -135,6 +164,7 @@ export class CheckoutComponent {
           }
         );
     } else {
+      this.showLoading = false;
       this.errorMessage = 'Invalid expiration date, enter as MM/YY.';
     }
   }

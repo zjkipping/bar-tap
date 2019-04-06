@@ -1,1 +1,9 @@
-<app-bars-list [bars]="favorites | async"></app-bars-list>
+<h2 class="page-header">Favorites</h2>
+<ng-container *ngIf="(favorites | async) as favorites; else loading">
+  <app-bars-list [bars]="favorites"></app-bars-list>
+</ng-container>
+<ng-template #loading>
+  <div class="loading">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>

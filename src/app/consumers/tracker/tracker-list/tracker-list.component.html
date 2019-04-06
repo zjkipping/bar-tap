@@ -1,13 +1,23 @@
-<ng-container *ngIf="(bar | async) as bar">
+<ng-container *ngIf="(bar | async) as bar; else loading">
   <ng-container *ngIf="(order | async) as order">
     <mat-list class="orders-list">
       <mat-list-item [routerLink]="'/tracker/' + bar.uid + '/' + order.uid">
         <div class="details">
           <h5>{{ bar.name }}</h5>
-          <h5>${{ order.price }}</h5>
+          <h5>
+            {{
+              order.price.total + order.price.tip + order.price.tax
+                | currency: 'USD':'symbol':'.2-2'
+            }}
+          </h5>
         </div>
         <mat-divider></mat-divider>
       </mat-list-item>
     </mat-list>
   </ng-container>
 </ng-container>
+<ng-template #loading>
+  <div class="loading">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>

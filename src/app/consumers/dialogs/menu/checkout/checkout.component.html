@@ -1,73 +1,99 @@
-<div class="checkout-container">
-  <ng-container *ngIf="!addCard">
-    <mat-form-field>
-      <mat-select [formControl]="selectedCard" required>
-        <mat-option
-          *ngFor="let card of (cards | async)"
-          [value]="card"
-          (click)="hideAddCard()"
-        >
-          {{ card.cardNumber | creditCardMask }}
-        </mat-option>
-        <mat-option (click)="showAddCard()">
-          Add a new card
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-  </ng-container>
-  <ng-container *ngIf="addCard">
-    <div class="change-payment-button">
-      <button mat-raised-button color="primary" (click)="hideAddCard()">
-        Change Payment Option
-      </button>
+<mat-dialog-actions>
+  <ng-container *ngIf="!showLoading; else loading">
+    <ng-container *ngIf="!showAddCard">
+      <mat-form-field>
+        <mat-select [formControl]="selectedCard" required>
+          <mat-option
+            *ngFor="let card of (cards | async)"
+            [value]="card"
+            (click)="addCard(false)"
+          >
+            {{ card.cardNumber | creditCardMask }}
+          </mat-option>
+          <mat-option (click)="addCard(true)">
+            Add a new card
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </ng-container>
+    <ng-container *ngIf="showAddCard">
+      <div class="change-payment-button">
+        <ng-container *ngIf="(user | async)">
+          <button mat-raised-button color="primary" (click)="addCard(false)">
+            Change Payment Option
+          </button>
+        </ng-container>
+      </div>
+      <mat-form-field>
+        <input
+          matInput
+          [formControl]="cardNumber"
+          type="number"
+          maxlength="16"
+          placeholder="Card Number"
+        />
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          [formControl]="expiration"
+          type="string"
+          placeholder="Expiration"
+        />
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput maxlength="3" [formControl]="cvc" placeholder="CVC" />
+      </mat-form-field>
+      <ng-container *ngIf="(user | async)">
+        <mat-checkbox (click)="toggleSaveCard()">
+          <h5>Save this card to your stored payment methods.</h5>
+        </mat-checkbox>
+      </ng-container>
+    </ng-container>
+    <div class="tip-container details">
+      <h5>Tip:</h5>
+      <mat-slider
+        class="tip-container__slider"
+        min="0"
+        max="2000"
+        (input)="getTip($event)"
+      ></mat-slider>
+      <h5>{{ this.orderPrice.tip | currency: 'USD':'symbol':'.2-2' }}</h5>
     </div>
-    <mat-form-field>
-      <input
-        matInput
-        [formControl]="cardNumber"
-        type="number"
-        maxlength="16"
-        placeholder="Card number"
-      />
-    </mat-form-field>
-    <mat-form-field>
-      <input
-        matInput
-        [formControl]="expiration"
-        type="string"
-        placeholder="Expiration"
-      />
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput maxlength="3" [formControl]="cvc" placeholder="CVC" />
-    </mat-form-field>
-    <div>
-      <mat-checkbox>
-        <h5>Save this card to your stored payment methods.</h5>
-      </mat-checkbox>
+    <div class="order-total details">
+      <h5>Subtotal:</h5>
+      <h5>{{ this.orderPrice.total | currency: 'USD':'symbol':'.2-2' }}</h5>
     </div>
-  </ng-container>
-  <div class="tip details">
-    <h5>Tip:</h5>
-    <mat-slider min="0" max="2000" (input)="getTip($event)"></mat-slider>
-    <h5>{{ tip | currency: "USD":"symbol":".2-2" }}</h5>
-  </div>
-  <div class="order-total details">
-    <h5>Order total:</h5>
-    <h5>{{ data.price | currency: "USD":"symbol":".2-2" }}</h5>
-  </div>
-  <mat-divider></mat-divider>
-  <div class="order-total details">
-    <h5>Order total w/ tip:</h5>
-    <h5>{{ data.price + tip | currency: "USD":"symbol":".2-2" }}</h5>
-  </div>
-  <mat-dialog-actions>
+    <div class="order-total details">
+      <h5>Tax:</h5>
+      <h5>{{ this.orderPrice.tax | currency: 'USD':'symbol':'.2-2' }}</h5>
+    </div>
+    <div class="order-total">
+      <mat-divider></mat-divider>
+      <div class="order-total details">
+        <h4>Total:</h4>
+        <h4>
+          {{
+            this.orderPrice.total + this.orderPrice.tip + this.orderPrice.tax
+              | currency: 'USD':'symbol':'.2-2'
+          }}
+        </h4>
+      </div>
+    </div>
+
     <button mat-raised-button color="primary" (click)="buy()">
       Place Order
     </button>
     <button mat-raised-button color="secondary" (click)="back()">
       Back to Cart
     </button>
-  </mat-dialog-actions>
-  <h5 class="error">{{ errorMessage }}</h5>
-</div>
+
+    <h5 class="error">{{ errorMessage }}</h5>
+  </ng-container>
+
+  <ng-template #loading>
+    <div class="loading">
+      <mat-spinner></mat-spinner>
+    </div>
+  </ng-template>
+</mat-dialog-actions>

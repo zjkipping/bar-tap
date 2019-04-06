@@ -1,0 +1,64 @@
+<ng-container *ngIf="order as order">
+  <mat-expansion-panel class="order-panel">
+    <mat-expansion-panel-header
+      [ngStyle]="{ 'background-color': 'rgb(0, 0, 45)' }"
+      class="order-panel__header"
+    >
+      <mat-panel-title class="order-panel__title">
+        <h3 *ngIf="(bar | async) as bar">{{ bar.name }}</h3>
+        <h4>
+          {{
+            order.price.total + order.price.tax + order.price.tip
+              | currency: 'USD':'symbol':'.2-2'
+          }}
+        </h4>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <ng-container>
+      <mat-list class="order-list" *ngIf="drinkData as drinkData">
+        <mat-list-item
+          *ngFor="let drinkDataList of (drinkData | async)"
+          class="order-list-item"
+        >
+          <div class="details">
+            <h5>{{ drinkDataList.drink.name }}</h5>
+            <h5>
+              {{ drinkDataList.quantity }}
+              <span class="quantity-divider">x</span>
+              {{ drinkDataList.drink.price | currency: 'USD':'symbol':'.2-2' }}
+            </h5>
+          </div>
+          <mat-divider></mat-divider>
+        </mat-list-item>
+      </mat-list>
+      <div class="price-breakdown details">
+        <h5>Subtotal</h5>
+        <h5>
+          {{ order.price.total | currency: 'USD':'symbol':'.2-2' }}
+        </h5>
+      </div>
+      <div class="price-breakdown details">
+        <h5>Tax</h5>
+        <h5>
+          {{ order.price.tax | currency: 'USD':'symbol':'.2-2' }}
+        </h5>
+      </div>
+      <div class="price-breakdown details">
+        <h5>Tip</h5>
+        <h5>
+          {{ order.price.tip | currency: 'USD':'symbol':'.2-2' }}
+        </h5>
+      </div>
+      <mat-divider></mat-divider>
+      <div class="price-breakdown details">
+        <h4>Total</h4>
+        <h4>
+          {{
+            order.price.total + order.price.tax + order.price.tip
+              | currency: 'USD':'symbol':'.2-2'
+          }}
+        </h4>
+      </div>
+    </ng-container>
+  </mat-expansion-panel>
+</ng-container>

@@ -1,7 +1,7 @@
 .side-nav {
   margin: auto;
   background-color: #1b1b1b;
-  font-family: "Montserrat", "Helvetica Neue", sans-serif;
+  font-family: 'Montserrat', 'Helvetica Neue', sans-serif;
   max-width: 800px;
 
   &__drawer {
@@ -29,13 +29,13 @@
     padding-left: 16px;
     width: 100%;
     color: #ffffff;
-    font-family: "Courgette", "Montserrat", "Helvetica Neue", sans-serif;
+    font-family: 'Courgette', 'Montserrat', 'Helvetica Neue', sans-serif;
   }
   &__button {
     width: 100%;
     min-height: 48px;
     text-align: left;
-    font-family: "Montserrat", "Helvetica Neue", sans-serif;
+    font-family: 'Montserrat', 'Helvetica Neue', sans-serif;
     letter-spacing: 1px;
   }
   &__auth-name {
@@ -55,7 +55,7 @@
     bottom: 10px;
     min-height: 48px;
     text-align: left;
-    font-family: "Montserrat", "Helvetica Neue", sans-serif;
+    font-family: 'Montserrat', 'Helvetica Neue', sans-serif;
     letter-spacing: 1px;
   }
   &__menu {
@@ -68,5 +68,6 @@
   &__content {
     max-width: 425px;
     margin: 0 auto;
+    height: 100%;
   }
 }

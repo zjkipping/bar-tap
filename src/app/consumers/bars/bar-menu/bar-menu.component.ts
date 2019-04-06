@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MatDialog, MatBottomSheet } from '@angular/material';
-import { Observable, of, combineLatest } from 'rxjs';
-import { map, switchMap, tap, filter } from 'rxjs/operators';
+import { Observable, of, combineLatest, from } from 'rxjs';
+import { map, switchMap, tap, filter, take } from 'rxjs/operators';
 
 import { AddToCartComponent } from '../../dialogs/menu/add-to-cart/add-to-cart.component';
 import { AuthService } from '@services/auth/auth.service';
@@ -11,6 +11,8 @@ import { BarTapApi } from '@api';
 import { Cart } from '@services/cart.service';
 import { ConsumersService } from '../../consumers.service';
 import { ShoppingCartComponent } from '../shopping-cart/shopping-cart.component';
+import { CheckoutComponent } from '../../dialogs/menu/checkout/checkout.component';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-bar-menu',
@@ -31,7 +33,8 @@ export class BarMenuComponent {
     public auth: AuthService,
     private api: BarTapApi,
     public cart: Cart,
-    private cs: ConsumersService
+    private cs: ConsumersService,
+    private db: AngularFirestore
   ) {
     this.cart.clearCart();
     const barId = route.params.pipe(
@@ -79,10 +82,51 @@ export class BarMenuComponent {
     });
   }
 
-  openCart(barID: string) {
-    this.bottomSheet.open(ShoppingCartComponent, {
-      data: barID
-    });
+  openCart(barId: string) {
+    this.bottomSheet
+      .open(ShoppingCartComponent, {
+        data: barId
+      })
+      .afterDismissed()
+      .subscribe(data => {
+        if (data) {
+          this.openCheckout(barId);
+        }
+      });
+  }
+
+  openCheckout(barId: string) {
+    this.dialog
+      .open(CheckoutComponent, {
+        data: {
+          total: this.cart.total,
+          tax: this.cart.tax,
+          barId: barId
+        }
+      })
+      .afterClosed()
+      .subscribe(data => {
+        if (data) {
+          if (data.openCart) {
+            this.openCart(barId);
+          }
+          if (data.card) {
+            this.auth
+              .getUserAsConsumerAuth()
+              .pipe(
+                take(1),
+                switchMap(user => {
+                  return from(
+                    this.db
+                      .collection(`/users/${user.uid}/paymentMethods`)
+                      .add(data.card)
+                  );
+                })
+              )
+              .subscribe(() => {}, () => {});
+          }
+        }
+      });
   }
 
   addFavorite(barId: string) {

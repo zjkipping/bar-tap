@@ -16,5 +16,13 @@ export const STATUS_DISPLAY: { [key: string]: string } = {
   [FINISHED_ORDER_STATUS]: 'Order Complete'
 };
 
+export const STATUS_MESSAGE: { [key: string]: string } = {
+  [NEW_ORDER_STATUS]: 'Your order is in the queue.',
+  [IN_PROGRESS_ORDER_STATUS]: 'Your order is being made by ',
+  [DELIVERY_ORDER_STATUS]: 'Your order is being delivered.',
+  [PICKUP_ORDER_STATUS]: 'Your order is ready for pickup.',
+  [FINISHED_ORDER_STATUS]: 'Your order is complete!'
+};
+
 export const WRONG_USER_TYPE_ERROR = 'wrong_user_type';
 export const NO_AUTH_ERROR = 'no_auth';
