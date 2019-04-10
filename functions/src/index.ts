@@ -33,14 +33,14 @@ export const stripePayment = functions.https.onCall(async (data: StripePaymentDa
                 number: orderNumber
               }
             });
-            const totalPrice = Math.round((data.price.total + data.price.tip + data.price.tax) * 100);
-            await stripe.charges.create({ amount: totalPrice, currency: 'usd', source: data.token },
+            const totalPrice = Math.round(data.price.total + data.price.tip + data.price.tax);
+            await stripe.charges.create({ amount: Math.round(totalPrice * 100), currency: 'usd', source: data.token },
               { idempotency_key: firestore.collection('_').doc().id });
             
             if (data.userId) {
               await firestore.collection(`users/${data.userId}/history`).add({
                 barId: data.barId,
-                date: now.unix(),
+                timestamp: now.unix(),
                 total: totalPrice
               });
             }

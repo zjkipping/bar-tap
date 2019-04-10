@@ -152,14 +152,14 @@ export interface BillingInfo {
 
 export interface RawHistory {
   barId: string;
-  date: string;
+  timestamp: number;
   total: number;
 }
 
 export interface History {
   uid: string;
   total: number;
-  date: string;
+  timestamp: number;
   barName: string;
 }
 

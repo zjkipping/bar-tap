@@ -306,7 +306,7 @@ export class NormalApi extends BarTapApi {
                     ({
                       barName: bar ? bar.name : '<Bar Redacted>',
                       total: charge.total,
-                      date: charge.date,
+                      timestamp: charge.timestamp,
                       uid: charge.uid
                     } as History)
                 )
