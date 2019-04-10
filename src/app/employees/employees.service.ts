@@ -36,7 +36,8 @@ export class EmployeesService {
             PICKUP_ORDER_STATUS,
             DELIVERY_ORDER_STATUS
           ])
-        )
+        ),
+        map(orders => orders.sort((o1, o2) => o1.number - o2.number))
       );
 
     this.employees = auth
