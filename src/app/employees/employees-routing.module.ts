@@ -6,6 +6,7 @@ import { EmployeesDashboardComponent } from './employees-dashboard.component';
 import { EmployeeLoginComponent } from './login/employee-login.component';
 import { AuthGuardService } from '@services/auth/auth-guard.service';
 import { EMPLOYEES_USER_TYPE } from '@constants';
+import { RouteAuthData } from '@types';
 
 const routes: Routes = [
   {
@@ -13,8 +14,10 @@ const routes: Routes = [
     component: EmployeeLoginComponent,
     data: {
       redirect: ['employees', 'dashboard'],
-      requiredAuthState: false
-    },
+      requireAuthCheck: true,
+      authState: false,
+      userType: EMPLOYEES_USER_TYPE
+    } as RouteAuthData,
     canActivate: [AuthGuardService]
   },
   {
@@ -22,9 +25,10 @@ const routes: Routes = [
     component: EmployeesDashboardComponent,
     data: {
       redirect: ['employees', 'login'],
-      requiredAuthState: true,
+      requireAuthCheck: true,
+      authState: true,
       userType: EMPLOYEES_USER_TYPE
-    },
+    } as RouteAuthData,
     canActivate: [AuthGuardService]
   },
   {

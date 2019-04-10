@@ -27,7 +27,7 @@ export class OrderQueueComponent {
         height: '500px'
       }).afterClosed().pipe(
         filter(employee => !!employee),
-        switchMap(employee => this.orderStatusService.transitionOrderToInProgress(this.barId as string, order.uid, employee.id))
+        switchMap(employee => this.orderStatusService.transitionOrderToInProgress(this.barId as string, order.uid, employee.uid))
       ).subscribe(
         () => this.sbs.openSuccess('Order started successfully', 3000),
         error => this.sbs.openError(error.message, 3000)

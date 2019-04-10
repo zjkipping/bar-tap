@@ -12,23 +12,49 @@ import { BarMenuComponent } from './bars/bar-menu/bar-menu.component';
 import { TrackerComponent } from './tracker/tracker.component';
 import { TrackerDetailsComponent } from './tracker/tracker-details/tracker-details.component';
 import { CONSUMER_USER_TYPE } from '@constants';
+import { RouteAuthData } from '@types';
 
 const routes: Routes = [
   {
     path: '',
     component: ConsumersDashboardComponent,
     children: [
-      { path: '', component: HomeComponent },
-      { path: 'bars', component: BarsComponent },
-      { path: 'bars/:uid', component: BarMenuComponent },
+      {
+        path: '',
+        component: HomeComponent,
+        data: {
+          redirect: ['', 'bars'],
+          requireAuthCheck: true,
+          authState: false,
+          userType: CONSUMER_USER_TYPE
+        } as RouteAuthData,
+        canActivate: [AuthGuardService]
+      },
+      {
+        path: 'bars',
+        component: BarsComponent,
+        data: {
+          userType: CONSUMER_USER_TYPE
+        } as RouteAuthData,
+        canActivate: [AuthGuardService]
+      },
+      {
+        path: 'bars/:uid',
+        component: BarMenuComponent,
+        data: {
+          userType: CONSUMER_USER_TYPE
+        } as RouteAuthData,
+        canActivate: [AuthGuardService]
+      },
       {
         path: 'favorites',
         component: FavoritesComponent,
         data: {
           redirect: ['', ''],
-          requiredAuthState: true,
+          requireAuthCheck: true,
+          authState: true,
           userType: CONSUMER_USER_TYPE
-        },
+        } as RouteAuthData,
         canActivate: [AuthGuardService]
       },
       {
@@ -36,9 +62,10 @@ const routes: Routes = [
         component: HistoryComponent,
         data: {
           redirect: ['', ''],
-          requiredAuthState: true,
+          requireAuthCheck: true,
+          authState: true,
           userType: CONSUMER_USER_TYPE
-        },
+        } as RouteAuthData,
         canActivate: [AuthGuardService]
       },
       {
@@ -46,18 +73,18 @@ const routes: Routes = [
         component: TrackerComponent,
         data: {
           redirect: ['', ''],
-          requiredAuthState: true,
+          requireAuthCheck: true,
+          authState: true,
           userType: CONSUMER_USER_TYPE
-        },
+        } as RouteAuthData,
         canActivate: [AuthGuardService]
       },
       {
         path: 'tracker/:barid/:oid',
         component: TrackerDetailsComponent,
         data: {
-          redirect: ['', ''],
-          requiredAuthState: true
-        },
+          userType: CONSUMER_USER_TYPE
+        } as RouteAuthData,
         canActivate: [AuthGuardService]
       },
       {
@@ -65,9 +92,10 @@ const routes: Routes = [
         component: SettingsComponent,
         data: {
           redirect: ['', ''],
-          requiredAuthState: true,
+          requireAuthCheck: true,
+          authState: true,
           userType: CONSUMER_USER_TYPE
-        },
+        } as RouteAuthData,
         canActivate: [AuthGuardService]
       },
       { path: '**', redirectTo: '' }

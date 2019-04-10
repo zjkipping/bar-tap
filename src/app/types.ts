@@ -118,8 +118,10 @@ export interface Tracking extends RawTracking {
 }
 
 export interface RouteAuthData {
-  redirect: string[];
-  requiredAuthState: boolean;
+  // these top three are basically lumped together (if you have 1 you should have all 3)
+  redirect?: string[];
+  requireAuthCheck?: boolean;
+  authState?: boolean;
   userType?: string;
 }
 

@@ -20,13 +20,14 @@ export class AuthGuardService implements CanActivate {
     const data = next.data as RouteAuthData;
     return this.auth.user.pipe(
       map(user => {
-        if (!!user !== data.requiredAuthState) {
-          this.router.navigate(data.redirect);
-          return false;
-        } else if (!!user) {
-          if (!data.userType || (data.userType && user.type === data.userType)) {
-            return true;
-          } else {
+        if (data) {
+          if (data.requireAuthCheck && data.authState !== !!user) {
+            if (data.redirect) {
+              this.router.navigate(data.redirect);
+            }
+            return false;
+          }
+          if (!!user && data.userType && data.userType !== user.type) {
             if (user.type === EMPLOYEES_USER_TYPE) {
               this.router.navigate(['employees']);
             } else if (user.type === OWNER_USER_TYPE) {
@@ -36,9 +37,8 @@ export class AuthGuardService implements CanActivate {
             }
             return false;
           }
-        } else {
-          return true;
         }
+        return true;
       })
     );
   }
