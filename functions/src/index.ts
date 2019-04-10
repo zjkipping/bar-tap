@@ -24,7 +24,7 @@ export const stripePayment = functions.https.onCall(async (data: StripePaymentDa
             const now = moment();
             const lastOrder = bar.lastOrder;
             let orderNumber = 1;
-            if (lastOrder && moment(lastOrder.timestamp).isSame(now, 'day')) {
+            if (lastOrder && moment.unix(lastOrder.timestamp).isSame(now, 'day')) {
               orderNumber = lastOrder.number + 1;
             }
             await firestore.doc(`bars/${data.barId}`).update({
@@ -72,14 +72,15 @@ export const stripePayment = functions.https.onCall(async (data: StripePaymentDa
           'invalid-argument',
           'The bar provided has not setup their Stripes payment information');
       }
-    } else {
-      throw new functions.https.HttpsError(
-        'invalid-argument',
-        'The function must be called with at least 4 arguments: userID (optional), barID, drinks, token, and price'
-      );
+    } catch (error) {
+      throw new functions.https.HttpsError('unknown', error.message, error);
     }
+  } else {
+    throw new functions.https.HttpsError(
+      'invalid-argument',
+      'The function must be called with at least 4 arguments: userID (optional), barID, drinks, token, and price');
   }
-);
+});
 
 export const employeeCheckIn = functions.https.onCall(
   async (data: EmployeeCheckInOutData) => {
@@ -216,7 +217,7 @@ export const logOrderUpdate = functions.firestore
   .document('bars/{barId}/orders/{orderId}')
   .onWrite(async (change, context) => {
     const data = change.after.data() as RawOrder;
-    const previousData = change.before.data() as RawOrder;
+    const previousData = change.before ? change.before.data() as RawOrder : undefined;
 
     return firestore.collection(`bars/${context.params.barId}/logs`).add({
       orderId: context.params.orderId,
@@ -232,7 +233,7 @@ export const orderTrackingUpdate = functions.firestore
   .document('bars/{barId}/orders/{orderId}')
   .onWrite(async (change, context) => {
     const data = change.after.data() as RawOrder;
-    const previousData = change.before.data() as RawOrder;
+    const previousData = change.before ? change.before.data() as RawOrder : undefined;
 
     if (!previousData && data.userId) {
       return firestore.collection(`users/${data.userId}/tracking`).add({
