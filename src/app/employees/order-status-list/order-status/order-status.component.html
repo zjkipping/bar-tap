@@ -1,5 +1,7 @@
-<div class="order-container" *ngIf="order as order">  
-  <span class="order-column text-left">Order #{{order.number}}</span>
-  <span class="order-column text-center">{{order.employeeId}}</span>
-  <span class="order-column text-right">{{statusDisplay[order.status]}}</span>
-</div>
+<ng-container *ngIf="employeeId | async as employeeId">
+  <div class="order-container" *ngIf="order as order">  
+    <span class="order-column text-left">Order #{{order.number}}</span>
+    <span class="order-column text-center">{{employeeId}}</span>
+    <span class="order-column text-right">{{statusDisplay[order.status]}}</span>
+  </div>
+</ng-container>

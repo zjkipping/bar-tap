@@ -2,7 +2,7 @@
   <h2 class="text-center primary status-list-title">Order Statuses</h2>
   <div class="order-list">
     <ng-container *ngIf="orders; let orders; else loading">
-      <app-order-status class="clickable order-spacing" *ngFor="let order of orders" [order]="order" (click)="displayOrderStatus(order)"></app-order-status>
+      <app-order-status class="clickable order-spacing" *ngFor="let order of orders" [order]="order" [barId]="barId" (click)="displayOrderStatus(order)"></app-order-status>
     </ng-container>
     <ng-template #loading>
       <div class="spinner-spacing">
