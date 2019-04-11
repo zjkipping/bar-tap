@@ -26,10 +26,10 @@
   </mat-dialog-content>
   <mat-dialog-actions>
     <div class="details">
-      <button mat-raised-button color="primary" (click)="continue()">
+      <button mat-raised-button color="primary" (click)="continue(true)">
         Accept
       </button>
-      <button mat-raised-button (click)="continue()">Decline</button>
+      <button mat-raised-button (click)="continue(false)">Decline</button>
     </div>
   </mat-dialog-actions>
 </div>
