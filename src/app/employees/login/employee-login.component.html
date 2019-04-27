@@ -4,16 +4,16 @@
     <hr class="title-hr">
     <form [formGroup]="loginForm" (keyup.enter)="login()">
       <mat-form-field class="full-width">
-        <input matInput formControlName="email" required placeholder="Email" matTooltip="Email is created in your administration dashboard" matTooltipPosition="left">
+        <input e2e="emailInput" matInput formControlName="email" required placeholder="Email" matTooltip="Email is created in your administration dashboard" matTooltipPosition="left">
       </mat-form-field>
       <mat-form-field class="full-width">
-        <input matInput type="password" formControlName="password" required placeholder="Password">
+        <input e2e="passwordInput" matInput type="password" formControlName="password" required placeholder="Password">
       </mat-form-field>
     </form>
     <p class="error">{{errorMessage}}</p>
     <div class="login-actions">
       <div class="spacer"></div>
-      <button mat-raised-button color="primary" [disabled]="loginForm.invalid" (click)="login()">Login</button>
+      <button e2e="loginButton" mat-raised-button color="primary" [disabled]="loginForm.invalid" (click)="login()">Login</button>
     </div>
   </div>
 </div>

@@ -9,6 +9,7 @@
     <div class="employees-list">
       <div class="employee-container" *ngFor="let employee of employees | async">
         <div
+          e2e="selectEmployeeButton"
           (click)="selectEmployee(employee)"
           [class.selected-employee]="selectedEmployee === employee"
           class="text-center employee accent"
@@ -22,5 +23,5 @@
 <mat-dialog-actions>
   <button mat-raised-button mat-dialog-close color="warn">Cancel</button>
   <span class="spacer"></span>
-  <button mat-raised-button [disabled]="!selectedEmployee" [mat-dialog-close]="selectedEmployee" color="primary">Start</button>
+  <button e2e="startOrderButton" mat-raised-button [disabled]="!selectedEmployee" [mat-dialog-close]="selectedEmployee" color="primary">Start</button>
 </mat-dialog-actions>

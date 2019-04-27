@@ -1,12 +1,12 @@
 <div class="employee-status-list">
   <h2 class="text-center primary employee-status-title">Employees</h2>
   <div class="employee-status-actions">
-    <div class="clickable center-container warn employee-status-action-button" (click)="signOut()">Sign Out</div>
-    <div class="clickable center-container success employee-status-action-button" (click)="signIn()">Sign In</div>
+    <div e2e="clockOutButton" class="clickable center-container warn employee-status-action-button" (click)="signOut()">Sign Out</div>
+    <div e2e="clockInButton" class="clickable center-container success employee-status-action-button" (click)="signIn()">Sign In</div>
   </div>
   <div class="employee-list">
     <ng-container *ngIf="employees !== undefined; else loading">
-      <div class="employee-container" *ngFor="let employee of employees">
+      <div e2e="employeeDisplay" class="employee-container" *ngFor="let employee of employees">
         <div class="text-center employee accent">{{employee.firstName}} {{employee.lastName}}</div>
       </div>
     </ng-container>

@@ -1,14 +1,14 @@
 <h2 mat-dialog-title class="text-center">Employee Check In/Out</h2>
 <mat-dialog-content>
   <mat-form-field class="full-width">
-    <input matInput type="text" [formControl]="id" required placeholder="Employee ID">
+    <input e2e="idInput" matInput type="text" [formControl]="id" required placeholder="Employee ID">
   </mat-form-field>
   <mat-form-field class="full-width">
-    <input matInput type="password" [formControl]="pin" required placeholder="Pin #">
+    <input e2e="pinInput" matInput type="password" [formControl]="pin" required placeholder="Pin #">
   </mat-form-field>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-raised-button mat-dialog-close color="warn">Cancel</button>
   <span class="spacer"></span>
-  <button mat-raised-button (click)="submit()" color="primary">Submit</button>
+  <button e2e="clockSubmitButton" mat-raised-button (click)="submit()" color="primary">Submit</button>
 </mat-dialog-actions>

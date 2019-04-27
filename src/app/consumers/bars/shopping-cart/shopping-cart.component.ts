@@ -46,7 +46,7 @@ export class ShoppingCartComponent {
   }
 
   checkout() {
-    if (this.editCart == true) {
+    if (this.editCart === true) {
       this.sbs.openError(
         'You need to save your cart before checking out.',
         2000

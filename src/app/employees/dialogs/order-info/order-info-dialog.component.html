@@ -8,13 +8,13 @@
   <ng-container *ngIf="status === 'in_progress'; else toFinish">
     <button mat-raised-button mat-dialog-close color="warn">Cancel</button>
     <span class="spacer"></span>
-    <button mat-raised-button [mat-dialog-close]="'pickup'" color="primary">Pickup</button>
+    <button e2e="pickupButton" mat-raised-button [mat-dialog-close]="'pickup'" color="primary">Pickup</button>
     <span class="spacer"></span>
     <button mat-raised-button [mat-dialog-close]="'delivery'" color="primary">Deliver</button>
   </ng-container>
   <ng-template #toFinish>
     <button mat-raised-button mat-dialog-close color="warn">Cancel</button>
     <span class="spacer"></span>
-    <button mat-raised-button [mat-dialog-close]="'finished'" color="primary">Complete Order</button>
+    <button e2e="completeOrderButton" mat-raised-button [mat-dialog-close]="'finished'" color="primary">Complete Order</button>
   </ng-template>
 </mat-dialog-actions>

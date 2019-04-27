@@ -1,9 +1,9 @@
 <div class="queue">
   <h2 class="text-center primary queue-title">Order Queue</h2>
-  <h2 class="clickable text-center start-order-button success" (click)="startNextDrink()">Start Next Order</h2>
+  <h2 e2e="startNextOrderButton" class="clickable text-center start-order-button success" (click)="startNextDrink()">Start Next Order</h2>
   <div class="order-list">
     <ng-container *ngIf="orders as orders; else loading">
-      <app-order-queue-item class="order-spacing" *ngFor="let order of orders" [order]="order"></app-order-queue-item>
+      <app-order-queue-item e2e="newOrder" class="order-spacing" *ngFor="let order of orders" [order]="order"></app-order-queue-item>
     </ng-container>
     <ng-template #loading>
       <div class="spinner-spacing">

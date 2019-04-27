@@ -6,9 +6,9 @@ import {
   FormGroup
 } from '@angular/forms';
 import { StripeService } from '@services/stripe/stripe.service';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { switchMap, map } from 'rxjs/operators';
+import { switchMap, map, catchError } from 'rxjs/operators';
 import { AuthService } from '@services/auth/auth.service';
 import { PaymentMethod, ConsumerUser, DrinkData, OrderPrice } from '@types';
 import { BarTapApi } from '@api';
@@ -119,15 +119,25 @@ export class CheckoutComponent {
     if (/^\d{2}\/\d{2}$/.test(card.expiration)) {
       this.user
         .pipe(
+          catchError(() => of(undefined)),
           switchMap(user => {
-            return this.stripe.chargeUser(
-              this.data.barId,
-              card,
-              this.drinks,
-              this.orderPrice,
-              user.billingInfo,
-              user.uid
-            );
+            if (user) {
+              return this.stripe.chargeUser(
+                this.data.barId,
+                card,
+                this.drinks,
+                this.orderPrice,
+                user.billingInfo,
+                user.uid
+              );
+            } else {
+              return this.stripe.chargeUser(
+                this.data.barId,
+                card,
+                this.drinks,
+                this.orderPrice
+              );
+            }
           })
         )
         .subscribe(

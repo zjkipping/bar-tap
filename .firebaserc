@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "bar-tap-dee55"
+    "default": "bar-tap-dee55",
+    "e2e": "bar-tap-e2e"
   }
 }

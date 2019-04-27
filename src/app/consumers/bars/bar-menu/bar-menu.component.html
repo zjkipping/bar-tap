@@ -35,7 +35,7 @@
       *ngFor="let drink of (drinks | async)"
       class="popular-list-item"
     >
-      <div (click)="openAddToCartDialog(drink)" class="popular-list__details">
+      <div (click)="openAddToCartDialog(drink)" class="popular-list__details" e2e="openAddToCart">
         <h5>{{ drink.name }}</h5>
         <h5>{{ drink.price | currency: 'USD':'symbol':'.2-2' }}</h5>
       </div>
@@ -84,6 +84,7 @@
     matBadgePosition="before"
     matBadgeColor="accent"
     (click)="openCart(bar.uid)"
+    e2e="openCart"
   >
     <mat-icon>shopping_cart</mat-icon>
   </button>

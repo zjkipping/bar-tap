@@ -31,6 +31,7 @@
           type="number"
           maxlength="16"
           placeholder="Card Number"
+          e2e="cardNumberInput"
         />
       </mat-form-field>
       <mat-form-field>
@@ -39,10 +40,11 @@
           [formControl]="expiration"
           type="string"
           placeholder="Expiration"
+          e2e="expirationInput"
         />
       </mat-form-field>
       <mat-form-field>
-        <input matInput maxlength="3" [formControl]="cvc" placeholder="CVC" />
+        <input matInput maxlength="3" [formControl]="cvc" placeholder="CVC" e2e="cvcInput" />
       </mat-form-field>
       <ng-container *ngIf="(user | async)">
         <mat-checkbox (click)="toggleSaveCard()">
@@ -81,7 +83,7 @@
       </div>
     </div>
 
-    <button mat-raised-button color="primary" (click)="buy()">
+    <button mat-raised-button color="primary" (click)="buy()" e2e="submitOrderButton">
       Place Order
     </button>
     <button mat-raised-button color="secondary" (click)="back()">

@@ -29,7 +29,7 @@
       <h4>{{ total | async | currency: 'USD':'symbol':'.2-2' }}</h4>
     </div>
   </div>
-  <button mat-raised-button color="primary" (click)="addToCart()">
+  <button mat-raised-button color="primary" (click)="addToCart()" e2e="addToCartButton">
     Add to Cart
   </button>
   <button mat-raised-button color="secondary" mat-dialog-close>

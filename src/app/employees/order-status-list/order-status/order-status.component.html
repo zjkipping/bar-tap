@@ -2,6 +2,6 @@
   <div class="order-container" *ngIf="order as order">  
     <span class="order-column text-left">Order #{{order.number}}</span>
     <span class="order-column text-center">{{employeeId}}</span>
-    <span class="order-column text-right">{{statusDisplay[order.status]}}</span>
+    <span class="order-column text-right" e2e="orderStatusValue">{{statusDisplay[order.status]}}</span>
   </div>
 </ng-container>
