@@ -22,6 +22,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 export class BarMenuComponent {
   bar: Observable<Bar>;
   drinks: Observable<Drink[]>;
+  popularDrinks: Observable<Drink[]>;
   drinkCount: Observable<number>;
   favorite: Observable<boolean>;
 
@@ -68,6 +69,10 @@ export class BarMenuComponent {
 
     this.bar = barDetails.pipe(map(([bar, _drinks]) => bar));
     this.drinks = barDetails.pipe(map(([_bar, drinks]) => drinks));
+    this.popularDrinks = this.drinks.pipe(
+      map(drink => drink.filter(drink => drink.popular))
+    );
+
     this.cart.bar = barDetails.pipe(map(([bar, _drinks]) => bar));
     this.drinkCount = this.cart.cartItems.pipe(
       map(items =>

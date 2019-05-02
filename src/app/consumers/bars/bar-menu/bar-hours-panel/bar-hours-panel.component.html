@@ -1,0 +1,25 @@
+<mat-expansion-panel>
+  <mat-expansion-panel-header
+    class="header"
+    [ngStyle]="{ 'background-color': 'rgb(0, 0, 45)' }"
+  >
+    <mat-panel-title class="details">
+      <h3>Hours</h3>
+      <h3>{{ hours | barHours }}</h3>
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <ng-container>
+    <mat-list class="drink-list">
+      <mat-list-item
+        *ngFor="let key of hoursKeys(hours)"
+        class="drink-list-item"
+      >
+        <div class="drink-list__details">
+          <h5>{{ key | titlecase }}</h5>
+          <h5>{{ hours[key] | uppercase }}</h5>
+        </div>
+        <mat-divider></mat-divider>
+      </mat-list-item>
+    </mat-list>
+  </ng-container>
+</mat-expansion-panel>

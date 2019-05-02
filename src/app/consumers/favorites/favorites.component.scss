@@ -1,3 +1,12 @@
 .page-header {
   padding: 20px 0;
 }
+:host /deep/ .mat-list-item-content {
+  padding: 0 !important;
+}
+:host /deep/ .mat-list-item {
+  height: 150px !important;
+}
+:host /deep/ .mat-list-base {
+  padding: 0;
+}

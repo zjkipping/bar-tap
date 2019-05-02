@@ -32,7 +32,7 @@
       required
     />
   </mat-form-field>
-  <h5 class="error">{{ errorMessage }}</h5>
+  <h5 [ngClass]="[errorMessage ? 'error' : '']">{{ errorMessage }}</h5>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-raised-button color="primary" (click)="save()">

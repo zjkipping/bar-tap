@@ -1,55 +1,67 @@
-<h2 mat-dialog-title>Register</h2>
-<mat-dialog-content>
-  <mat-form-field>
-    <input
-      matInput
-      [formControl]="firstName"
-      placeholder="First name"
-      required
-    />
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput [formControl]="lastName" placeholder="Last name" required />
-  </mat-form-field>
-  <mat-form-field>
-    <input
-      matInput
-      [matDatepicker]="picker"
-      [formControl]="dob"
-      placeholder="Date of Birth"
-      required
-    />
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker touchUi #picker></mat-datepicker>
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput [formControl]="email" placeholder="Email" required />
-  </mat-form-field>
-  <mat-form-field>
-    <input
-      matInput
-      type="password"
-      [formControl]="password"
-      placeholder="Password"
-      required
-    />
-  </mat-form-field>
-  <mat-form-field>
-    <input
-      matInput
-      type="password"
-      [formControl]="password2"
-      placeholder="Confirm Password"
-      required
-    />
-  </mat-form-field>
-  <p class="error">{{ errorMessage }}</p>
-</mat-dialog-content>
-<mat-dialog-actions>
-  <button mat-raised-button color="primary" (click)="register()">
-    Register
-  </button>
-  <button mat-raised-button (click)="close()">
-    Cancel
-  </button>
-</mat-dialog-actions>
+<ng-container *ngIf="!showLoading; else loading">
+  <h2 mat-dialog-title>Register</h2>
+  <mat-dialog-content>
+    <mat-form-field>
+      <input
+        matInput
+        [formControl]="firstName"
+        placeholder="First Name"
+        required
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        [formControl]="lastName"
+        placeholder="Last Name"
+        required
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        [matDatepicker]="picker"
+        [formControl]="dob"
+        placeholder="Date of Birth"
+        required
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker touchUi #picker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [formControl]="email" placeholder="Email" required />
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        type="password"
+        [formControl]="password"
+        placeholder="Password"
+        required
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        type="password"
+        [formControl]="password2"
+        placeholder="Confirm Password"
+        required
+      />
+    </mat-form-field>
+    <h5 [ngClass]="[errorMessage ? 'error' : '']">{{ errorMessage }}</h5>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-raised-button color="primary" (click)="register()">
+      Register
+    </button>
+    <button mat-raised-button (click)="close()">
+      Cancel
+    </button>
+  </mat-dialog-actions>
+</ng-container>
+<ng-template #loading>
+  <div class="loading">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>

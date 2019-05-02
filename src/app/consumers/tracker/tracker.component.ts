@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Tracking, ConsumerUser, Bar } from '@types';
+import { Tracking, ConsumerUser } from '@types';
+import { switchMap } from 'rxjs/operators';
+
 import { AuthService } from '@services/auth/auth.service';
 import { BarTapApi } from '@api';
-import { switchMap, combineLatest } from 'rxjs/operators';
 
 @Component({
   selector: 'app-tracker',

@@ -1,10 +1,11 @@
 <mat-dialog-actions>
   <ng-container *ngIf="!showLoading; else loading">
     <ng-container *ngIf="!showAddCard">
-      <mat-form-field>
+      <mat-form-field *ngIf="cards | async as cards">
+        <mat-label>Select a Payment Method</mat-label>
         <mat-select [formControl]="selectedCard" required>
           <mat-option
-            *ngFor="let card of (cards | async)"
+            *ngFor="let card of cards"
             [value]="card"
             (click)="addCard(false)"
           >
@@ -18,7 +19,7 @@
     </ng-container>
     <ng-container *ngIf="showAddCard">
       <div class="change-payment-button">
-        <ng-container *ngIf="(user | async)">
+        <ng-container *ngIf="user | async">
           <button mat-raised-button color="primary" (click)="addCard(false)">
             Change Payment Option
           </button>
@@ -44,9 +45,15 @@
         />
       </mat-form-field>
       <mat-form-field>
-        <input matInput maxlength="3" [formControl]="cvc" placeholder="CVC" e2e="cvcInput" />
+        <input
+          matInput
+          maxlength="3"
+          [formControl]="cvc"
+          placeholder="CVC"
+          e2e="cvcInput"
+        />
       </mat-form-field>
-      <ng-container *ngIf="(user | async)">
+      <ng-container *ngIf="user | async">
         <mat-checkbox (click)="toggleSaveCard()">
           <h5>Save this card to your stored payment methods.</h5>
         </mat-checkbox>
@@ -82,16 +89,22 @@
         </h4>
       </div>
     </div>
-
-    <button mat-raised-button color="primary" (click)="buy()" e2e="submitOrderButton">
-      Place Order
-    </button>
-    <button mat-raised-button color="secondary" (click)="back()">
-      Back to Cart
-    </button>
-
-    <h5 class="error">{{ errorMessage }}</h5>
+    <div class="buttons">
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="placeOrder()"
+        e2e="submitOrderButton"
+      >
+        Place Order
+      </button>
+      <button mat-raised-button color="secondary" (click)="back()">
+        Back to Cart
+      </button>
+    </div>
   </ng-container>
+  <br />
+  <h5 [ngClass]="[errorMessage ? 'error' : '']">{{ errorMessage }}</h5>
 
   <ng-template #loading>
     <div class="loading">

@@ -2,10 +2,15 @@
   <mat-list-item
     *ngFor="let bar of bars"
     [routerLink]="'/bars/' + bar.uid"
-    class="bars-list-item"
-    [ngStyle]="{ 'background-image': 'url(/assets/header-image.jpg)' }"
+    class="bars-list__item"
+    [ngStyle]="{
+      'background-image': 'url(/assets/header-image.jpg)'
+    }"
   >
     <div class="bars-list__fade-overlay">
+      <h4 *ngIf="bar.hours" class="bars-list__status">
+        {{ bar.hours | barHours }}
+      </h4>
       <div class="bars-list__details">
         <h2>{{ bar.name }}</h2>
         <h5>{{ bar.location }}</h5>

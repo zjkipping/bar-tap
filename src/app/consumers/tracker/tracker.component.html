@@ -1,6 +1,25 @@
 <h2 class="page-header">Order Tracker</h2>
-<app-tracker-list
-  *ngFor="let tracker of (tracking | async)"
-  [barId]="tracker.barId"
-  [orderId]="tracker.orderId"
-></app-tracker-list>
+<ng-container *ngIf="(tracking | async) as tracker; else loading">
+  <div class="desktop-container">
+    <app-tracker-list
+      *ngFor="let tracker of (tracking | async)"
+      [barId]="tracker.barId"
+      [orderId]="tracker.orderId"
+    ></app-tracker-list>
+    <ng-container *ngIf="tracker.length < 1">
+      <h5 class="text-center">
+        You currently have no active orders.
+      </h5>
+      <div class="search-button-container">
+        <button mat-raised-button color="primary" routerLink="/bars">
+          Search for Bars!
+        </button>
+      </div>
+    </ng-container>
+  </div>
+</ng-container>
+<ng-template #loading>
+  <div class="loading">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>

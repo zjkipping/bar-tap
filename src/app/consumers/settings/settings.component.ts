@@ -144,11 +144,19 @@ export class SettingsComponent {
           return this.auth.getUserAsConsumerAuth().pipe(
             take(1),
             switchMap(user => {
-              return from(
-                this.db
-                  .doc(`/users/${user.uid}/paymentMethods/${card.uid}`)
-                  .update(data)
-              );
+              if (data.delete) {
+                return from(
+                  this.db
+                    .doc(`/users/${user.uid}/paymentMethods/${card.uid}`)
+                    .delete()
+                );
+              } else {
+                return from(
+                  this.db
+                    .doc(`/users/${user.uid}/paymentMethods/${card.uid}`)
+                    .update(data)
+                );
+              }
             })
           );
         })

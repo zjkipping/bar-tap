@@ -9,6 +9,5 @@ import { Bar } from '@types';
 })
 export class BarsListComponent {
   @Input() bars: Observable<Bar[]> | undefined;
-
   constructor() {}
 }

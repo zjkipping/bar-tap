@@ -11,9 +11,7 @@ export class UserAgreementComponent {
 
   continue(value: boolean) {
     this.dialogRef.close({
-      data: {
-        continue: value
-      }
+      continue: value
     });
   }
 }

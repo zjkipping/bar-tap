@@ -1,33 +1,43 @@
 <h2 class="page-header">Order Tracker</h2>
-<ng-container *ngIf="(bar | async) as bar; else loading">
-  <ng-container *ngIf="(order | async) as order">
-    <app-tracker-order-panel
-      [barId]="bar.uid"
-      [order]="order"
-    ></app-tracker-order-panel>
-    <div class="tracker">
-      <div class="details">
-        <h5>Status:</h5>
-        <h5>{{ order.status | orderStatusPipe }}</h5>
-      </div>
-      <div class="tracker__progress-bar">
-        <ng-container *ngIf="order.status !== 'finished'; else finished">
-          <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-        </ng-container>
-        <ng-template #finished>
-          <mat-icon class="tracker__finished-icon"
-            >check_circle_outline</mat-icon
+<ng-container *ngIf="bar | async as bar; else loading">
+  <ng-container *ngIf="order | async as order">
+    <div class="desktop-container">
+      <app-tracker-order-panel
+        [barId]="bar.uid"
+        [order]="order"
+      ></app-tracker-order-panel>
+      <div class="tracker">
+        <div class="details">
+          <h5>Status:</h5>
+          <h5>{{ order.status | orderStatusPipe }}</h5>
+        </div>
+        <div class="tracker__progress-bar">
+          <ng-container *ngIf="order.status === 'new'">
+            <mat-progress-bar mode="buffer"></mat-progress-bar>
+          </ng-container>
+          <ng-container *ngIf="order.status === 'in_progress'">
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+          </ng-container>
+          <ng-container
+            *ngIf="order.status === 'pickup' || order.status === 'delivering'"
           >
-        </ng-template>
-      </div>
-      <h5 class="text-center">
-        {{ message | async }}
-      </h5>
-      <div class="text-center">
-        <h4>Order #{{ order.number }}</h4>
-        <h6>
-          Show this order number to your bar tender on pickup.
-        </h6>
+            <mat-progress-bar mode="determinate" value="90"></mat-progress-bar>
+          </ng-container>
+          <ng-container *ngIf="order.status === 'finished'">
+            <mat-icon class="tracker__finished-icon"
+              >check_circle_outline</mat-icon
+            >
+          </ng-container>
+        </div>
+        <h5 class="text-center">
+          {{ message | async }}
+        </h5>
+        <div class="text-center">
+          <h4>Order #46{{ order.number }}</h4>
+          <h6>
+            Show this order number to your bar tender on pickup.
+          </h6>
+        </div>
       </div>
     </div>
   </ng-container>

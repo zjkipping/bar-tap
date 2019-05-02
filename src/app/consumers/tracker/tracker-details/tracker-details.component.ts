@@ -13,7 +13,7 @@ import {
 } from '@types';
 import { BarTapApi } from '@api';
 import { EmployeesService } from 'src/app/employees/employees.service';
-import { STATUS_MESSAGE, IN_PROGRESS_ORDER_STATUS } from '@constants';
+import { STATUS_MESSAGE } from '@constants';
 
 @Component({
   selector: 'app-tracker-details',

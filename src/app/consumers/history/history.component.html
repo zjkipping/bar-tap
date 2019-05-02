@@ -1,20 +1,22 @@
 <h2 class="page-header consumer-history-title">Order History</h2>
-<ng-container *ngIf="(history | async) as history; else loading">
+<ng-container *ngIf="history | async as history; else loading">
   <div class="consumer-history-list">
     <div class="consumer-history-subtitle">
-      <h2 class="history-information-detail">Name</h2>
+      <h2 class="history-information-detail">Bar</h2>
       <h2 class="history-information-detail">Date</h2>
       <h2 class="history-information-detail text">Total</h2>
     </div>
     <mat-divider></mat-divider>
     <ng-container *ngIf="history; else noHistory">
-      <div class="history-list" *ngFor="let charge of history">
-        <div class="history-list-item">
-          <h5>{{ charge.barName }}</h5>
-          <h5>{{ (charge.timestamp * 1000) | date: 'mediumDate' }}</h5>
-          <h5>{{ charge.total | currency: 'USD':'symbol':'.2-2' }}</h5>
-        </div>
-        <mat-divider></mat-divider>
+      <div class="history-list" *ngFor="let charge of history; let i = index">
+        <ng-container *ngIf="i < 10">
+          <div class="history-list-item">
+            <h5>{{ charge.barName }}</h5>
+            <h5>{{ charge.date * 1000 | date: 'mediumDate' }}</h5>
+            <h5>{{ charge.total | currency: 'USD':'symbol':'.2-2' }}</h5>
+          </div>
+          <mat-divider></mat-divider>
+        </ng-container>
       </div>
     </ng-container>
     <ng-template #noHistory>

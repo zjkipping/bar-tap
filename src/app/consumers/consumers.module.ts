@@ -22,6 +22,8 @@ import { TrackerDetailsComponent } from './tracker/tracker-details/tracker-detai
 import { TrackerListComponent } from './tracker/tracker-list/tracker-list.component';
 import { OrderStatusPipePipe } from './pipes/order-status-pipe.pipe';
 import { TrackerOrderPanelComponent } from './tracker/tracker-order-panel/tracker-order-panel.component';
+import { BarHoursPanelComponent } from './bars/bar-menu/bar-hours-panel/bar-hours-panel.component';
+import { BarHoursPipe } from './pipes/bar-hours.pipe';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,9 @@ import { TrackerOrderPanelComponent } from './tracker/tracker-order-panel/tracke
     TrackerDetailsComponent,
     TrackerListComponent,
     OrderStatusPipePipe,
-    TrackerOrderPanelComponent
+    TrackerOrderPanelComponent,
+    BarHoursPanelComponent,
+    BarHoursPipe
   ],
   imports: [
     CommonModule,

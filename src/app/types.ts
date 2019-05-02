@@ -42,6 +42,7 @@ export interface RawDrink {
   price: number;
   description: string;
   type: string;
+  popular: boolean;
 }
 
 export interface Drink extends RawDrink {

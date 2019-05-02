@@ -24,5 +24,8 @@ export const STATUS_MESSAGE: { [key: string]: string } = {
   [FINISHED_ORDER_STATUS]: 'Your order is complete!'
 };
 
+export const BAR_OPEN = 'OPEN';
+export const BAR_CLOSED = 'CLOSED';
+
 export const WRONG_USER_TYPE_ERROR = 'wrong_user_type';
 export const NO_AUTH_ERROR = 'no_auth';

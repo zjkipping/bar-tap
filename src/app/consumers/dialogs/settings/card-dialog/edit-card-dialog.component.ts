@@ -33,4 +33,10 @@ export class EditCardDialogComponent {
       expiration: this.expiration.value
     });
   }
+
+  delete() {
+    this.dialogRef.close({
+      delete: true
+    });
+  }
 }

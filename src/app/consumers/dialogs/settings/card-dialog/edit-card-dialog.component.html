@@ -1,6 +1,8 @@
 <div class="header">
   <h2>Edit Card</h2>
-  <button mat-button color="warn" class="remove-button">Remove Card</button>
+  <button mat-button color="warn" class="remove-button" (click)="delete()">
+    Remove Card
+  </button>
 </div>
 
 <mat-dialog-content>
@@ -26,7 +28,7 @@
   <mat-form-field>
     <input matInput [formControl]="cvc" placeholder="CVC" required />
   </mat-form-field>
-  <p class="error">{{ errorMessage }}</p>
+  <h5 [ngClass]="[errorMessage ? 'error' : '']">{{ errorMessage }}</h5>
 </mat-dialog-content>
 
 <mat-dialog-actions>

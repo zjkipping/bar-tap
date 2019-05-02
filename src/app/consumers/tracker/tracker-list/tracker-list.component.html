@@ -1,4 +1,4 @@
-<ng-container *ngIf="(bar | async) as bar; else loading">
+<ng-container *ngIf="(bar | async) as bar">
   <ng-container *ngIf="(order | async) as order">
     <mat-list class="orders-list">
       <mat-list-item [routerLink]="'/tracker/' + bar.uid + '/' + order.uid">

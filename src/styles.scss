@@ -91,6 +91,10 @@ mat-divider {
   background-color: #3f51b5;
 }
 
+.desktop-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
 .accent {
   background-color: teal;
 }
@@ -126,8 +130,12 @@ mat-divider {
 }
 
 .error {
-  color: #e00000;
+  color: #cc2626;
   text-align: center;
+  margin: 20px auto;
+  background-color: #333333;
+  border-radius: 20px;
+  padding: 15px 5px;
 }
 
 .error-snackbar {
@@ -143,7 +151,8 @@ mat-divider {
 }
 
 @media (hover: none) {
-  .mat-expansion-panel:not(.mat-expanded):not([aria-disabled=true]) .mat-expansion-panel-header:hover {
+  .mat-expansion-panel:not(.mat-expanded):not([aria-disabled='true'])
+    .mat-expansion-panel-header:hover {
     background: rgba(84, 86, 88, 0.5) !important;
   }
 }
@@ -153,7 +162,8 @@ mat-divider {
   color: white !important;
 }
 
-.mat-expansion-panel-header-description, .mat-expansion-panel-header-title {
+.mat-expansion-panel-header-description,
+.mat-expansion-panel-header-title {
   color: white !important;
 }
 

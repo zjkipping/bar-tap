@@ -12,7 +12,7 @@
       required
     />
   </mat-form-field>
-  <p class="error">{{ errorMessage }}</p>
+  <h5 [ngClass]="[errorMessage ? 'error' : '']">{{ errorMessage }}</h5>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-raised-button color="primary" (click)="login()">Sign in</button>

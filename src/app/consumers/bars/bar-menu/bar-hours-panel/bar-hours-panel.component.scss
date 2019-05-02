@@ -1,8 +1,6 @@
 .drink-list {
-  background-color: #1b1b1b;
+  background-color: #333333;
   color: white;
-  max-width: 800px;
-  margin: 0 auto;
 
   &__details {
     display: flex;
@@ -24,9 +22,8 @@ h6 {
   letter-spacing: 1px;
   color: white;
 }
-
 :host /deep/ .mat-expansion-panel {
-  background-color: #1b1b1b;
+  background-color: #333333;
   max-width: 800px;
   margin: 0 auto;
 }

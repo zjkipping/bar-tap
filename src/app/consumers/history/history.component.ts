@@ -15,8 +15,8 @@ export class HistoryComponent {
   history: Observable<History[]>;
 
   constructor(private auth: AuthService, private api: BarTapApi) {
-    this.history = this.auth.getUserAsConsumerAuth().pipe(
-      switchMap(user => this.api.getConsumersHistory(user.uid))
-    );
+    this.history = this.auth
+      .getUserAsConsumerAuth()
+      .pipe(switchMap(user => this.api.getConsumersHistory(user.uid)));
   }
 }

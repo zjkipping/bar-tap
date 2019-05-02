@@ -5,23 +5,26 @@ import {
   FormBuilder,
   FormGroup
 } from '@angular/forms';
-import { StripeService } from '@services/stripe/stripe.service';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material';
+import * as _ from 'lodash';
 import { Observable, of } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { switchMap, map, catchError } from 'rxjs/operators';
-import { AuthService } from '@services/auth/auth.service';
-import { PaymentMethod, ConsumerUser, DrinkData, OrderPrice } from '@types';
-import { BarTapApi } from '@api';
 import {
-  MAT_DIALOG_DATA,
-  MatDialogRef,
-  MatBottomSheet
-} from '@angular/material';
-import { SnackBarService } from '@services/snackbar/snackbar.service';
-import { ShoppingCartComponent } from 'src/app/consumers/bars/shopping-cart/shopping-cart.component';
-import { Cart } from '@services/cart.service';
-import * as _ from 'lodash';
+  switchMap,
+  catchError,
+  shareReplay,
+  tap,
+  map,
+  filter
+} from 'rxjs/operators';
 
+import { AuthService } from '@services/auth/auth.service';
+import { BarTapApi } from '@api';
+import { SnackBarService } from '@services/snackbar/snackbar.service';
+import { Cart } from '@services/cart.service';
+import { PaymentMethod, ConsumerUser, DrinkData, OrderPrice } from '@types';
+import { UserAgreementComponent } from '../user-agreement/user-agreement.component';
+import { StripeService } from '@services/stripe/stripe.service';
 interface CheckoutData {
   total: number;
   tax: number;
@@ -35,10 +38,21 @@ interface CheckoutData {
 })
 export class CheckoutComponent {
   card?: FormGroup;
-  selectedCard = new FormControl('', Validators.required);
+  selectedCard = new FormControl('', [
+    Validators.required,
+    Validators.minLength(15),
+    Validators.maxLength(19)
+  ]);
   cardNumber = new FormControl('', Validators.required);
-  expiration = new FormControl('', Validators.required);
-  cvc = new FormControl('', Validators.required);
+  expiration = new FormControl('', [
+    Validators.required,
+    Validators.pattern('/^d{2}/d{2}$/')
+  ]);
+  cvc = new FormControl('', [
+    Validators.required,
+    Validators.minLength(3),
+    Validators.maxLength(4)
+  ]);
   errorMessage = '';
   showLoading: boolean = false;
   showAddCard: boolean = false;
@@ -58,14 +72,17 @@ export class CheckoutComponent {
     private sbs: SnackBarService,
     private router: Router,
     private dialogRef: MatDialogRef<CheckoutComponent>,
-    private cart: Cart
+    private cart: Cart,
+    public dialog: MatDialog
   ) {
-    this.user = this.auth.getUserAsConsumerAuth();
-    this.auth.currentAuth.subscribe(user => {
-      if (user === null) {
-        this.showAddCard = true;
-      }
-    });
+    this.user = this.auth.getUserAsConsumerAuth().pipe(
+      tap(user => {
+        if (!user) {
+          this.showAddCard = true;
+        }
+      }),
+      shareReplay(1)
+    );
 
     this.cards = this.user.pipe(
       switchMap(user => this.api.getUserPaymentMethods(user.uid))
@@ -103,12 +120,56 @@ export class CheckoutComponent {
     });
   }
 
-  buy() {
+  placeOrder() {
+    this.errorMessage = '';
     this.showLoading = true;
+
+    this.user
+      .pipe(
+        switchMap(user => {
+          if (!user) {
+            return this.dialog
+              .open(UserAgreementComponent)
+              .afterClosed()
+              .pipe(
+                map(data => {
+                  if (!data.continue) {
+                    this.showLoading = false;
+                    this.errorMessage =
+                      "You must agree to Bar Tap's User Agreement before placing an order.";
+                    return false;
+                  } else {
+                    return true;
+                  }
+                })
+              );
+          } else {
+            return of(true);
+          }
+        }),
+        filter(res => !!res)
+      )
+      .subscribe(() => this.processOrder());
+  }
+
+  processOrder() {
     this.card = this.fb.group({
-      cardNumber: this.cardNumber.value,
-      expiration: this.expiration.value,
-      cvc: this.cvc.value
+      cardNumber: [
+        this.cardNumber.value,
+        [
+          Validators.required,
+          Validators.minLength(15),
+          Validators.maxLength(19)
+        ]
+      ],
+      expiration: [
+        this.expiration.value,
+        [Validators.required, Validators.pattern('/^d{2}/d{2}$/')]
+      ],
+      cvc: [
+        this.cvc.value,
+        [Validators.required, Validators.minLength(3), Validators.maxLength(4)]
+      ]
     });
 
     const card = this.selectedCard.value

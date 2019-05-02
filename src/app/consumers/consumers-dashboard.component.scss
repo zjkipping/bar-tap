@@ -2,7 +2,6 @@
   margin: auto;
   background-color: #1b1b1b;
   font-family: 'Montserrat', 'Helvetica Neue', sans-serif;
-  max-width: 800px;
 
   &__drawer {
     background-color: rgba(14, 14, 14, 0.89);
@@ -66,7 +65,6 @@
     color: #fff;
   }
   &__content {
-    max-width: 425px;
     margin: 0 auto;
     height: 100%;
   }
