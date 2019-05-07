@@ -5,12 +5,12 @@
 export const environment = {
   production: false,
   fbConfig: {
-    apiKey: 'AIzaSyAGwBG-kRJ-nkGXvfsS0-XHm1Cu_hNHfpE',
-    authDomain: 'bar-tap-e2e.firebaseapp.com',
-    databaseURL: 'https://bar-tap-e2e.firebaseio.com',
-    projectId: 'bar-tap-e2e',
-    storageBucket: 'bar-tap-e2e.appspot.com',
-    messagingSenderId: '994566998482'
+    apiKey: 'AIzaSyB9ktho_UFehN1qxwEQnAz1GtJLlr5jZsY',
+    authDomain: 'bar-tap-dee55.firebaseapp.com',
+    databaseURL: 'https://bar-tap-dee55.firebaseio.com',
+    projectId: 'bar-tap-dee55',
+    storageBucket: 'bar-tap-dee55.appspot.com',
+    messagingSenderId: '257126503998'
   }
 };
 
