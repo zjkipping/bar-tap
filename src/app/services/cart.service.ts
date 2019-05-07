@@ -90,10 +90,6 @@ export class Cart {
     );
   }
 
-  getDrinks() {
-    return this.cartItems.pipe(map(drink => drink.values));
-  }
-
   clearCart() {
     this.cartItems.next(
       this.cartItems.value.filter(item => item.drink.uid === null)
