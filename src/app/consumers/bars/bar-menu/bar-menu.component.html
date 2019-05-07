@@ -41,9 +41,9 @@
         class="popular-list-item"
       >
         <div
-          *ngIf="drink.popular === true"
           (click)="openAddToCartDialog(drink)"
           class="popular-list__details"
+          e2e="openAddToCart"
         >
           <h5>{{ drink.name }}</h5>
           <h5>{{ drink.price | currency: 'USD':'symbol':'.2-2' }}</h5>

@@ -35,6 +35,8 @@ describe('Employees Page', () => {
     await ConsumersPage.expirationInput.sendKeys(EXPIRATION);
     await ConsumersPage.cvcInput.sendKeys(CVC);
     await ConsumersPage.submitOrderButton.click();
+    await browser.wait(Utilities.PE.presenceOf(ConsumersPage.acceptUAButton));
+    await ConsumersPage.acceptUAButton.click();
     await browser.wait(Utilities.EC.urlContains('tracker'));
     expect(Utilities.EC.urlContains('tracker'));
   });
@@ -54,6 +56,7 @@ describe('Employees Page', () => {
     await browser.wait(Utilities.PE.presenceOf(EmployeesPage.clockInButton));
     await EmployeesPage.clockInButton.click();
     await browser.wait(Utilities.PE.presenceOf(EmployeesPage.idInput));
+    await browser.sleep(200);
     await EmployeesPage.idInput.sendKeys(ID);
     await EmployeesPage.pinInput.sendKeys(PIN);
     await browser.sleep(200);

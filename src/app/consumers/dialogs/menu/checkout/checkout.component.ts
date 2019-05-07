@@ -25,6 +25,7 @@ import { Cart } from '@services/cart.service';
 import { PaymentMethod, ConsumerUser, DrinkData, OrderPrice } from '@types';
 import { UserAgreementComponent } from '../user-agreement/user-agreement.component';
 import { StripeService } from '@services/stripe/stripe.service';
+
 interface CheckoutData {
   total: number;
   tax: number;
@@ -54,10 +55,10 @@ export class CheckoutComponent {
     Validators.maxLength(4)
   ]);
   errorMessage = '';
-  showLoading: boolean = false;
-  showAddCard: boolean = false;
-  saveCard: boolean = false;
-  user: Observable<ConsumerUser>;
+  showLoading = false;
+  showAddCard = false;
+  saveCard = false;
+  user: Observable<ConsumerUser | undefined>;
   cards: Observable<PaymentMethod[]>;
   drinks: DrinkData[];
   orderPrice: OrderPrice;
@@ -76,6 +77,7 @@ export class CheckoutComponent {
     public dialog: MatDialog
   ) {
     this.user = this.auth.getUserAsConsumerAuth().pipe(
+      catchError(error => of(undefined)),
       tap(user => {
         if (!user) {
           this.showAddCard = true;
@@ -85,7 +87,7 @@ export class CheckoutComponent {
     );
 
     this.cards = this.user.pipe(
-      switchMap(user => this.api.getUserPaymentMethods(user.uid))
+      switchMap(user => this.api.getUserPaymentMethods((user as ConsumerUser).uid))
     );
 
     this.drinks = this.cart.cartItems.value.map(drink => {
@@ -136,7 +138,7 @@ export class CheckoutComponent {
                   if (!data.continue) {
                     this.showLoading = false;
                     this.errorMessage =
-                      "You must agree to Bar Tap's User Agreement before placing an order.";
+                      'You must agree to Bar Tap\'s User Agreement before placing an order.';
                     return false;
                   } else {
                     return true;

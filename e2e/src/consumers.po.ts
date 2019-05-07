@@ -9,3 +9,4 @@ export const cardNumberInput = $('[e2e="cardNumberInput"]');
 export const expirationInput = $('[e2e="expirationInput"]');
 export const cvcInput = $('[e2e="cvcInput"]');
 export const submitOrderButton = $('[e2e="submitOrderButton"]');
+export const acceptUAButton = $('[e2e="acceptUA"]');
