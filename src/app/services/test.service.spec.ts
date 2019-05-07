@@ -6,14 +6,16 @@ const drink1: Drink = {
   price: 5,
   description: '',
   type: 'non-alcholic',
-  uid: 'abc'
+  uid: 'abc',
+  popular: false
 };
 const drink2: Drink = {
   name: 'coke',
   price: 5,
   description: '',
   type: 'soda',
-  uid: '123'
+  uid: '123',
+  popular: true
 };
 
 describe('Cart', () => {
@@ -27,22 +29,22 @@ describe('Cart', () => {
 
   it('should add different type of drink2', () => {
     service.addDrink(drink2);
-    expect(service.cartItems.value).toEqual([{ drink: drink1, quantity: 1 },{ drink: drink2, quantity: 1 }]);
+    expect(service.cartItems.value).toEqual([{ drink: drink1, quantity: 1 }, { drink: drink2, quantity: 1 }]);
   });
 
   it('should increase quanity of drink1 to 2', () => {
     service.addQuantity(drink1);
-    expect(service.cartItems.value).toEqual([{ drink: drink1, quantity: 2 },{ drink: drink2, quantity: 1 }]);
+    expect(service.cartItems.value).toEqual([{ drink: drink1, quantity: 2 }, { drink: drink2, quantity: 1 }]);
   });
 
   it('should increase quanity of drink1 to 3', () => {
     service.addQuantity(drink1);
-    expect(service.cartItems.value).toEqual([{ drink: drink1, quantity: 3 },{ drink: drink2, quantity: 1 }]);
+    expect(service.cartItems.value).toEqual([{ drink: drink1, quantity: 3 }, { drink: drink2, quantity: 1 }]);
   });
 
   it('should remove one drink1 quanity to 2', () => {
     service.removeQuantity(drink1);
-    expect(service.cartItems.value).toEqual([{ drink: drink1, quantity: 2 },{ drink: drink2, quantity: 1 }]);
+    expect(service.cartItems.value).toEqual([{ drink: drink1, quantity: 2 }, { drink: drink2, quantity: 1 }]);
   });
 
   it('should remove one drink2 quanity to 0', () => {
