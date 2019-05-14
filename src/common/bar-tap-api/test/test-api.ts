@@ -100,6 +100,10 @@ export class TestApi extends BarTapApi {
     return throwError('Not Yet Implemented');
   }
 
+  getBarStripeSecret(barId: string): Observable<string | undefined> {
+    return throwError('Not Yet Implemented');
+  }
+
   getConsumersHistory(userId: string): Observable<History[]> {
     return throwError('Not Yet Implemented');
   }

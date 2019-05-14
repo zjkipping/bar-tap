@@ -68,6 +68,8 @@ export abstract class BarTapApi {
 
   abstract getBarApiKey(barID: string): Observable<string | undefined>;
 
+  abstract getBarStripeSecret(barID: string): Observable<string | undefined>;
+
   abstract getConsumersFavoriteBars(userID: string): Observable<Bar[]>;
 
   abstract getConsumersFavoriteBars(userId: string): Observable<Bar[]>;

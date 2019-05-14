@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 
-import { Employee, Bar } from '@types';
+import { Employee, Bar, SettingsFormData } from '@types';
 import { BarTapApi } from 'src/common/bar-tap-api/bar-tap-api';
 import { AuthService } from '@services/auth/auth.service';
 import { switchMap } from 'rxjs/operators';
 import { SnackBarService } from '@services/snackbar/snackbar.service';
-import { from } from 'rxjs';
+import { from, combineLatest } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -54,15 +54,22 @@ export class AdminService {
   }
 
   /* SETTINGS PAGE */
-  updateSettings(data: Bar, _barId: string) {
+  updateSettings(data: SettingsFormData, _barId: string) {
     this.auth.getUserAsAdminAuth().pipe(
       switchMap(bar => {
-        return this.database.doc(`bars/${bar.barId}`).update({
-          name: data.name,
-          description: data.description,
-          location: data.location,
-          hours: data.hours
-        });
+        return combineLatest(
+          this.database.doc(`bars/${bar.barId}`).update({
+            name: data.meta.name,
+            description: data.meta.description,
+            location: data.meta.location
+          }),
+          this.database.doc(`stripe_api_keys/${bar.barId}`).set({
+            apiKey: data.apiKey
+          }),
+          this.database.doc(`stripe_secrets/${bar.barId}`).set({
+            secret: data.secret
+          })
+        );
       })
     ).subscribe(
       () =>
@@ -70,5 +77,7 @@ export class AdminService {
         error => this.sbs.openError(error.message, 3000)
     );
   }
+
+
 
 }

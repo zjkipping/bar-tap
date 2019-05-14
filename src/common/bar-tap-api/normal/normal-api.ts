@@ -286,6 +286,21 @@ export class NormalApi extends BarTapApi {
       );
   }
 
+  getBarStripeSecret(barId: string): Observable<string | undefined> {
+    return this.db
+      .doc<{ secret: string }>(`stripe_secrets/${barId}`)
+      .valueChanges()
+      .pipe(
+        map((result: { secret: string } | undefined) => {
+          if (result) {
+            return result.secret;
+          } else {
+            return undefined;
+          }
+        })
+      );
+  }
+
   getConsumersHistory(userId: string): Observable<History[]> {
     return this.db
       .collection<RawHistory>(`users/${userId}/history`)

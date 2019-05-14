@@ -188,3 +188,13 @@ export interface StripePaymentData {
   drinks: DrinkData[];
   userId?: string;
 }
+
+export interface SettingsFormData {
+  meta: {
+    name: string,
+    description: string,
+    location: string
+  };
+  apiKey: string;
+  secret: string;
+}

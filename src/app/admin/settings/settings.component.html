@@ -1,29 +1,35 @@
 <ng-container *ngIf="(settings | async) let settings; else: loading">
-    <div class="settings-info-list">
-        <div class="settings-subtitle">
-            <h2 class="settings-info">Bar Name</h2>
-            <h2 class="settings-info">Description</h2>
-            <h2 class="settings-info">Location</h2>
-            <h2 class="settings-info">Hours</h2>
-            <h2 class="settings-info">API Key</h2>
-            <button mat-icon-button (click)="openSettingsDialog(settings)">
-                <mat-icon style="color: black">edit</mat-icon>
-            </button>
-        </div>
-        <mat-divider></mat-divider>
-        <ng-container>
-            <div class="settings-list">
-                <div class="settings-list-item">
-                    <h5>{{settings.name}}</h5>
-                    <h5>{{settings.description}}</h5>
-                    <h5>{{settings.location}}</h5>
-                    <h5>{{settings.hours}}</h5>
-                    <h5>{{settings.apiKey}}</h5>
+    <ng-container *ngIf="(barApiKey | async) let barApiKey;">
+        <ng-container *ngIf="(stripeSecret | async) let stripeSecret;">
+            <div class="settings-info-list">
+                <div class="settings-subtitle">
+                    <h2 class="settings-info">Bar Name</h2>
+                    <h2 class="settings-info">Description</h2>
+                    <h2 class="settings-info">Location</h2>
+                    <h2 class="settings-info">Hours</h2>
+                    <h2 class="settings-info">API Key</h2>
+                    <h2 class="settings-info">Stripe Secret</h2>
+                    <button mat-icon-button (click)="openSettingsDialog(settings, barApiKey, stripeSecret)">
+                        <mat-icon style="color: black">edit</mat-icon>
+                    </button>
                 </div>
                 <mat-divider></mat-divider>
+                <ng-container>
+                    <div class="settings-list">
+                        <div class="settings-list-item">
+                            <h5>{{ settings.name }}</h5>
+                            <h5>{{ settings.description }}</h5>
+                            <h5>{{ settings.location }}</h5>
+                            <h5>{{ settings.hours }}</h5>
+                            <h5>{{ barApiKey }}</h5>
+                            <h5>{{ stripeSecret }}</h5>
+                        </div>
+                        <mat-divider></mat-divider>
+                    </div>
+                </ng-container>
             </div>
         </ng-container>
-    </div>
+    </ng-container>
 </ng-container>
 
 <ng-template #loading>
