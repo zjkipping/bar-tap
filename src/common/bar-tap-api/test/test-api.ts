@@ -112,7 +112,7 @@ export class TestApi extends BarTapApi {
     return throwError('Not Yet Implemented');
   }
 
-  getCheckedInEmployees(userID: string, barID: string): Observable<Employee[]> {
+  getCheckedInEmployees(barID: string): Observable<Employee[]> {
     return throwError('Not Yet Implemented');
   }
 }

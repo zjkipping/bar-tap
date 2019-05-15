@@ -72,10 +72,7 @@ export abstract class BarTapApi {
 
   abstract getConsumersFavoriteBars(userId: string): Observable<Bar[]>;
 
-  abstract getCheckedInEmployees(
-    userID: string,
-    barID: string
-  ): Observable<Employee[]>;
+  abstract getCheckedInEmployees(barID: string): Observable<Employee[]>;
 
   abstract checkIfFavorited(userId: string, barId: string): Observable<boolean>;
 

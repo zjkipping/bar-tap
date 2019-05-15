@@ -86,53 +86,40 @@ export const employeeCheckIn = functions.https.onCall(
   async (data: EmployeeCheckInOutData) => {
     if (data.id && data.pin && data.barId) {
       try {
-        const result = await firestore
-          .collection(`users`)
-          .where('barId', '==', data.barId)
-          .limit(1)
-          .get();
-        if (result.size > 0) {
-          const accountId = result.docs[0].id;
-          const result2 = await firestore
-            .collection(`bars/${data.barId}/employees`)
-            .where('id', '==', data.id)
+      const result2 = await firestore
+        .collection(`bars/${data.barId}/employees`)
+        .where('id', '==', data.id)
+        .limit(1)
+        .get();
+        if (result2.size > 0) {
+          const employee = result2.docs[0].data();
+          const employeeId = result2.docs[0].id;
+          const result3 = await firestore
+            .collection(`bars/${data.barId}/clockedIn`)
+            .where('employeeUID', '==', employeeId)
             .limit(1)
             .get();
-          if (result2.size > 0) {
-            const employee = result2.docs[0].data();
-            const employeeId = result2.docs[0].id;
-            const result3 = await firestore
-              .collection(`users/${accountId}/clockedIn`)
-              .where('employeeUID', '==', employeeId)
-              .limit(1)
-              .get();
-            if (result3.size === 0) {
-              if (employee.pin === data.pin) {
-                return await firestore
-                  .collection(`users/${accountId}/clockedIn`)
-                  .add({ employeeUID: employeeId });
-              } else {
-                throw new functions.https.HttpsError(
-                  'invalid-argument',
-                  "The pin provided does not match the Employee's pin"
-                );
-              }
+          if (result3.size === 0) {
+            if (employee.pin === data.pin) {
+              return await firestore
+                .collection(`bars/${data.barId}/clockedIn`)
+                .add({ employeeUID: employeeId });
             } else {
               throw new functions.https.HttpsError(
                 'invalid-argument',
-                'That employee is already Clocked In'
+                "The pin provided does not match the Employee's pin"
               );
             }
           } else {
             throw new functions.https.HttpsError(
               'invalid-argument',
-              'There is no existing Employee for the ID provided'
+              'That employee is already Clocked In'
             );
           }
         } else {
           throw new functions.https.HttpsError(
             'invalid-argument',
-            'There is no employees account associated with the Bar ID provided'
+            'There is no existing Employee for the ID provided'
           );
         }
       } catch (error) {
@@ -151,54 +138,41 @@ export const employeeCheckOut = functions.https.onCall(
   async (data: EmployeeCheckInOutData) => {
     if (data.id && data.pin && data.barId) {
       try {
-        const result = await firestore
-          .collection(`users`)
-          .where('barId', '==', data.barId)
+        const result2 = await firestore
+          .collection(`bars/${data.barId}/employees`)
+          .where('id', '==', data.id)
           .limit(1)
           .get();
-        if (result.size > 0) {
-          const accountId = result.docs[0].id;
-          const result2 = await firestore
-            .collection(`bars/${data.barId}/employees`)
-            .where('id', '==', data.id)
+        if (result2.size > 0) {
+          const employee = result2.docs[0].data();
+          const employeeId = result2.docs[0].id;
+          const result3 = await firestore
+            .collection(`bars/${data.barId}/clockedIn`)
+            .where('employeeUID', '==', employeeId)
             .limit(1)
             .get();
-          if (result2.size > 0) {
-            const employee = result2.docs[0].data();
-            const employeeId = result2.docs[0].id;
-            const result3 = await firestore
-              .collection(`users/${accountId}/clockedIn`)
-              .where('employeeUID', '==', employeeId)
-              .limit(1)
-              .get();
-            if (result3.size > 0) {
-              const clockedInId = result3.docs[0].id;
-              if (employee.pin === data.pin) {
-                return await firestore
-                  .doc(`users/${accountId}/clockedIn/${clockedInId}`)
-                  .delete();
-              } else {
-                throw new functions.https.HttpsError(
-                  'invalid-argument',
-                  "The pin provided does not match the Employee's pin"
-                );
-              }
+          if (result3.size > 0) {
+            const clockedInId = result3.docs[0].id;
+            if (employee.pin === data.pin) {
+              return await firestore
+                .doc(`bars/${data.barId}/clockedIn/${clockedInId}`)
+                .delete();
             } else {
               throw new functions.https.HttpsError(
                 'invalid-argument',
-                'That employee is not currently Clocked In'
+                "The pin provided does not match the Employee's pin"
               );
             }
           } else {
             throw new functions.https.HttpsError(
               'invalid-argument',
-              'There is no existing Employee for the ID provided'
+              'That employee is not currently Clocked In'
             );
           }
         } else {
           throw new functions.https.HttpsError(
             'invalid-argument',
-            'There is no employees account associated with the Bar ID provided'
+            'There is no existing Employee for the ID provided'
           );
         }
       } catch (error) {

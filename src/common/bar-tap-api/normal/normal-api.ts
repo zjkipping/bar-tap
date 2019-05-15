@@ -345,9 +345,9 @@ export class NormalApi extends BarTapApi {
       );
   }
 
-  getCheckedInEmployees(userID: string, barID: string): Observable<Employee[]> {
+  getCheckedInEmployees(barID: string): Observable<Employee[]> {
     return this.db
-      .collection<{ employeeUID: string }>(`users/${userID}/clockedIn`)
+      .collection<{ employeeUID: string }>(`bars/${barID}/clockedIn`)
       .valueChanges()
       .pipe(
         switchMap(employeesUIDs => {

@@ -42,7 +42,7 @@ export class EmployeesService {
 
     this.employees = auth
       .getUserAsEmployeeAuth()
-      .pipe(switchMap(user => api.getCheckedInEmployees(user.uid, user.barId)));
+      .pipe(switchMap(user => api.getCheckedInEmployees(user.barId)));
   }
 
   getDrinksFromIDs(drinkData: DrinkData[], barID: string): Observable<ExpandedDrinkData[]> {
