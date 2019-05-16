@@ -1,0 +1,31 @@
+<mat-dialog-content>
+    <form [formGroup]="hoursForm">
+        <h2 mat-dialog-title> Edit Hours</h2>
+        <mat-form-field>
+            <input matInput formControlName="sunday" placeholder="Sunday" required />
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput formControlName="monday" placeholder="Monday" required />
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput formControlName="tuesday" placeholder="Tuesday" required />
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput formControlName="wednesday" placeholder="Wednesday" required />
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput formControlName="thursday" placeholder="Thursday" required />
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput formControlName="friday" placeholder="Friday" required />
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput formControlName="saturday" placeholder="Saturday" required />
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-raised-button [mat-dialog-close]="hoursForm.value">Save</button>
+</mat-dialog-actions>

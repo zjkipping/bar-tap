@@ -1,36 +1,51 @@
 <ng-container *ngIf="(settings | async) let settings; else: loading">
-    <ng-container *ngIf="(barApiKey | async) let barApiKey;">
-        <ng-container *ngIf="(stripeSecret | async) let stripeSecret;">
-            <div class="settings-info-list">
-                <div class="settings-subtitle">
-                    <h2 class="settings-info">Bar Name</h2>
-                    <h2 class="settings-info">Description</h2>
-                    <h2 class="settings-info">Location</h2>
-                    <h2 class="settings-info">Hours</h2>
-                    <h2 class="settings-info">API Key</h2>
-                    <h2 class="settings-info">Stripe Secret</h2>
-                    <button mat-icon-button (click)="openSettingsDialog(settings, barApiKey, stripeSecret)">
-                        <mat-icon style="color: black">edit</mat-icon>
-                    </button>
-                </div>
-                <mat-divider></mat-divider>
-                <ng-container>
-                    <div class="settings-list">
-                        <div class="settings-list-item">
-                            <h5>{{ settings.name }}</h5>
-                            <h5>{{ settings.description }}</h5>
-                            <h5>{{ settings.location }}</h5>
-                            <h5>{{ settings.hours }}</h5>
-                            <h5>{{ barApiKey }}</h5>
-                            <h5>{{ stripeSecret }}</h5>
-                        </div>
-                        <mat-divider></mat-divider>
-                    </div>
-                </ng-container>
+    <h2>Settings List</h2>
+    <div class="settings-container">
+        <button mat-icon-button style="float: right;" 
+                (click)="openSettingsDialog(settings, barApiKey, stripeSecret)">
+            <mat-icon style="color: black">edit</mat-icon>
+        </button>
+        <mat-divider></mat-divider>
+        <div class="settings-row">
+            <span class="settings-info">Bar Name:</span>
+            <span class="settings-info">{{settings.name}}</span>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="settings-row">
+            <span class="settings-info">Description:</span>
+            <span class="settings-info">{{settings.description}}</span>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="settings-row">
+            <span class="settings-info">Location:</span>
+            <span class="settings-info">{{settings.location}}</span>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="settings-row">
+            <span class="settings-info">Hours:</span>
+            <div class="hours-container">
+                <p *ngFor="let day of getHourKeys(settings.hours)">
+                    {{ day }}: {{ settings.hours[day] }}
+                </p>
             </div>
-        </ng-container>
-    </ng-container>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="settings-row">
+            <span class="settings-info">API Key:</span>
+            <span class="settings-info" (mouseenter)="show[barApiKey]=true"
+            (mouseleave)="show[barApiKey]=false">{{(show[barApiKey])? barApiKey || 'Not set.': '****'}}</span>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="settings-row">
+            <span class="settings-info">Stripes Secret:</span>
+            <span class="settings-info" (mouseenter)="show[stripeSecret]=true"
+            (mouseleave)="show[stripeSecret]=false">{{ (show[stripeSecret])? stripeSecret || 'Not set.': '****' }}</span>
+        </div>
+        <mat-divider></mat-divider>
+    </div>
+    <button mat-button class="edit-hours" (click)="openEditHoursDialog(settings.hours)">Edit Hours</button>
 </ng-container>
+
 
 <ng-template #loading>
     <div class="loading">

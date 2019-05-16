@@ -11,6 +11,7 @@ import { RegisterDialogComponent } from './home/register-dialog/register-dialog.
 import { LoginDialogComponent } from './home/login-dialog/login-dialog.component';
 import { LogoutDialogComponent } from './home/logout-dialog/logout.dialog.component';
 import { EditSettingsComponent } from './settings/edit-settings.component';
+import { EditHoursComponent } from './hours/edit-hours.component';
 
 @NgModule({
     imports: [
@@ -23,7 +24,8 @@ import { EditSettingsComponent } from './settings/edit-settings.component';
         RegisterDialogComponent,
         LoginDialogComponent,
         LogoutDialogComponent,
-        EditSettingsComponent
+        EditSettingsComponent,
+        EditHoursComponent
     ],
     entryComponents: [
         CreateEmployeeComponent,
@@ -32,7 +34,8 @@ import { EditSettingsComponent } from './settings/edit-settings.component';
         RegisterDialogComponent,
         LoginDialogComponent,
         LogoutDialogComponent,
-        EditSettingsComponent
+        EditSettingsComponent,
+        EditHoursComponent
     ]
 })
 export class DialogsModule {}

@@ -1,5 +1,5 @@
-import { Component, ViewChild } from '@angular/core';
-import { MatDialog, MatPaginator } from '@angular/material';
+import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material';
 
 import { CreateEmployeeComponent } from '../dialogs/employee/create-employee/create-employee.component';
 import { DeleteEmployeeComponent } from '../dialogs/employee/delete-employee/delete-employee.component';

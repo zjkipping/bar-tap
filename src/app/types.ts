@@ -198,3 +198,13 @@ export interface SettingsFormData {
   apiKey: string;
   secret: string;
 }
+
+export interface HoursFormData {
+  monday: string,
+  tuesday: string,
+  wednesday: string,
+  thursday: string,
+  friday: string,
+  saturday: string,
+  sunday: string
+}

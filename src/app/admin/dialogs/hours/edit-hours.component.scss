@@ -1,7 +1,3 @@
-mat-dialog-content {
-  font-family: 'Montserrat', 'Helvetica Neue', sans-serif;
-}
-
 :host {
     display: flex;
     flex-direction: column;
@@ -12,9 +8,8 @@ input, .mat-form-field {
     color: white;
 }
 
-.field-clmn {
-  display: flex;
-  flex-direction: column;
+.hours-field {
+  width: 15%;
 }
 
 h2 {
@@ -28,13 +23,6 @@ button {
   margin: 0 auto;
 }
 
-.rand {
-  border-radius: 50%;
-  background-color: white;
-  float: right;
-  font-size: 8pt;
-  color: black;
-}
 .error {
   text-align: center;
   color: red;

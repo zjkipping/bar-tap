@@ -1,13 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 
 import { MatDialog } from '@angular/material';
 import { EditSettingsComponent } from '../dialogs/settings/edit-settings.component';
-import { tap, switchMap, filter } from 'rxjs/operators';
-import { Observable } from 'rxjs';
-import { Bar, SettingsFormData } from '@types';
+import { tap, switchMap, filter, takeUntil } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+import { Bar, SettingsFormData, HoursFormData } from '@types';
 import { AuthService } from '@services/auth/auth.service';
 import { BarTapApi } from '@api';
 import { AdminService } from '../admin-service.service';
+import { EditHoursComponent } from '../dialogs/hours/edit-hours.component';
 
 @Component({
     selector: 'app-settings',
@@ -15,10 +16,12 @@ import { AdminService } from '../admin-service.service';
     styleUrls: ['./settings.component.scss']
 })
 
-export class SettingsComponent {
+export class SettingsComponent implements OnDestroy {
+    show= {};
     settings: Observable<Bar | undefined>;
-    barApiKey: Observable<string | undefined>;
-    stripeSecret: Observable<string | undefined>;
+    barApiKey: string | undefined;
+    stripeSecret: string | undefined;
+    killSubs = new Subject();
     constructor(
         public dialog: MatDialog,
         private auth: AuthService,
@@ -28,16 +31,23 @@ export class SettingsComponent {
         this.settings = this.auth.getUserAsAdminAuth().pipe(
             switchMap(bar => this.api.getBar(bar.barId)),
         );
-        this.barApiKey = this.auth.getUserAsAdminAuth().pipe(
-            switchMap(bar => this.api.getBarApiKey(bar.barId))
-        );
+        this.auth.getUserAsAdminAuth().pipe(
+            switchMap(bar => this.api.getBarApiKey(bar.barId)),
+            takeUntil(this.killSubs)
+        ).subscribe(res => this.barApiKey = res);
 
-        this.stripeSecret = this.auth.getUserAsAdminAuth().pipe(
-            switchMap(bar => this.api.getBarStripeSecret(bar.barId))
-        );
+        this.auth.getUserAsAdminAuth().pipe(
+            switchMap(bar => this.api.getBarStripeSecret(bar.barId)),
+            takeUntil(this.killSubs)
+        ).subscribe(res => this.stripeSecret = res);
     }
 
-    openSettingsDialog(settings: Bar, barApiKey: any, stripeSecret: string) {
+    ngOnDestroy() {
+        this.killSubs.next();
+        this.killSubs.complete();
+    }
+
+    openSettingsDialog(settings: Bar, barApiKey: string, stripeSecret: string) {
         var details: SettingsFormData = {
             meta: {
                 name: settings.name,
@@ -51,5 +61,16 @@ export class SettingsComponent {
             filter(result => !!result),
             tap(result => console.log(result))
         ).subscribe(bar => this.as.updateSettings(bar, bar.barId));
+    }
+
+    openEditHoursDialog(hours: HoursFormData) {
+        this.dialog.open(EditHoursComponent, {data: hours}).afterClosed().pipe(
+            filter(result => !!result),
+            tap(result => console.log(result))
+        ).subscribe(editHours => this.as.updateHourSettings(editHours));
+    }
+
+    getHourKeys(hours: any) {
+        return Object.keys(hours || {});
     }
 }

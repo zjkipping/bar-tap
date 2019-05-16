@@ -18,7 +18,7 @@
         <a routerLink="settings">
           <button mat-button routerLinkActive="active-route">Settings</button>
         </a>
-        <ng-container *ngIf="(user | async) as user; else noAuth">
+        <ng-container *ngIf="(user | async) as user;">
           <button mat-button (click)="openLogoutDialog()">
             <mat-icon>account_circle</mat-icon>
             <span> Hi, {{ user.firstName }}</span>

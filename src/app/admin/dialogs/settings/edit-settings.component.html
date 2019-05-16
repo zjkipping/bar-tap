@@ -19,28 +19,6 @@
             <input matInput formControlName="secret" placeholder="Secret" required />
         </mat-form-field>
     </form>
-
-    <!-- 
-        <form [formGroup]="hoursGroup">
-        <mat-label>Monday: </mat-label>
-        <mat-form-field class="hours-field">
-           
-                <input matInput formControlName="hours" placeholder="Hours" required />
-           
-            <mat-select [formControl]="disableClosed" class="hours-input" requried >
-                <mat-option value="Closed">Closed</mat-option>
-                <mat-option *ngFor="let hour of hours" [value]="hour">{{ hour }}</mat-option>
-            </mat-select>
-        </mat-form-field>
-        <mat-label> to </mat-label>
-        <mat-form-field class="hours-field">
-            <mat-select [disabled]="disableClosed.value" class="hours-input">
-                <mat-option *ngFor="let hour of hours" [value]="hour">{{ hour }}</mat-option>
-            </mat-select>
-        </mat-form-field>
-    </form> 
-    -->
-
     <p class="error">{{ errorLabel }}</p>
 </mat-dialog-content>
 

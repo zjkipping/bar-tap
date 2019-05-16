@@ -17,6 +17,7 @@ import { RegisterDialogComponent } from './dialogs/home/register-dialog/register
 import { LoginDialogComponent } from './dialogs/home/login-dialog/login-dialog.component';
 import { LogoutDialogComponent } from './dialogs/home/logout-dialog/logout.dialog.component';
 import { EditSettingsComponent } from './dialogs/settings/edit-settings.component';
+import { EditHoursComponent } from './dialogs/hours/edit-hours.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { EditSettingsComponent } from './dialogs/settings/edit-settings.componen
     RegisterDialogComponent,
     LoginDialogComponent,
     LogoutDialogComponent,
-    EditSettingsComponent
+    EditSettingsComponent,
+    EditHoursComponent
   ],
   imports: [
     CommonModule,
@@ -46,7 +48,8 @@ import { EditSettingsComponent } from './dialogs/settings/edit-settings.componen
     RegisterDialogComponent,
     LoginDialogComponent,
     LogoutDialogComponent,
-    EditSettingsComponent
+    EditSettingsComponent,
+    EditHoursComponent
   ]
 })
 export class AdminModule {}

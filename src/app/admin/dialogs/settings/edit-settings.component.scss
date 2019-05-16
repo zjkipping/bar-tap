@@ -3,16 +3,9 @@
     flex-direction: column;
 }
 
-
-
 input, .mat-form-field {
     width: 100%;
     color: white;
-    .hours-input {
-      background-color: orange;
-      width: 100%;
-      color: white;
-    }
 }
 
 .hours-field {
@@ -34,5 +27,6 @@ button {
 .error {
   text-align: center;
   color: red;
+  background-color: #222222;
   font-family: 'Helvetica Neue', sans-serif;
 }
