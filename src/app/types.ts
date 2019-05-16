@@ -88,11 +88,11 @@ export interface Log extends RawLog {
 }
 
 export interface AnalyticsLog {
-  orderId: string,
-  employeeId: string,
-  startLog: Log,
-  endLog: Log,
-  elapsedTime: string
+  orderId: string;
+  employeeId: string;
+  startLog: Log;
+  endLog: Log;
+  elapsedTime: string;
 }
 
 export interface RawOrder {
@@ -199,8 +199,8 @@ export interface StripePaymentData {
 
 export interface SettingsFormData {
   meta: {
-    name: string,
-    description: string,
+    name: string
+    description: string
     location: string
   };
   apiKey: string;
@@ -208,11 +208,11 @@ export interface SettingsFormData {
 }
 
 export interface HoursFormData {
-  monday: string,
-  tuesday: string,
-  wednesday: string,
-  thursday: string,
-  friday: string,
-  saturday: string,
-  sunday: string
+  monday: string;
+  tuesday: string;
+  wednesday: string;
+  thursday: string;
+  friday: string;
+  saturday: string;
+  sunday: string;
 }
