@@ -1,50 +1,25 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // Added Componenet for Modules
 import { MaterialModule } from '../material.module';
 import { AdminDashboardComponent } from './admin-dashboard.component';
 import { AdminRoutingModule } from './admin-routing.module';
 import { DrinksComponent } from './drinks/drinks.component';
 import { AnalyticsComponent } from './analytics/analytics.component';
-import { EmployeesComponent } from './employees/employees.component'
+import { EmployeesComponent } from './employees/employees.component';
 import { SettingsComponent } from './settings/settings.component';
 import { HomeComponent } from './home/home.component';
-// Added Components for dialogs
-import { CreateEmployeeComponent } from './dialogs/employee/create-employee/create-employee.component';
-import { DeleteEmployeeComponent } from './dialogs/employee/delete-employee/delete-employee.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RegisterDialogComponent } from './dialogs/home/register-dialog/register-dialog.component';
-import { LoginDialogComponent } from './dialogs/home/login-dialog/login-dialog.component';
-import { LogoutDialogComponent } from './dialogs/home/logout-dialog/logout.dialog.component';
-import { EditSettingsComponent } from './dialogs/settings/edit-settings.component';
-import { EditHoursComponent } from './dialogs/hours/edit-hours.component';
-
-import { EditDrinkDialogComponent } from './dialogs/edit-drink-dialog/edit-drink-dialog.component';
-import { DeleteDrinkDialogComponent } from './dialogs/delete-drink-dialog/delete-drink-dialog.component';
-import { OrderInfoDialogComponent } from './dialogs/order-info-dialog/order-info-dialog.component';
-import { OrderDrinkInfoComponent } from './dialogs/order-drink-info/order-drink-info.component';
-import { OrderEmployeeNameComponent } from './dialogs/order-employee-name/order-employee-name.component';
+import { DialogsModule } from './dialogs/dialogs.module';
 
 @NgModule({
   declarations: [
     AdminDashboardComponent,
     DrinksComponent,
     AnalyticsComponent,
-    EditDrinkDialogComponent,
-    DeleteDrinkDialogComponent,
-    OrderInfoDialogComponent,
-    OrderDrinkInfoComponent,
-    OrderEmployeeNameComponent,
     EmployeesComponent,
     SettingsComponent,
-    HomeComponent,
-    CreateEmployeeComponent,
-    DeleteEmployeeComponent,
-    RegisterDialogComponent,
-    LoginDialogComponent,
-    LogoutDialogComponent,
-    EditSettingsComponent,
-    EditHoursComponent
+    HomeComponent
   ],
   imports: [
     CommonModule,
@@ -52,19 +27,8 @@ import { OrderEmployeeNameComponent } from './dialogs/order-employee-name/order-
     AdminRoutingModule,
     MaterialModule,
     FormsModule,
-    ReactiveFormsModule
-  ],
-  entryComponents: [
-    CreateEmployeeComponent,
-    DeleteEmployeeComponent,
-    RegisterDialogComponent,
-    LoginDialogComponent,
-    LogoutDialogComponent,
-    EditSettingsComponent,
-    EditDrinkDialogComponent,
-    OrderInfoDialogComponent,
-    DeleteDrinkDialogComponent,
-    EditHoursComponent
+    ReactiveFormsModule,
+    DialogsModule
   ]
 })
 export class AdminModule {}

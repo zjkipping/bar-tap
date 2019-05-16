@@ -55,7 +55,7 @@ export class DrinksComponent {
       );
    }
 
-   save(drink: Drink){
+   save(){
       this.user.pipe(
          take(1),
          switchMap(user=> {
